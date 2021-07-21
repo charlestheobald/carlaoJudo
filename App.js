@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import AppLoading from "expo-app-loading";
 import { useFonts } from 'expo-font';
 import {
@@ -10,7 +10,7 @@ import {
 } from '@expo-google-fonts/roboto';
 import { Lalezar_400Regular } from '@expo-google-fonts/lalezar';
 
-
+import { Register } from './src/pages/Register'
 import { Login } from './src/pages/Login';
 import { ForgotKeyword } from './src/pages/forgotKeyword';
 import Routes from './src/router'
@@ -31,9 +31,12 @@ const App = () => {
   }
 
   return (
-    <Routes />
-    //<Login />
+    <>
+      <Register />
+
+    </>
     //<ForgotKeyword />
+
   )
 }
 
