@@ -13,9 +13,9 @@ import { Lalezar_400Regular } from '@expo-google-fonts/lalezar';
 
 import { Login } from './src/pages/Login';
 import { ForgotKeyword } from './src/pages/forgotKeyword';
+import Routes from './src/router'
 
-
-// import { Container } from './styles';
+// import { Container } from './styles'; 
 
 const App = () => {
 
@@ -31,7 +31,8 @@ const App = () => {
   }
 
   return (
-    <Login />
+    <Routes />
+    //<Login />
     //<ForgotKeyword />
   )
 }

@@ -7,14 +7,16 @@ import {
   TouchableOpacity,
   Text,
   Animated,
-  Keyboard
+  Keyboard,
+  StatusBar,
+  ScrollView
 } from 'react-native';
+
+import { ForgotKeyword } from '../../pages/forgotKeyword'
 
 import { styles } from './styles';
 
 import { theme } from '../../global/theme';
-
-import { ActionButton } from '../../components/ActionButton';
 
 const goHome = () => {
   return null
@@ -22,7 +24,7 @@ const goHome = () => {
 
 export const Login = () => {
 
-  const [logo] = useState(new Animated.ValueXY({ x: 184, y: 270 }));
+  const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
 
   useEffect(() => {
     keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
@@ -48,12 +50,12 @@ export const Login = () => {
   function keyboardDidHide() {
     Animated.parallel([
       Animated.timing(logo.x, {
-        toValue: 184,
+        toValue: 143,
         duration: 100,
         useNativeDriver: false
       }),
       Animated.timing(logo.y, {
-        toValue: 270,
+        toValue: 210,
         duration: 100,
         useNativeDriver: false
       }),
@@ -62,18 +64,18 @@ export const Login = () => {
 
   return (
 
-    <KeyboardAvoidingView style={styles.background}>
-      <View style={styles.logo}>
-        <Animated.Image
-          style={{
-            width: logo.x,
-            height: logo.y,
-          }}
-          source={require('../../assets/Image/logo.png')} />
-      </View>
+    <ScrollView style={styles.scrollContainer}>
+      <KeyboardAvoidingView style={styles.background}>
+        <View style={styles.logo}>
+          <Animated.Image
+            style={{
+              width: logo.x,
+              height: logo.y,
+            }}
+            source={require('../../assets/Image/logo.png')} />
+        </View>
+        <View style={styles.container}>
 
-      <View style={styles.container}>
-        <View style={styles.InputContainer}>
           <TextInput style={styles.input}
             placeholder="Email"
             autoCorrect={false}
@@ -85,32 +87,31 @@ export const Login = () => {
             autoCorrect={false}
             onChangeText={() => { }}
           />
+
+          <TouchableOpacity style={styles.buttonLogin}>
+            <Text style={styles.textLogin}>Entrar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonPassword}>
+            <Text style={styles.textPassword}> Esqueci minha senha. </Text>
+          </TouchableOpacity>
+
+
+
         </View>
-        <View style={styles.buttonContainer}>
-          <ActionButton
-            color={theme.colors.secondary20}
-            title='Entrar'
-            textColor={theme.colors.highlight}
-            handleAction={goHome} />
+        <View style={styles.containerRegister} >
+          <Text style={styles.text1Register}>Não tem uma conta? </Text>
+          <TouchableOpacity>
+            <Text style={styles.text2Register}> Cadastre-se.</Text>
+          </TouchableOpacity>
         </View>
-      </View>
 
-      <View style={styles.containerPassword} >
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate("ForgotKeyword")}
-          style={styles.buttonPassword}>
-          <Text style={styles.textPassword}> Esqueci minha senha. </Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.containerRegister} >
-        <Text style={styles.text1Register}>Não tem uma conta? </Text>
-        <TouchableOpacity>
-          <Text style={styles.text2Register}> Cadastre-se.</Text>
-        </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView >
+    </ScrollView>
 
-    </KeyboardAvoidingView >
+
   )
 }
 

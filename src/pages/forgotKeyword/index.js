@@ -6,66 +6,26 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  Button,
   Animated,
-  Keyboard
+  Keyboard,
+  StatusBar,
+  ScrollView
 } from 'react-native';
-import styled from 'styled-components/native';
 
+
+
+import { styles } from './styles';
 
 import { theme } from '../../global/theme';
-import { ActionButton } from '../../components/ActionButton';
-import { InputData } from '../../components/InputData';
 
 
 const goHome = () => {
   return null
 }
 
-const Container = styled.View`
-    flex: 1;
-    background-color: ${theme.colors.primary10};
-		alignItems: center;
-		justifyContent: center;
-    `;
-
-
-const ContainerLogo = styled.View`
-
-`;
-const Content = styled.View`
-	;
-		width: 100%;
-		alignItems: center;
-		justifyContent: center;
-		
-		bottom:-30
-
-
-`;
-const ContainerInput = styled.View`
-	background-color: ${theme.colors.primary30}
-	alignItems: center;
-	justifyContent: center;
-	padding-top: 12px;
-	width: 70%;
-	borderRadius:20px
-	bottom:-10
-
-
-`;
-const ContainerButton = styled.View`
-		marginVertical: 20px;
-
-
-`;
-const TextInfoContainer = styled.View`
-	marginTop:10px;
-	bottom:-20px
-`;
-
 export const ForgotKeyword = () => {
-  const [logo] = useState(new Animated.ValueXY({ x: 184, y: 270 }));
+
+  const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
 
   useEffect(() => {
     keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
@@ -91,12 +51,12 @@ export const ForgotKeyword = () => {
   function keyboardDidHide() {
     Animated.parallel([
       Animated.timing(logo.x, {
-        toValue: 184,
+        toValue: 143,
         duration: 100,
         useNativeDriver: false
       }),
       Animated.timing(logo.y, {
-        toValue: 270,
+        toValue: 210,
         duration: 100,
         useNativeDriver: false
       }),
@@ -104,40 +64,51 @@ export const ForgotKeyword = () => {
   };
 
   return (
-    <Container>
-      <ContainerLogo>
-        <Animated.Image
-          style={{
-            width: logo.x,
-            height: logo.y,
-          }}
-          source={require('../../assets/Image/logo.png')} />
-      </ContainerLogo>
 
-      <TextInfoContainer>
-        <Text style={{ fontFamily: theme.fonts.text500, fontSize: 14 }}>Informe os dados necessários para recuperar sua senha</Text>
-      </TextInfoContainer>
-      <Content>
-
-        <ContainerInput>
-          <InputData placeHolder='Email' />
-          <InputData placeHolder='Nova senha' />
-          <InputData placeHolder='Repetir nova senha' />
-          <InputData placeHolder='palavra de segurança' />
-          <ContainerButton>
-            <ActionButton
-              color={theme.colors.secondary20}
-              title='Alterar Senha'
-              textColor={theme.colors.highlight}
-            />
-          </ContainerButton>
-        </ContainerInput>
+    <ScrollView style={styles.scrollContainer}>
+      <KeyboardAvoidingView style={styles.background}>
+        <View style={styles.logo}>
+          <Animated.Image
+            style={{
+              width: logo.x,
+              height: logo.y,
+            }}
+            source={require('../../assets/Image/logo.png')} />
+        </View>
+        <View style={styles.container}>
 
 
-      </Content>
-    </Container>
+          <TextInput style={styles.input}
+            placeholder="Email"
+            autoCorrect={false}
+            onChangeText={() => { }}
+          />
 
-  );
+          <TextInput style={styles.input}
+            placeholder="Nova Senha"
+            autoCorrect={false}
+            onChangeText={() => { }}
+          />
+          <TextInput style={styles.input}
+            placeholder="Repita a nova senha"
+            autoCorrect={false}
+            onChangeText={() => { }}
+          />
+          <TextInput style={styles.input}
+            placeholder="Palavra de segurança"
+            autoCorrect={false}
+            onChangeText={() => { }}
+          />
+          <TouchableOpacity style={styles.buttonLogin}>
+            <Text style={styles.textLogin}>Alterar senha</Text>
+          </TouchableOpacity>
+        </View>
 
 
+
+      </KeyboardAvoidingView >
+    </ScrollView>
+
+
+  )
 }

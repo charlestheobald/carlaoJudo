@@ -89,7 +89,6 @@ export const styles = StyleSheet.create({
     flex: 1,
 
   },
-
   text1Register: {
     fontSize: 16,
     color: '#000',
@@ -101,5 +100,7 @@ export const styles = StyleSheet.create({
     color: theme.colors.secondary20,
     fontFamily: theme.fonts.text400,
   }
+
+
 
 })
