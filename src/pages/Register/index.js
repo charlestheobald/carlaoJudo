@@ -20,26 +20,48 @@ import { Camera } from 'expo-camera';
 import { styles } from './styles';
 import { theme } from '../../global/theme';
 
+import { addAluno } from '../../services/AlunoService';
+
 import { StandardButton } from '../../components/StandardButton';
 
-
-
-const goHome = () => {
-  return null
-}
-
 export const Register = () => {
-  const [dataNascimento, setDataNascimento] = useState(new Date());
+  const [fotoAluno, setFotoAluno] = useState(null)
   const [showBorn, setShowBorn] = useState(false);
-  const [dataInicioJudo, setDataInicioJudo] = useState(new Date())
   const [showJudoDate, setShowJudoDate] = useState(false);
-  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
   const [showExameDate, setShowExameDate] = useState(false);
+
+
+  const [localidade, setLocalidade] = useState("");
+  const [nomeAluno, setNomeAluno] = useState("");
+  const [dataInicioJudo, setDataInicioJudo] = useState(new Date())
+  const [sexo, setSexo] = useState("");
+  const [dataNascimento, setDataNascimento] = useState(new Date());
+  const [peso, setPeso] = useState("");
+  const [faixa, setFaixa] = useState("");
+  const [FJERJ, setFJERJ] = useState("");
+  const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState("");
+  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
+  const [CPF, setCPF] = useState("");
+  const [telResidencial, setTelResidencial] = useState("");
+  const [celular, setCelular] = useState("");
+  const [email, setEmail] = useState("");
+  const [horaAula, setHoraAula] = useState("");
+  const [CEP, setCEP] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [numeroLogradouro, setNumeroLogradouro] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [senha, setSenha] = useState("");
+  const [checkSenha, setCheckSenha] = useState("");
+
+
+
 
 
   const showDatePickerBorn = () => {
     setShowBorn(true);
   };
+
   const handleBornDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dataNascimento;
     setDataNascimento(currentDate);
@@ -65,10 +87,6 @@ export const Register = () => {
     setShowExameDate(false);
   };
 
-
-
-
-
   function dataFormatada(incomeDate) {
     const dataF = new Date(incomeDate);
     const data = dataF;
@@ -79,26 +97,39 @@ export const Register = () => {
     const anoF = data.getFullYear();
     return diaF + "/" + mesF + "/" + anoF;
   }
-  const [fotoAluno, setFotoAluno] = useState(null)
+
   const fotoDB = <Image style={styles.fotoAluno} source={fotoAluno} />
   const standardPhoto = <AntDesign name="adduser" size={84} color='#FFFF' />
+  // const [hasPermission, setHasPermission] = useState(null);
+  // const [type, setType] = useState(Camera.Constants.Type.back);
 
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Camera.requestPermissionsAsync();
+  //     setHasPermission(status === 'granted');
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
+  // if (hasPermission === null) {
+  //   return <View />;
+  // }
+  // if (hasPermission === false) {
+  //   return <Text>No access to camera</Text>;
+  // }
 
-  if (hasPermission === null) {
-    return <View />;
+  function handleAddAluno() {
+    addAluno(incomeData)
+      .then((d) => {
+        alert("Aluno registrado com sucesso!");
+      })
+      .catch((error) => alert(error));
   }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+
+  //funcao de debug
+  // function printTest(text) {
+  //   setLocalidade(text)
+  //   console.log(localidade)
+  // }
 
   return (
     <View style={styles.background}>
@@ -115,38 +146,38 @@ export const Register = () => {
 
           <View style={styles.container}>
 
-            <Camera style={styles.camera} type={type}>
-              <View style={styles.photo}>
-                <TouchableOpacity style={{ alignItems: 'center' }}
-                  onPress={() => {
-                    setType(
-                      type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                    );
-                  }}
+            {/* <Camera style={styles.camera} type={type}> */}
+            <View style={styles.photo}>
+              <TouchableOpacity style={{ alignItems: 'center' }}
+              // onPress={() => {
+              //   setType(
+              //     type === Camera.Constants.Type.back
+              //       ? Camera.Constants.Type.front
+              //       : Camera.Constants.Type.back
+              //   );
+              // }}
 
-                >
+              >
 
-                  {fotoAluno ? fotoDB : standardPhoto}
-                  <Text style={styles.TextPhoto} > {` Clique para inserir 
-         uma imagem`}</Text>
-                </TouchableOpacity>
-              </View>
-            </Camera>
+                {fotoAluno ? fotoDB : standardPhoto}
+                <Text style={styles.TextPhoto} > {`Clique para inserir 
+    uma imagem`}</Text>
+              </TouchableOpacity>
+            </View>
+            {/* </Camera> */}
 
 
             <Text style={styles.textInput}>Localidade</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu local de treino"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setLocalidade(text)}
             />
             <Text style={styles.textInput}>Nome</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu nome"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setNomeAluno(text)}
             />
 
             <Text style={styles.textInput}>Data de inicio no judô</Text>
@@ -168,9 +199,9 @@ export const Register = () => {
             <TextInput style={styles.input}
               placeholder="Informe seu sexo"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setSexo(text)}
             />
-            <Text style={styles.textInput}>Data Nascimento</Text>
+            <Text style={styles.textInput}>Data de nascimento</Text>
             <View style={styles.input}>
               <TouchableOpacity onPress={showDatePickerBorn}>
                 <Text>{dataFormatada(dataNascimento)}</Text>
@@ -191,27 +222,27 @@ export const Register = () => {
               placeholder="Informe seu Peso"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setPeso(text)}
             />
 
             <Text style={styles.textInput}>Faixa</Text>
             <TextInput style={styles.input}
               placeholder="Informe sua faixa"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setFaixa(text)}
             />
 
             <Text style={styles.textInput}>FJERJ</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu registro FJERJ"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setFJERJ(text)}
             />
             <Text style={styles.textInput}>CBJ-ZEMPO</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu registro CBJ-ZEMPO"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setCBJ_ZEMPO(text)}
             />
             <Text style={styles.textInput}>Data do último exame</Text>
             <View style={styles.input}>
@@ -232,78 +263,80 @@ export const Register = () => {
               placeholder="Informe seu CPF"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setCPF(text)}
             />
-            {/* <Text style={styles.textInput}>ID</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu ID"
-              keyboardType="numeric"
-              autoCorrect={false}
-              onChangeText={() => { }}
-            /> */}
+
             <Text style={styles.textInput}>Telefone residêncial</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu telefone residêncial"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setTelResidencial(text)}
             />
             <Text style={styles.textInput}>Telefone Celular</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu telefone Celular"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setCelular(text)}
             />
             <Text style={styles.textInput}>E-mail</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu e-mail"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setEmail(text)}
             />
             <Text style={styles.textInput}>Horário de aula</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu horario de aula"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setHoraAula(text)}
             />
             <Text style={styles.textInput}>CEP</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu CEP"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={() => setCEP(text)}
             />
             <Text style={styles.textInput}>Logradouro</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu logradouro"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setLogradouro(text)}
             />
-            <Text style={styles.textInput}>Numero</Text>
+            <Text style={styles.textInput}>Número</Text>
             <TextInput style={styles.input}
               placeholder="Informe o numero no logradouro"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setNumeroLogradouro(text)}
             />
+            <Text style={styles.textInput}>Complemento</Text>
+            <TextInput style={styles.input}
+              placeholder="Informe complemento"
+              autoCorrect={false}
+              onChangeText={(text) => setComplemento(text)}
+            />
+
             <Text style={styles.textInput}>Cidade</Text>
             <TextInput style={styles.input}
               placeholder="Informe sua cidade"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setCidade(text)}
             />
+
             <Text style={styles.textInput}>Senha</Text>
             <TextInput style={styles.input}
               placeholder="Informe sua senha"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setSenha(text)}
             />
             <Text style={styles.textInput}>Repetir senha</Text>
             <TextInput style={styles.input}
               placeholder="Repita a Senha"
               autoCorrect={false}
-              onChangeText={() => { }}
+              onChangeText={(text) => setCheckSenha(text)}
             />
 
             <View style={styles.buttonSave}>

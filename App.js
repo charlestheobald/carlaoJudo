@@ -12,6 +12,7 @@ import { Lalezar_400Regular } from '@expo-google-fonts/lalezar';
 
 import Routes from './src/router'
 
+import { Activities } from './src/pages/Activities'
 import { ParentsRegister } from './src/pages/ParentsRegister';
 import { Register } from './src/pages/Register'
 import { PreRegister } from './src/pages/PreRegister';
@@ -34,10 +35,11 @@ const App = () => {
   }
 
   return (
-    // <Login />
+    <Activities />
+    //<Login />
     //<PreRegister />
-    //<LoginParentsRegister />
-    <Register />
+    //<ParentsRegister />
+    //<Register />
     //<ForgotKeyword />
 
 
