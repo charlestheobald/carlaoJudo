@@ -21,7 +21,8 @@ export const styles = StyleSheet.create({
 
     flex: 1,
     justifyContent: 'center',
-
+    alignItems: 'center',
+    width: '20%',
     marginBottom: 20
 
 
@@ -81,7 +82,7 @@ export const styles = StyleSheet.create({
 
   containerRegister: {
     flexDirection: 'row',
-    paddingTop: 10,
+    marginTop: '20%',
     marginBottom: 15,
     alignItems: 'center',
     justifyContent: 'center',

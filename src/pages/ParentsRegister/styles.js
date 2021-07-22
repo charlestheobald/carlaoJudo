@@ -1,14 +1,8 @@
+import React from 'react'
+import { StyleSheet, StatusBar } from "react-native";
 import { theme } from '../../global/theme'
-import { StyleSheet, StatusBar } from 'react-native'
-
 
 export const styles = StyleSheet.create({
-
-  scrollContainer: {
-    flex: 1,
-    width: '100%',
-
-  },
 
   background: {
     flex: 1,
@@ -16,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primary10,
-    width: '100%'
+
   },
 
   containerHeader: {
@@ -25,7 +19,6 @@ export const styles = StyleSheet.create({
     height: 70,
     flexDirection: 'row',
     alignItems: 'center',
-
 
   },
 
@@ -37,7 +30,7 @@ export const styles = StyleSheet.create({
 
   image: {
     alignItems: 'center',
-    marginLeft: '19%',
+    marginLeft: '21.5%',
 
     width: 133,
     height: 53,
@@ -49,24 +42,36 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    marginTop: 20,
+
   },
 
-  photo: {
-    backgroundColor: theme.colors.secondary20,
+  containerText: {
+
+    backgroundColor: theme.colors.primary20,
+    width: '70%',
+    height: 80,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: 150,
-    height: 150,
-    borderRadius: 100,
-    marginBottom: 10,
+    borderRadius: 8,
+    marginBottom: 15
   },
 
-  TextPhoto: {
-    justifyContent: 'center',
-    color: theme.colors.primary10
+  contentButton: {
+    alignItems: 'center',
+    marginVertical: 10,
+    width: '100%'
   },
 
+  text: {
+    fontFamily: theme.fonts.text500,
+    fontSize: 20,
+    textAlign: 'center'
+  },
+
+  textButton: {
+    fontFamily: theme.fonts.text500,
+    fontSize: 16,
+  },
   textInput: {
     alignSelf: 'flex-start',
     marginLeft: '8%',
@@ -91,8 +96,4 @@ export const styles = StyleSheet.create({
 
   },
 
-  buttonSave: {
-    marginTop: 15,
-    marginBottom: 30
-  }
 })

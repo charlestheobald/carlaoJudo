@@ -10,10 +10,13 @@ import {
 } from '@expo-google-fonts/roboto';
 import { Lalezar_400Regular } from '@expo-google-fonts/lalezar';
 
+import Routes from './src/router'
+
+import { ParentsRegister } from './src/pages/ParentsRegister';
 import { Register } from './src/pages/Register'
+import { PreRegister } from './src/pages/PreRegister';
 import { Login } from './src/pages/Login';
 import { ForgotKeyword } from './src/pages/forgotKeyword';
-import Routes from './src/router'
 
 // import { Container } from './styles'; 
 
@@ -31,11 +34,13 @@ const App = () => {
   }
 
   return (
-    <>
-      <Register />
-
-    </>
+    // <Login />
+    //<PreRegister />
+    //<LoginParentsRegister />
+    <Register />
     //<ForgotKeyword />
+
+
 
   )
 }
