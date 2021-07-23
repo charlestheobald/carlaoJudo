@@ -31,16 +31,14 @@ export const styles = StyleSheet.create({
 
   back: {
 
-    marginLeft: '5%',
+    //marginLeft: '5%',
     alignSelf: 'center'
   },
 
   image: {
-    alignItems: 'center',
-    marginLeft: '19%',
 
-    width: 133,
-    height: 53,
+    alignSelf: 'center',
+
   },
 
   container: {

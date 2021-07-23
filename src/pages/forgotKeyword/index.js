@@ -9,7 +9,8 @@ import {
   Animated,
   Keyboard,
   StatusBar,
-  ScrollView
+  ScrollView,
+  Picker
 } from 'react-native';
 
 
@@ -88,11 +89,13 @@ export const ForgotKeyword = () => {
           <TextInput style={styles.input}
             placeholder="Nova Senha"
             autoCorrect={false}
+            secureTextEntry={true}
             onChangeText={() => { }}
           />
           <TextInput style={styles.input}
             placeholder="Repita a nova senha"
             autoCorrect={false}
+            secureTextEntry={true}
             onChangeText={() => { }}
           />
           <TextInput style={styles.input}

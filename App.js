@@ -18,6 +18,7 @@ import { Register } from './src/pages/Register'
 import { PreRegister } from './src/pages/PreRegister';
 import { Login } from './src/pages/Login';
 import { ForgotKeyword } from './src/pages/forgotKeyword';
+import { ParentProvider } from './src/contexts/alunos/ParentContext';
 
 // import { Container } from './styles'; 
 
@@ -35,12 +36,16 @@ const App = () => {
   }
 
   return (
+    <ParentProvider>
+      <Register />
+    </ParentProvider>
+
     // <Activities />
-    //<Login />
-    //<PreRegister />
-    //<ParentsRegister />
-    <Register />
-    //<ForgotKeyword />
+    // <Login />
+    // <PreRegister /> 
+
+    //  <ParentsRegister />
+    // <ForgotKeyword />  
 
 
 

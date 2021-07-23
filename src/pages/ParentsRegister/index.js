@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   KeyboardAvoidingView,
   View,
@@ -17,6 +17,7 @@ import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { StandardButton } from '../../components/StandardButton';
+import { ParentContext } from '../../contexts/alunos/ParentContext';
 
 import { styles } from './styles';
 
@@ -25,6 +26,8 @@ import { theme } from '../../global/theme';
 
 
 export const ParentsRegister = () => {
+
+  const { setNomeResponsavel, setTelResponsavel, telResponsavel, nomeResponsavel } = useContext(ParentContext)
   return (
     <View style={styles.background}>
 
@@ -41,14 +44,14 @@ export const ParentsRegister = () => {
         <TextInput style={styles.input}
           placeholder="Informe o nome do responsável"
           autoCorrect={false}
-          onChangeText={() => { }}
+          onChangeText={setNomeResponsavel}
         />
         <Text style={styles.textInput}>Telefone do Responsável</Text>
         <TextInput style={styles.input}
           placeholder="Informe o telefone do responsável"
           keyboardType="numeric"
           autoCorrect={false}
-          onChangeText={() => { }}
+          onChangeText={setTelResponsavel}
         />
 
         <View style={styles.contentButton}>
@@ -57,7 +60,7 @@ export const ParentsRegister = () => {
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={console.log(nomeResponsavel, telResponsavel)}
             widthProp='90%'
           />
         </View>

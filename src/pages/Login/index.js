@@ -78,6 +78,7 @@ export const Login = () => {
 
           <TextInput style={styles.input}
             placeholder="Email"
+            autoCapitalize='none'
             autoCorrect={false}
             onChangeText={() => { }}
           />
@@ -85,6 +86,7 @@ export const Login = () => {
           <TextInput style={styles.input}
             placeholder="Senha"
             autoCorrect={false}
+            secureTextEntry={true}
             onChangeText={() => { }}
           />
 

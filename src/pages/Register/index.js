@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import {
   KeyboardAvoidingView,
   View,
@@ -11,8 +11,12 @@ import {
   StatusBar,
   ScrollView,
   StyleSheet,
-  Platform
+  Platform,
+  Picker
 } from 'react-native';
+
+
+import * as ImagePicker from 'expo-image-picker';
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
@@ -24,8 +28,13 @@ import { theme } from '../../global/theme';
 import { addAluno } from '../../services/AlunoService';
 
 import { StandardButton } from '../../components/StandardButton';
+import { ParentContext } from '../../contexts/alunos/ParentContext';
 
 export const Register = () => {
+
+
+  const { telResponsavel, nomeResponsavel } = useContext(ParentContext)
+
   const [fotoAluno, setFotoAluno] = useState(null)
   const [showBorn, setShowBorn] = useState(false);
   const [showJudoDate, setShowJudoDate] = useState(false);
@@ -52,15 +61,15 @@ export const Register = () => {
   const [numeroLogradouro, setNumeroLogradouro] = useState("");
   const [complemento, setComplemento] = useState("");
   const [cidade, setCidade] = useState("");
+  const [pagamento, setPagamento] = useState("");
   const [senha, setSenha] = useState("");
   const [checkSenha, setCheckSenha] = useState("");
 
 
 
 
-
   const showDatePickerBorn = () => {
-    setShowBorn(true);
+    setShowBorn(Platform.OS === 'ios' || true);
   };
 
   const handleBornDateChange = (event, selectedDate) => {
@@ -80,7 +89,7 @@ export const Register = () => {
   };
 
   const showDatePickerExame = () => {
-    setShowExameDate(true);
+    setShowExameDate(Platform.OS === 'ios' || true);
   }
   const handleExameDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dataUltimoExame;
@@ -99,81 +108,164 @@ export const Register = () => {
     return diaF + "/" + mesF + "/" + anoF;
   }
 
-  const fotoDB = <Image style={styles.fotoAluno} source={fotoAluno} />
-  const standardPhoto = <AntDesign name="adduser" size={84} color='#FFFF' />
-  // const [hasPermission, setHasPermission] = useState(null);
-  // const [type, setType] = useState(Camera.Constants.Type.back);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await Camera.requestPermissionsAsync();
-  //     setHasPermission(status === 'granted');
-  //   })();
-  // }, []);
-
-  // if (hasPermission === null) {
-  //   return <View />;
-  // }
-  // if (hasPermission === false) {
-  //   return <Text>No access to camera</Text>;
-  // }
 
   function handleAddAluno() {
     addAluno(incomeData)
       .then((d) => {
         alert("Aluno registrado com sucesso!");
+
       })
       .catch((error) => alert(error));
   }
 
-  //funcao de debug
-  // function printTest(text) {
-  //   setLocalidade(text)
-  //   console.log(localidade)
-  // }
+  const isIos = Platform.OS === 'ios';
+
+  const listaFaixas = [
+    {
+      nome: 'Informe sua faixa', id: '0'
+    },
+    {
+      nome: 'Branca',
+      id: '1'
+    },
+    {
+      nome: 'Amarela',
+      id: '2'
+    }
+  ];
+  const listaLocais = [
+    {
+      nome: 'Informe o local de treino',
+      id: '0'
+    },
+    {
+      nome: 'Konnen',
+      id: '1'
+    },
+    {
+      nome: 'Itaipava',
+      id: '2'
+    }
+  ]
+  const listaSexo = [
+    {
+      nome: 'Informe seu sexo',
+      id: '0'
+    },
+    {
+      nome: 'Feminino',
+      id: '1'
+    },
+    {
+      nome: 'Masculino',
+      id: '2'
+    }
+  ]
+  const listaPagamentos = [
+    {
+      nome: 'Informe a opção de pagamento',
+      id: '0'
+    },
+    {
+      nome: 'Dinheiro',
+      id: '1'
+    },
+    {
+      nome: 'Cartão(crédito)',
+      id: '2'
+    },
+    {
+      nome: 'Cartão(débito)',
+      id: '3'
+    },
+    {
+      nome: 'Cartão(débito-automático)',
+      id: '4'
+    },
+    {
+      nome: 'Boleto',
+      id: '5'
+    },
+    {
+      nome: 'Cheque',
+      id: '6'
+    },
+  ]
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Desculpe, é necessário autorizar o acesso à galeria para realizar o cadastro');
+        }
+      }
+    })();
+  }, []);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+
+  };
+
 
   return (
     <View style={styles.background}>
 
       <View style={styles.containerHeader}>
-        <TouchableOpacity style={styles.back}>
-          <AntDesign name="arrowleft" size={24} color="black" />
-        </TouchableOpacity>
-        <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+        <View style={{ flex: 1, left: '-35%' }}>
+          <TouchableOpacity style={styles.back}>
+            <AntDesign name="arrowleft" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+        </View>
+        <View style={{ flex: 1 }}></View>
       </View>
 
       <ScrollView style={styles.scrollContainer}>
         <KeyboardAvoidingView >
 
           <View style={styles.container}>
-
-            {/* <Camera style={styles.camera} type={type}> */}
-            <View style={styles.photo}>
+            {!image ? <View style={styles.photo}>
               <TouchableOpacity style={{ alignItems: 'center' }}
-              // onPress={() => {
-              //   setType(
-              //     type === Camera.Constants.Type.back
-              //       ? Camera.Constants.Type.front
-              //       : Camera.Constants.Type.back
-              //   );
-              // }}
-
+                onPress={pickImage}
               >
-
-                {fotoAluno ? fotoDB : standardPhoto}
+                <AntDesign name="adduser" size={84} color='#FFFF' />
                 <Text style={styles.TextPhoto} > {`Clique para inserir 
     uma imagem`}</Text>
               </TouchableOpacity>
             </View>
-            {/* </Camera> */}
+              :
+              <TouchableOpacity onPress={pickImage}>
+                <Image source={{ uri: image }} style={{ marginTop: 10, width: 150, height: 150, borderRadius: 100, }} />
+              </TouchableOpacity>
+            }
 
 
-            <Text style={styles.textInput}>Localidade</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu local de treino"
-              autoCorrect={false}
-              onChangeText={(text) => setLocalidade(text)}
-            />
+
+
+            <Text style={styles.textInput}>Local de treino</Text>
+            <View style={[styles.input, { justifyContent: 'center' }]}>
+              <Picker
+                selectedValue={localidade}
+                onValueChange={(itemValue, itemIndex) => setLocalidade(itemValue)}
+              >
+                {listaLocais.map((local) => (
+                  <Picker.Item label={local.nome} value={local.id} key={local.id} />
+                ))}
+              </Picker>
+            </View>
             <Text style={styles.textInput}>Nome</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu nome"
@@ -189,6 +281,9 @@ export const Register = () => {
             </View>
             {showJudoDate && (
               <DateTimePicker
+                minimumDate={new Date(1920, 0, 1)}
+                maximumDate={new Date()}
+                style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
                 value={dataInicioJudo}
                 mode="date"
                 display="default"
@@ -196,12 +291,18 @@ export const Register = () => {
               />
             )}
 
+
             <Text style={styles.textInput}>Sexo</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu sexo"
-              autoCorrect={false}
-              onChangeText={(text) => setSexo(text)}
-            />
+            <View style={[styles.input, { justifyContent: 'center' }]}>
+              <Picker
+                selectedValue={sexo}
+                onValueChange={(itemValue, itemIndex) => setSexo(itemValue)}
+              >
+                {listaSexo.map((sexo) => (
+                  <Picker.Item label={sexo.nome} value={sexo.id} key={sexo.id} />
+                ))}
+              </Picker>
+            </View>
             <Text style={styles.textInput}>Data de nascimento</Text>
             <View style={styles.input}>
               <TouchableOpacity onPress={showDatePickerBorn}>
@@ -210,6 +311,9 @@ export const Register = () => {
             </View>
             {showBorn && (
               <DateTimePicker
+                minimumDate={new Date(1920, 0, 1)}
+                maximumDate={new Date()}
+                style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
                 value={dataNascimento}
                 mode="date"
                 display="default"
@@ -227,11 +331,17 @@ export const Register = () => {
             />
 
             <Text style={styles.textInput}>Faixa</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe sua faixa"
-              autoCorrect={false}
-              onChangeText={(text) => setFaixa(text)}
-            />
+            <View style={[styles.input, { justifyContent: 'center' }]}>
+              <Picker
+                selectedValue={faixa}
+                onValueChange={(itemValue, itemIndex) => setFaixa(itemValue)}
+              >
+                {listaFaixas.map((faixa) => (
+                  <Picker.Item label={faixa.nome} value={faixa.id} key={faixa.id} />
+                ))}
+              </Picker>
+            </View>
+
 
             <Text style={styles.textInput}>FJERJ</Text>
             <TextInput style={styles.input}
@@ -253,6 +363,9 @@ export const Register = () => {
             </View>
             {showExameDate && (
               <DateTimePicker
+                minimumDate={new Date(1920, 0, 1)}
+                maximumDate={new Date()}
+                style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
                 value={dataUltimoExame}
                 mode="date"
                 display="default"
@@ -284,6 +397,9 @@ export const Register = () => {
             <Text style={styles.textInput}>E-mail</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu e-mail"
+              keyboardType="email-address"
+              autoCompleteType='email'
+              autoCapitalize='none'
               autoCorrect={false}
               onChangeText={(text) => setEmail(text)}
             />
@@ -326,17 +442,32 @@ export const Register = () => {
               autoCorrect={false}
               onChangeText={(text) => setCidade(text)}
             />
+            <Text style={styles.textInput}>Forma de pagamento</Text>
+            <View style={[styles.input, { justifyContent: 'center' }]}>
+              <Picker
+                selectedValue={sexo}
+                onValueChange={(itemValue, itemIndex) => setPagamento(itemValue)}
+              >
+                {listaPagamentos.map((value) => (
+                  <Picker.Item label={value.nome} value={value.id} key={value.id} />
+                ))}
+              </Picker>
+            </View>
 
             <Text style={styles.textInput}>Senha</Text>
             <TextInput style={styles.input}
               placeholder="Informe sua senha"
               autoCorrect={false}
+              autoCapitalize='none'
+              secureTextEntry={true}
               onChangeText={(text) => setSenha(text)}
             />
             <Text style={styles.textInput}>Repetir senha</Text>
             <TextInput style={styles.input}
               placeholder="Repita a Senha"
+              secureTextEntry={true}
               autoCorrect={false}
+              autoCapitalize='none'
               onChangeText={(text) => setCheckSenha(text)}
             />
 
@@ -346,14 +477,11 @@ export const Register = () => {
                 textColor={theme.colors.highlight}
                 bgColor={theme.colors.secondary10}
                 font={theme.fonts.text300}
-                onPress={() => { }}
+
+
               />
             </View>
-
-
           </View>
-
-
         </KeyboardAvoidingView >
       </ScrollView>
     </View >
