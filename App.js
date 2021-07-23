@@ -35,11 +35,11 @@ const App = () => {
   }
 
   return (
-    <Activities />
+    // <Activities />
     //<Login />
     //<PreRegister />
     //<ParentsRegister />
-    //<Register />
+    <Register />
     //<ForgotKeyword />
 
 

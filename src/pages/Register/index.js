@@ -10,7 +10,8 @@ import {
   Keyboard,
   StatusBar,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -69,7 +70,7 @@ export const Register = () => {
   };
 
   const showDatePickerJudo = () => {
-    setShowJudoDate(true);
+    setShowJudoDate(Platform.OS === 'ios' || true);
   };
 
   const handleJudoDateChange = (event, selectedDate) => {
