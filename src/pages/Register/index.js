@@ -15,12 +15,15 @@ import {
   Picker
 } from 'react-native';
 
+import RNPickerSelect from 'react-native-picker-select';
+
 
 import * as ImagePicker from 'expo-image-picker';
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
-import { Camera } from 'expo-camera';
+
+import { format } from "date-fns";
 
 import { styles } from './styles';
 import { theme } from '../../global/theme';
@@ -29,6 +32,7 @@ import { addAluno } from '../../services/AlunoService';
 
 import { StandardButton } from '../../components/StandardButton';
 import { ParentContext } from '../../contexts/alunos/ParentContext';
+
 
 export const Register = () => {
 
@@ -40,7 +44,6 @@ export const Register = () => {
   const [showJudoDate, setShowJudoDate] = useState(false);
   const [showExameDate, setShowExameDate] = useState(false);
 
-
   const [localidade, setLocalidade] = useState("");
   const [nomeAluno, setNomeAluno] = useState("");
   const [dataInicioJudo, setDataInicioJudo] = useState(new Date())
@@ -51,6 +54,7 @@ export const Register = () => {
   const [FJERJ, setFJERJ] = useState("");
   const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState("");
   const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
+  const [RG, setRG] = useState("");
   const [CPF, setCPF] = useState("");
   const [telResidencial, setTelResidencial] = useState("");
   const [celular, setCelular] = useState("");
@@ -64,10 +68,103 @@ export const Register = () => {
   const [pagamento, setPagamento] = useState("");
   const [senha, setSenha] = useState("");
   const [checkSenha, setCheckSenha] = useState("");
+  const [palavraChave, setPalavraChave] = useState("");
+  const [image, setImage] = useState(null);
+
+  const isIos = Platform.OS === 'ios';
 
 
 
 
+
+  const listaHorarios = [
+    {
+      nome: 'Informe seu horário de aula', id: '0'
+    },
+    {
+      nome: '08:00', id: '08:00'
+    },
+    {
+      nome: '09:00', id: '09:00'
+    },
+    {
+      nome: '10:00', id: '10:00'
+    },
+    {
+      nome: '13:00', id: '13:00'
+    },
+    {
+      nome: '15:00', id: '15:00'
+    },
+
+  ];
+  const listaFaixas = [
+    {
+      nome: 'Informe sua faixa', id: '0'
+    },
+    {
+      nome: 'Branca',
+      id: 'BRANCA'
+    },
+    {
+      nome: 'Amarela',
+      id: 'AMARELA'
+    }
+  ];
+  const listaLocais = [
+    {
+      nome: 'Informe o local de treino',
+      id: '0'
+    },
+    {
+      nome: 'Konnen',
+      id: 'KONNEN'
+    },
+    {
+      nome: 'Itaipava',
+      id: 'ITAIPAVA'
+    }
+  ]
+  const listaSexo = [
+    {
+      nome: 'Informe seu sexo',
+      id: '0'
+    },
+    {
+      nome: 'Feminino',
+      id: 'FEMININO'
+    },
+    {
+      nome: 'Masculino',
+      id: 'MASCULINO'
+    }
+  ]
+  const listaPagamentos = [
+    {
+      nome: 'Informe a opção de pagamento',
+      id: '0'
+    },
+    {
+      nome: 'Cartão(crédito)',
+      id: 'CREDITO'
+    },
+    {
+      nome: 'Cartão(débito)',
+      id: 'DEBITO'
+    },
+    {
+      nome: 'Transferência',
+      id: 'TRANSFERENCIA'
+    },
+    {
+      nome: 'PIX',
+      id: 'PIX'
+    },
+    {
+      nome: 'Boleto',
+      id: 'BOLETO'
+    },
+  ]
   const showDatePickerBorn = () => {
     setShowBorn(Platform.OS === 'ios' || true);
   };
@@ -108,91 +205,43 @@ export const Register = () => {
     return diaF + "/" + mesF + "/" + anoF;
   }
 
+  const pattern = "yyyy-MM-dd";
 
-
-  function handleAddAluno() {
-    addAluno(incomeData)
-      .then((d) => {
-        alert("Aluno registrado com sucesso!");
-
-      })
-      .catch((error) => alert(error));
+  const jsonAluno = {
+    nome: nomeAluno,
+    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
+    palavraChave: palavraChave,
+    telefone: telResidencial,
+    email: email,
+    senha: senha,
+    horarioAula: horaAula,
+    faixa: faixa,
+    sexo: sexo,
+    peso: peso,
+    dataIngresso: format(dataInicioJudo, pattern),
+    dataCadastro: format(new Date(), pattern),
+    localTreino: localidade,
+    pagamento: pagamento,
+    cep: CEP,
+    numero: numeroLogradouro,
+    complemento: complemento
   }
 
-  const isIos = Platform.OS === 'ios';
+  function handleAddAluno() {
 
-  const listaFaixas = [
-    {
-      nome: 'Informe sua faixa', id: '0'
-    },
-    {
-      nome: 'Branca',
-      id: '1'
-    },
-    {
-      nome: 'Amarela',
-      id: '2'
-    }
-  ];
-  const listaLocais = [
-    {
-      nome: 'Informe o local de treino',
-      id: '0'
-    },
-    {
-      nome: 'Konnen',
-      id: '1'
-    },
-    {
-      nome: 'Itaipava',
-      id: '2'
-    }
-  ]
-  const listaSexo = [
-    {
-      nome: 'Informe seu sexo',
-      id: '0'
-    },
-    {
-      nome: 'Feminino',
-      id: '1'
-    },
-    {
-      nome: 'Masculino',
-      id: '2'
-    }
-  ]
-  const listaPagamentos = [
-    {
-      nome: 'Informe a opção de pagamento',
-      id: '0'
-    },
-    {
-      nome: 'Dinheiro',
-      id: '1'
-    },
-    {
-      nome: 'Cartão(crédito)',
-      id: '2'
-    },
-    {
-      nome: 'Cartão(débito)',
-      id: '3'
-    },
-    {
-      nome: 'Cartão(débito-automático)',
-      id: '4'
-    },
-    {
-      nome: 'Boleto',
-      id: '5'
-    },
-    {
-      nome: 'Cheque',
-      id: '6'
-    },
-  ]
-  const [image, setImage] = useState(null);
+    alert('Aluno cadastrado com sucesso!')
+
+    // addAluno(jsonAluno)
+    //   .then((d) => {
+    //     alert("Aluno registrado com sucesso!");
+
+    //   })
+    //   .catch((error) => alert(error, 'Por favor repita o cadastro'));
+
+
+
+  }
+
 
   useEffect(() => {
     (async () => {
@@ -372,6 +421,14 @@ export const Register = () => {
                 onChange={handleExameDateChange}
               />
             )}
+
+            <Text style={styles.textInput}>RG</Text>
+            <TextInput style={styles.input}
+              placeholder="Informe seu RG"
+              autoCorrect={false}
+              onChangeText={(text) => setRG(text)}
+            />
+
             <Text style={styles.textInput}>CPF</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu CPF"
@@ -403,13 +460,18 @@ export const Register = () => {
               autoCorrect={false}
               onChangeText={(text) => setEmail(text)}
             />
+
             <Text style={styles.textInput}>Horário de aula</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu horario de aula"
-              keyboardType="numeric"
-              autoCorrect={false}
-              onChangeText={(text) => setHoraAula(text)}
-            />
+            <View style={[styles.input, { justifyContent: 'center' }]}>
+              <Picker
+                selectedValue={horaAula}
+                onValueChange={(itemValue, itemIndex) => setHoraAula(itemValue)}
+              >
+                {listaHorarios.map((horario) => (
+                  <Picker.Item label={horario.nome} value={horario.id} key={horario.id} />
+                ))}
+              </Picker>
+            </View>
             <Text style={styles.textInput}>CEP</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu CEP"
@@ -445,7 +507,7 @@ export const Register = () => {
             <Text style={styles.textInput}>Forma de pagamento</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
-                selectedValue={sexo}
+                selectedValue={pagamento}
                 onValueChange={(itemValue, itemIndex) => setPagamento(itemValue)}
               >
                 {listaPagamentos.map((value) => (
@@ -453,6 +515,13 @@ export const Register = () => {
                 ))}
               </Picker>
             </View>
+
+            <Text style={styles.textInput}>Palavra Chave</Text>
+            <TextInput style={styles.input}
+              placeholder="Insira uma palavra de segurança"
+              autoCorrect={false}
+              onChangeText={(text) => setPalavraChave(text)}
+            />
 
             <Text style={styles.textInput}>Senha</Text>
             <TextInput style={styles.input}
@@ -477,6 +546,7 @@ export const Register = () => {
                 textColor={theme.colors.highlight}
                 bgColor={theme.colors.secondary10}
                 font={theme.fonts.text300}
+                onPress={() => handleAddAluno()}
 
 
               />

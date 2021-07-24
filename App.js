@@ -36,16 +36,16 @@ const App = () => {
   }
 
   return (
-    <ParentProvider>
-      <Register />
-    </ParentProvider>
+    //<ParentProvider>
+    //<ParentsRegister />
+    //</ParentProvider>
 
     // <Activities />
-    // <Login />
-    // <PreRegister /> 
+    //<Login />
+    //<PreRegister />
+    //<Register />
 
-    //  <ParentsRegister />
-    // <ForgotKeyword />  
+    //<ForgotKeyword />
 
 
 
