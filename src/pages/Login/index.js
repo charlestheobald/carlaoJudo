@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   KeyboardAvoidingView,
   View,
@@ -11,20 +11,22 @@ import {
   StatusBar,
   ScrollView
 } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+
+import { styles } from './styles';
+import { theme } from '../../global/theme';
+import { getAluno } from '../../services/AlunoService/'
+import { UsuarioContext } from '../../contexts/usuario/UsuarioContext';
 
 import { ForgotKeyword } from '../../pages/forgotKeyword'
 
-import { styles } from './styles';
-
-import { theme } from '../../global/theme';
-
-const goHome = () => {
-  return null
-}
 
 export const Login = () => {
+  const navigation = useNavigation();
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
+  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
@@ -61,6 +63,61 @@ export const Login = () => {
       }),
     ]).start();
   };
+  const [listaAlunos, setListaAlunos] = useState([])
+
+  // useEffect(() => {
+  //   getAluno().then((data) => {
+  //     setListaAlunos(data)
+  //   }).catch((err) => {
+  //     console.error("Ops, ocorreu um erro " + err)
+  //   })
+  // })
+
+  const listagemTeste = [
+    {
+      nome: "Astolfo",
+      senha: "123",
+      email: "astolfo@astolfo.com",
+    },
+    {
+      nome: "Charles",
+      senha: "ch2020",
+      email: "charles@theobald.com",
+    },
+    {
+      nome: "Ricardo",
+      senha: "abobora",
+      email: "ricardo@araujo.com",
+    },
+    {
+      nome: "abc",
+      senha: "abc",
+      email: "abc",
+    },
+  ]
+
+  const { setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
+
+  const loginHandler = () => {
+    var isTheOne = false;
+    listagemTeste.forEach((aluno) => {
+      if (aluno.senha === senha & aluno.email === email) {
+        setNomeContexto(aluno.nome);
+        setSenhaContexto(aluno.senha);
+        setEmailContexto(aluno.email);
+        isTheOne = true
+        navigation.navigate("Activities");
+
+      }
+    })
+    if (isTheOne === false) {
+      return alert("Erouuu")
+    }
+
+
+  }
+
+
 
   return (
 
@@ -80,17 +137,19 @@ export const Login = () => {
             placeholder="Email"
             autoCapitalize='none'
             autoCorrect={false}
-            onChangeText={() => { }}
+            onChangeText={(e) => setEmail(e)}
           />
 
           <TextInput style={styles.input}
             placeholder="Senha"
             autoCorrect={false}
             secureTextEntry={true}
-            onChangeText={() => { }}
+            onChangeText={(e) => setSenha(e)}
           />
 
-          <TouchableOpacity style={styles.buttonLogin}>
+          <TouchableOpacity style={styles.buttonLogin}
+            onPress={loginHandler}
+          >
             <Text style={styles.textLogin}>Entrar</Text>
           </TouchableOpacity>
 

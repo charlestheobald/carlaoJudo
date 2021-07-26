@@ -1,5 +1,5 @@
 
-import { theme } from '../../global/theme'
+import { theme } from '../../../global/theme'
 import { StyleSheet, StatusBar, } from 'react-native'
 
 

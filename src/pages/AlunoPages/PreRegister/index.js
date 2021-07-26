@@ -16,11 +16,11 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { StandardButton } from '../../components/StandardButton';
+import { StandardButton } from '../../../components/StandardButton';
 
 import { styles } from './styles';
 
-import { theme } from '../../global/theme';
+import { theme } from '../../../global/theme';
 
 
 export const PreRegister = () => {
@@ -33,7 +33,7 @@ export const PreRegister = () => {
         <TouchableOpacity style={styles.back}>
           <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
-        <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+        <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
       </View>
 
       <View style={styles.container}>

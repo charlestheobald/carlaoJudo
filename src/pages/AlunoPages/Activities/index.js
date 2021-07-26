@@ -14,17 +14,21 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 
 import { styles } from './styles';
-import { theme } from '../../global/theme';
+import { theme } from '../../../global/theme';
 
-import { addAluno } from '../../services/AlunoService';
+import { PreRegister } from '../../AlunoPages/PreRegister'
 
-import { StandardButton } from '../../components/StandardButton';
 
+
+import { StandardButton } from '../../../components/StandardButton';
+
+const Tab = createBottomTabNavigator()
 
 export const Activities = () => {
 
@@ -33,7 +37,7 @@ export const Activities = () => {
     <View style={styles.background}>
 
       <View style={styles.containerHeader}>
-        <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+        <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
         <TouchableOpacity style={styles.config}>
           <AntDesign name="setting" size={30} color="black" />
         </TouchableOpacity>
@@ -96,10 +100,27 @@ export const Activities = () => {
           />
         </View>
 
+
+
       </View>
+
     </View>
 
   )
+}
+
+export function Tabs() {
+
+  <Tab.Navigator
+    initialRouteName="Home"
+    activeColor="#f0edf6"
+    inactiveColor="#3e2465"
+    barStyle={{ backgroundColor: '#694fad', bottom: 30, height: 60 }}
+
+  >
+    <Tab.Screen name="PreRegister" component={PreRegister} />
+    <Tab.Screen name="Activities" component={Activities} />
+  </Tab.Navigator>
 }
 
 export default Activities;

@@ -26,12 +26,12 @@ import { AntDesign } from '@expo/vector-icons';
 import { format } from "date-fns";
 
 import { styles } from './styles';
-import { theme } from '../../global/theme';
+import { theme } from '../../../global/theme';
 
-import { addAluno } from '../../services/AlunoService';
+import { addAluno } from '../../../services/AlunoService';
 
-import { StandardButton } from '../../components/StandardButton';
-import { ParentContext } from '../../contexts/alunos/ParentContext';
+import { StandardButton } from '../../../components/StandardButton';
+import { ParentContext } from '../../../contexts/alunos/ParentContext';
 
 
 export const Register = () => {
@@ -277,7 +277,7 @@ export const Register = () => {
           </TouchableOpacity>
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+          <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
         </View>
         <View style={{ flex: 1 }}></View>
       </View>

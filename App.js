@@ -10,17 +10,15 @@ import {
 } from '@expo-google-fonts/roboto';
 import { Lalezar_400Regular } from '@expo-google-fonts/lalezar';
 
-import Routes from './src/router'
 
-import { Activities } from './src/pages/Activities'
-import { ParentsRegister } from './src/pages/ParentsRegister';
-import { Register } from './src/pages/Register'
-import { PreRegister } from './src/pages/PreRegister';
-import { Login } from './src/pages/Login';
-import { ForgotKeyword } from './src/pages/forgotKeyword';
-import { ParentProvider } from './src/contexts/alunos/ParentContext';
+
+import { Routes } from './src/Routes/';
+import { UsuarioProvider } from './src/contexts/usuario/UsuarioContext';
 
 // import { Container } from './styles'; 
+
+
+
 
 const App = () => {
 
@@ -36,14 +34,14 @@ const App = () => {
   }
 
   return (
-    //<ParentProvider>
-    //<ParentsRegister />
-    //</ParentProvider>
+    <UsuarioProvider>
+      <Routes />
+    </UsuarioProvider>
 
     // <Activities />
     //<Login />
     //<PreRegister />
-    //<Register />
+
 
     //<ForgotKeyword />
 
