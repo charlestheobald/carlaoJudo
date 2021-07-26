@@ -9,13 +9,14 @@ export const StandardButton = ({
   bgColor,
   font,
   onPress,
-  widthProp
+  widthProp,
+  
 }) => {
 
   return (
 
     <TouchableOpacity
-      onpress={onPress}
+      onPress={onPress}
       style={[
         styles.container,
         {

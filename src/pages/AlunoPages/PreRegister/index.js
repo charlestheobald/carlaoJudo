@@ -13,24 +13,36 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { StandardButton } from '../../../components/StandardButton';
-
 import { styles } from './styles';
-
 import { theme } from '../../../global/theme';
+
+import { Register } from '../Register';
 
 
 export const PreRegister = () => {
+  const navigation = useNavigation();
+  const handleRegister = () => {
+    navigation.navigate("Register")
+  }
 
+  const handleParents = () => {
+    navigation.navigate("ParentsRegister")
+  }
+  const handleGoBack = () => {
+    navigation.goBack()
+  }
   return (
 
     <View style={styles.background}>
 
       <View style={styles.containerHeader}>
-        <TouchableOpacity style={styles.back}>
+        <TouchableOpacity onPress={handleGoBack}
+          style={styles.back}>
           <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
         <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
@@ -44,12 +56,15 @@ export const PreRegister = () => {
 
 
         <View style={styles.contentButton}>
-          <StandardButton style={styles.textButton}
+          <StandardButton
+            onPress={handleRegister}
+            style={styles.textButton}
             label='Sim'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+
+
           />
         </View>
 
@@ -59,9 +74,10 @@ export const PreRegister = () => {
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={handleParents}
           />
         </View>
+
 
 
       </View>

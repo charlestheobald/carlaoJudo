@@ -8,6 +8,7 @@ export const UsuarioProvider = ({ children }) => {
   const [nomeContexto, setNomeContexto] = useState("");
   const [emailContexto, setEmailContexto] = useState("")
   const [senhaContexto, setSenhaContexto] = useState("");
+  const [isLogged, setIsLogged] = useState("");
 
   return (
     <UsuarioContext.Provider
@@ -17,7 +18,10 @@ export const UsuarioProvider = ({ children }) => {
         emailContexto,
         setEmailContexto,
         senhaContexto,
-        setSenhaContexto
+        setSenhaContexto,
+        isLogged,
+        setIsLogged
+
       }}
     >
       {children}

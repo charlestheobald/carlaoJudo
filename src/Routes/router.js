@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import { theme } from '../global/theme';
 
 import { getAluno } from '../services/AlunoService/'
-
+import { NavigationContainer } from '@react-navigation/native';
 import { Login } from '../pages/Login';
 import { ForgotKeyword } from '../pages/forgotKeyword';
 import { PreRegister } from '../pages/AlunoPages/PreRegister'
 import { Register } from '../pages/AlunoPages/Register'
 import { ParentsRegister } from '../pages/AlunoPages/ParentsRegister'
 import { Activities } from '../pages/AlunoPages/Activities'
-
-
-
-const { Navigator, Screen } = createStackNavigator();
+import { AuthRouter } from './authRouter';
 
 
 export const Router = () => {
+  const { Navigator, Screen } = createStackNavigator();
   return (
+
     <Navigator
+      initialRouteName="Login"
       headerMode="none"
       screenOptions={{
         cardStyle: {
@@ -27,6 +28,7 @@ export const Router = () => {
         },
       }}
     >
+
       <Screen
         name="Login"
         component={Login}
@@ -41,20 +43,18 @@ export const Router = () => {
         component={PreRegister}
       />
       <Screen
-        name='ParentsRegister'
-        component={ParentsRegister}
-      />
-      <Screen
         name='Register'
         component={Register}
       />
       <Screen
-        name='Activities'
-        component={Activities}
+        name='ParentsRegister'
+        component={ParentsRegister}
       />
-
+      <Screen
+        name='AuthRouter'
+        component={AuthRouter}
+      />
     </Navigator>
 
   )
 }
-

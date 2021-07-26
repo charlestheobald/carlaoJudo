@@ -28,8 +28,6 @@ import { PreRegister } from '../../AlunoPages/PreRegister'
 
 import { StandardButton } from '../../../components/StandardButton';
 
-const Tab = createBottomTabNavigator()
-
 export const Activities = () => {
 
   return (
@@ -109,18 +107,3 @@ export const Activities = () => {
   )
 }
 
-export function Tabs() {
-
-  <Tab.Navigator
-    initialRouteName="Home"
-    activeColor="#f0edf6"
-    inactiveColor="#3e2465"
-    barStyle={{ backgroundColor: '#694fad', bottom: 30, height: 60 }}
-
-  >
-    <Tab.Screen name="PreRegister" component={PreRegister} />
-    <Tab.Screen name="Activities" component={Activities} />
-  </Tab.Navigator>
-}
-
-export default Activities;

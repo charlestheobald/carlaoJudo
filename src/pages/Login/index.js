@@ -17,11 +17,10 @@ import { styles } from './styles';
 import { theme } from '../../global/theme';
 import { getAluno } from '../../services/AlunoService/'
 import { UsuarioContext } from '../../contexts/usuario/UsuarioContext';
-
 import { ForgotKeyword } from '../../pages/forgotKeyword'
 
 
-export const Login = () => {
+export const Login = (aluno) => {
   const navigation = useNavigation();
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
@@ -77,7 +76,7 @@ export const Login = () => {
     {
       nome: "Astolfo",
       senha: "123",
-      email: "astolfo@astolfo.com",
+      email: "astolabctolfo.com",
     },
     {
       nome: "Charles",
@@ -96,7 +95,8 @@ export const Login = () => {
     },
   ]
 
-  const { setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
+  const { setIsLogged, setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
+
 
   const loginHandler = () => {
     var isTheOne = false;
@@ -106,16 +106,26 @@ export const Login = () => {
         setSenhaContexto(aluno.senha);
         setEmailContexto(aluno.email);
         isTheOne = true
-        navigation.navigate("Activities");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "AuthRouter" }]
+        });
 
       }
     })
     if (isTheOne === false) {
-      return alert("Erouuu")
+      return alert("Senha incorreta")
     }
 
 
   }
+  const forgotKeyHandler = () => {
+    navigation.navigate("ForgotKeyword")
+  }
+  const preRegisterHandler = () => {
+    navigation.navigate("PreRegister")
+  }
+
 
 
 
@@ -154,7 +164,9 @@ export const Login = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.buttonPassword}>
+            style={styles.buttonPassword}
+            onPress={forgotKeyHandler}
+          >
             <Text style={styles.textPassword}> Esqueci minha senha. </Text>
           </TouchableOpacity>
 
@@ -163,7 +175,7 @@ export const Login = () => {
         </View>
         <View style={styles.containerRegister} >
           <Text style={styles.text1Register}>Não tem uma conta? </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={preRegisterHandler}>
             <Text style={styles.text2Register}> Cadastre-se.</Text>
           </TouchableOpacity>
         </View>
