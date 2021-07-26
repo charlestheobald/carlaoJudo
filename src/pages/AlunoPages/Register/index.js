@@ -33,9 +33,10 @@ import { addAluno } from '../../../services/AlunoService';
 import { StandardButton } from '../../../components/StandardButton';
 import { ParentContext } from '../../../contexts/alunos/ParentContext';
 
+import { useNavigation } from "@react-navigation/native";
 
 export const Register = () => {
-
+  const navigation = useNavigation();
 
   const { telResponsavel, nomeResponsavel } = useContext(ParentContext)
 
@@ -265,14 +266,18 @@ export const Register = () => {
     }
 
   };
-
+  const handleGoBack = () => {
+    navigation.goBack()
+  }
 
   return (
     <View style={styles.background}>
 
       <View style={styles.containerHeader}>
         <View style={{ flex: 1, left: '-35%' }}>
-          <TouchableOpacity style={styles.back}>
+          <TouchableOpacity style={styles.back}
+            onPress={handleGoBack}
+          >
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
         </View>
