@@ -38,7 +38,7 @@ import { useNavigation } from "@react-navigation/native";
 export const Register = () => {
   const navigation = useNavigation();
 
-  const { telResponsavel, nomeResponsavel } = useContext(ParentContext)
+  const { telResponsavel, nomeResponsavel, emailResponsavel, setEmailResponsavel, setTelResponsavel, setNomeResponsavel } = useContext(ParentContext)
 
   const [fotoAluno, setFotoAluno] = useState(null)
   const [showBorn, setShowBorn] = useState(false);
@@ -205,40 +205,97 @@ export const Register = () => {
     const anoF = data.getFullYear();
     return diaF + "/" + mesF + "/" + anoF;
   }
+  var extensao = image.split(".").pop();
 
   const pattern = "yyyy-MM-dd";
 
-  const jsonAluno = {
-    nome: nomeAluno,
-    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
-    palavraChave: palavraChave,
-    telefone: telResidencial,
-    email: email,
-    senha: senha,
-    horarioAula: horaAula,
-    faixa: faixa,
-    sexo: sexo,
-    peso: peso,
-    dataIngresso: format(dataInicioJudo, pattern),
-    dataCadastro: format(new Date(), pattern),
-    localTreino: localidade,
-    pagamento: pagamento,
+  const jsonAlunoResponsavel = {
+    altura: 0,
+    cbjZempo: CBJ_ZEMPO,
     cep: CEP,
+    complemento: complemento,
+    cpf: CPF,
+    dataCadastro: format(new Date(), pattern),
+    dataIngresso: format(dataInicioJudo, pattern),
+    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
+    email: emailResponsavel,
+    faixa: faixa,
+    fjerj: FJERJ,
+    foto: {
+      dados: image,
+      id: 0,
+      nome: "alunoImage",
+      tipo: extensao
+    },
+    horarioAula: horaAula,
+    localTreino: localidade,
+    nome: nomeAluno,
+    nomeResponsavel: nomeResponsavel,
     numero: numeroLogradouro,
-    complemento: complemento
+    pagamento: pagamento,
+    palavraChave: palavraChave,
+    peso: peso,
+    rg: RG,
+    senha: senha,
+    sexo: sexo,
+    telefone: telResidencial,
+    telefoneResponsavel: telResponsavel
+  }
+  const jsonAluno = {
+    altura: 0,
+    cbjZempo: CBJ_ZEMPO,
+    cep: CEP,
+    complemento: complemento,
+    cpf: CPF,
+    dataCadastro: format(new Date(), pattern),
+    dataIngresso: format(dataInicioJudo, pattern),
+    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
+    email: email,
+    faixa: faixa,
+    fjerj: FJERJ,
+    foto: {
+      dados: image,
+      id: 0,
+      nome: "alunoImage",
+      tipo: extensao
+    },
+    horarioAula: horaAula,
+    localTreino: localidade,
+    nome: nomeAluno,
+    nomeResponsavel: nomeResponsavel,
+    numero: numeroLogradouro,
+    pagamento: pagamento,
+    palavraChave: palavraChave,
+    peso: peso,
+    rg: RG,
+    senha: senha,
+    sexo: sexo,
+    telefone: telResidencial,
   }
 
-  function handleAddAluno() {
+  function handleAddAluno(jsonAlunoResponsavel, jsonAluno) {
+    if (emailResponsavel) {
+      addAluno(jsonAlunoResponsavel)
+        .then((d) => {
+          alert("Aluno registrado com sucesso!");
 
-    alert('Aluno cadastrado com sucesso!')
+        })
+        .catch((error) => alert(error, 'Por favor repita o cadastro'));
+      setEmailResponsavel(null),
+        setTelResponsavel(null),
+        setNomeResponsavel(null)
+    }
+    else {
+      addAluno(jsonAluno)
+        .then((d) => {
+          alert("Aluno registrado com sucesso!");
 
-    // addAluno(jsonAluno)
-    //   .then((d) => {
-    //     alert("Aluno registrado com sucesso!");
-
-    //   })
-    //   .catch((error) => alert(error, 'Por favor repita o cadastro'));
-
+        })
+        .catch((error) => alert(error, 'Por favor repita o cadastro'));
+      setEmailResponsavel(null),
+        setTelResponsavel(null),
+        setNomeResponsavel(null)
+    }
 
 
   }
@@ -442,29 +499,28 @@ export const Register = () => {
               onChangeText={(text) => setCPF(text)}
             />
 
-            <Text style={styles.textInput}>Telefone residêncial</Text>
+            <Text style={styles.textInput}>Telefone</Text>
             <TextInput style={styles.input}
-              placeholder="Informe seu telefone residêncial"
+              placeholder="Informe seu telefone"
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setTelResidencial(text)}
             />
-            <Text style={styles.textInput}>Telefone Celular</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu telefone Celular"
-              keyboardType="numeric"
-              autoCorrect={false}
-              onChangeText={(text) => setCelular(text)}
-            />
-            <Text style={styles.textInput}>E-mail</Text>
-            <TextInput style={styles.input}
-              placeholder="Informe seu e-mail"
-              keyboardType="email-address"
-              autoCompleteType='email'
-              autoCapitalize='none'
-              autoCorrect={false}
-              onChangeText={(text) => setEmail(text)}
-            />
+
+            {!emailResponsavel &&
+              <>
+                <Text style={styles.textInput}>E-mail</Text>
+                <TextInput style={styles.input}
+                  placeholder="Informe seu e-mail"
+                  keyboardType="email-address"
+                  autoCompleteType='email'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  onChangeText={(text) => setEmail(text)}
+                />
+              </>
+            }
+
 
             <Text style={styles.textInput}>Horário de aula</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>

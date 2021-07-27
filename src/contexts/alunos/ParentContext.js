@@ -5,8 +5,9 @@ export const ParentContext = createContext();
 export const ParentProvider = ({ children }) => {
 
 
-  const [nomeResponsavel, setNomeResponsavel] = useState("");
-  const [telResponsavel, setTelResponsavel] = useState("");
+  const [nomeResponsavel, setNomeResponsavel] = useState(null)
+  const [telResponsavel, setTelResponsavel] = useState(null);
+  const [emailResponsavel, setEmailResponsavel] = useState(null);
 
   return (
     <ParentContext.Provider
@@ -14,7 +15,9 @@ export const ParentProvider = ({ children }) => {
         nomeResponsavel,
         setNomeResponsavel,
         telResponsavel,
-        setTelResponsavel
+        setTelResponsavel,
+        emailResponsavel,
+        setEmailResponsavel
       }}
     >
       {children}

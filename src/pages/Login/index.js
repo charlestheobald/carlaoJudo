@@ -174,7 +174,7 @@ export const Login = (aluno) => {
 
         </View>
         <View style={styles.containerRegister} >
-          <Text style={styles.text1Register}>Não tem uma conta? </Text>
+          <Text style={styles.text1Register}>Não tem uma conta?</Text>
           <TouchableOpacity onPress={preRegisterHandler}>
             <Text style={styles.text2Register}> Cadastre-se.</Text>
           </TouchableOpacity>
