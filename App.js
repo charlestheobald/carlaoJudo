@@ -20,7 +20,7 @@ import { ParentProvider } from './src/contexts/alunos/ParentContext';
 
 // import { Container } from './styles'; 
 
-
+import { Header } from './src/components/Header'
 
 const App = () => {
 
@@ -43,6 +43,10 @@ const App = () => {
         </NavigationContainer>
       </UsuarioProvider>
     </ParentProvider>
+
+
+
+
   )
 }
 

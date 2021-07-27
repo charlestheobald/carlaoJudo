@@ -205,7 +205,7 @@ export const Register = () => {
     const anoF = data.getFullYear();
     return diaF + "/" + mesF + "/" + anoF;
   }
-  var extensao = image.split(".").pop();
+
 
   const pattern = "yyyy-MM-dd";
 
@@ -225,7 +225,7 @@ export const Register = () => {
       dados: image,
       id: 0,
       nome: "alunoImage",
-      tipo: extensao
+      tipo: "image",
     },
     horarioAula: horaAula,
     localTreino: localidade,
@@ -257,7 +257,7 @@ export const Register = () => {
       dados: image,
       id: 0,
       nome: "alunoImage",
-      tipo: extensao
+      tipo: "image",
     },
     horarioAula: horaAula,
     localTreino: localidade,
@@ -538,7 +538,7 @@ export const Register = () => {
               placeholder="Informe seu CEP"
               keyboardType="numeric"
               autoCorrect={false}
-              onChangeText={() => setCEP(text)}
+              onChangeText={(text) => setCEP(text)}
             />
             <Text style={styles.textInput}>Logradouro</Text>
             <TextInput style={styles.input}

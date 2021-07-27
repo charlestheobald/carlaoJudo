@@ -23,7 +23,7 @@ import { styles } from './styles';
 import { theme } from '../../../global/theme';
 
 import { PreRegister } from '../../AlunoPages/PreRegister'
-
+import { Header } from '../../../components/Header'
 
 
 import { StandardButton } from '../../../components/StandardButton';
@@ -33,13 +33,13 @@ export const Activities = () => {
   return (
 
     <View style={styles.background}>
-
-      <View style={styles.containerHeader}>
+      <Header />
+      {/* <View style={styles.containerHeader}>
         <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
         <TouchableOpacity style={styles.config}>
           <AntDesign name="setting" size={30} color="black" />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={styles.container}>
 

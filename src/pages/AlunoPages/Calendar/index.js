@@ -23,6 +23,7 @@ import { styles } from './styles';
 import { theme } from '../../../global/theme';
 
 import { PreRegister } from '../../AlunoPages/PreRegister'
+import { Header } from '../../../components/Header'
 
 
 
@@ -32,10 +33,31 @@ export const Calendar = () => {
 
   return (
 
-    <View style={styles.background}>
+    <View style={styles.container}>
+      <Header />
+      <View style={styles.content}>
+        <View style={styles.contentButton}>
+          <StandardButton style={styles.textButton}
+            label='Calendário Mensal'
+            textColor={theme.colors.highlight}
+            bgColor={theme.colors.secondary10}
+            font={theme.fonts.text300}
+            onPress={() => { }}
+            widthProp='90%'
+          />
+        </View>
 
-      <Text>Calendario</Text>
-
+        <View style={styles.contentButton}>
+          <StandardButton style={styles.textButton}
+            label='Calendário semanal'
+            textColor={theme.colors.highlight}
+            bgColor={theme.colors.secondary10}
+            font={theme.fonts.text300}
+            onPress={() => { }}
+            widthProp='90%'
+          />
+        </View>
+      </View>
     </View >
 
   )

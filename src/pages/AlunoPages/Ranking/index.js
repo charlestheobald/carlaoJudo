@@ -23,7 +23,7 @@ import { styles } from './styles';
 import { theme } from '../../../global/theme';
 
 import { PreRegister } from '../../AlunoPages/PreRegister'
-
+import { Header } from '../../../components/Header'
 
 
 import { StandardButton } from '../../../components/StandardButton';
@@ -34,8 +34,10 @@ export const Ranking = () => {
 
     <View style={styles.background}>
 
-      <Text> Ranking page</Text>
-
+      <Header />
+      <View style={styles.content}>
+        <Text> Ranking page</Text>
+      </View>
     </View>
 
   )
