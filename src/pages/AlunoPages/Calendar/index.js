@@ -14,6 +14,7 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
@@ -29,8 +30,16 @@ import { Header } from '../../../components/Header'
 
 import { StandardButton } from '../../../components/StandardButton';
 
-export const Calendar = () => {
 
+
+export const Calendar = () => {
+  const navigation = useNavigation();
+  const goMonthCalendar = () => {
+    navigation.navigate("MonthCalendar")
+  }
+  const goWeekCalendar = () => {
+    navigation.navigate("WeekCalendar")
+  }
   return (
 
     <View style={styles.container}>
@@ -38,11 +47,11 @@ export const Calendar = () => {
       <View style={styles.content}>
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}
-            label='Calendário Mensal'
+            label='Calendário mensal'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={() => goMonthCalendar()}
             widthProp='90%'
           />
         </View>
@@ -53,7 +62,7 @@ export const Calendar = () => {
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={() => goWeekCalendar()}
             widthProp='90%'
           />
         </View>

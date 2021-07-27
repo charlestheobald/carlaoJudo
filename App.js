@@ -17,12 +17,20 @@ import { UsuarioProvider } from './src/contexts/usuario/UsuarioContext';
 import { Register } from './src/pages/AlunoPages/Register'
 import { UsuarioContext } from './src/contexts/usuario/UsuarioContext';
 import { ParentProvider } from './src/contexts/alunos/ParentContext';
-
+import { decode, encode } from 'base-64'
 // import { Container } from './styles'; 
 
 import { Header } from './src/components/Header'
 
+
 const App = () => {
+
+
+  if (!global.btoa) { global.btoa = encode }
+
+  if (!global.atob) { global.atob = decode }
+
+
 
   const [fontsLoaded] = useFonts({
     Roboto_300Light,

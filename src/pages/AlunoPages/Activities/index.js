@@ -34,12 +34,6 @@ export const Activities = () => {
 
     <View style={styles.background}>
       <Header />
-      {/* <View style={styles.containerHeader}>
-        <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
-        <TouchableOpacity style={styles.config}>
-          <AntDesign name="setting" size={30} color="black" />
-        </TouchableOpacity>
-      </View> */}
 
       <View style={styles.container}>
 

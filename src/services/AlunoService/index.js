@@ -17,5 +17,6 @@ export const updateAluno = (id, aluno) => {
 };
 
 export const addAluno = (aluno) => {
-  return api.post("/aluno/", aluno).then((res) => res.data);
+  return api.post("/aluno/", aluno)
+    .then((res) => res.data);
 };

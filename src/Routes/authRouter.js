@@ -2,6 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { theme } from '../global/theme'
 
 import { Login } from '../pages/Login';
 import { ForgotKeyword } from '../pages/forgotKeyword';
@@ -11,7 +14,41 @@ import { ParentsRegister } from '../pages/AlunoPages/ParentsRegister'
 import { Activities } from '../pages/AlunoPages/Activities'
 import { Ranking } from '../pages/AlunoPages/Ranking'
 import { Calendar } from '../pages/AlunoPages/Calendar';
-import { theme } from '../global/theme'
+import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
+import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
+
+
+
+
+const CalendarRoutes = () => {
+  const { Navigator, Screen } = createStackNavigator();
+  return (
+    <Navigator
+      initialRouteName="Calendar"
+      headerMode="none"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: theme.colors.primary10
+        },
+      }}
+    >
+
+      <Screen
+        name="Calendar"
+        component={Calendar}
+      />
+      <Screen
+        name="MonthCalendar"
+        component={MonthCalendar}
+      />
+      <Screen
+        name="WeekCalendar"
+        component={WeekCalendar}
+      />
+
+    </Navigator>
+  );
+}
 
 export const AuthRouter = () => {
   const Tab = createBottomTabNavigator();
@@ -68,7 +105,7 @@ export const AuthRouter = () => {
       />
       <Tab.Screen
         name="Calendario"
-        component={Calendar}
+        component={CalendarRoutes}
         options={{
           tabBarIcon: ({ size, focused }) =>
             <AntDesign
