@@ -39,6 +39,32 @@ export const styles = StyleSheet.create({
 
     marginLeft: 30,
 
+  },
+
+  ModalView: {
+    margin: 20,
+    marginTop: 70,
+    width: '100%',
+    marginLeft: 3,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+
+  FieldsModal: {
+    marginBottom: 15,
+    paddingTop: 15,
+    textAlign: 'center',
+    color: '#1C2247',
+    fontSize: 12,
+    fontWeight: 'bold',
   }
+
 
 });

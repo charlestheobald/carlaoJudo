@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
+import { TextInputMask } from 'react-native-masked-text'
+
 import {
   KeyboardAvoidingView,
   View,
@@ -12,11 +14,14 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
-  Picker
+  Picker,
+  Button
 } from 'react-native';
 
-import RNPickerSelect from 'react-native-picker-select';
+import FormData from 'form-data';
+import { decode, encode } from 'base-64'
 
+import axios from 'axios';
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -29,6 +34,7 @@ import { styles } from './styles';
 import { theme } from '../../../global/theme';
 
 import { addAluno } from '../../../services/AlunoService';
+import { countAluno } from '../../../services/AlunoService';
 
 import { StandardButton } from '../../../components/StandardButton';
 import { ParentContext } from '../../../contexts/alunos/ParentContext';
@@ -45,31 +51,31 @@ export const Register = () => {
   const [showJudoDate, setShowJudoDate] = useState(false);
   const [showExameDate, setShowExameDate] = useState(false);
 
-  const [localidade, setLocalidade] = useState("");
-  const [nomeAluno, setNomeAluno] = useState("");
-  const [dataInicioJudo, setDataInicioJudo] = useState(new Date())
-  const [sexo, setSexo] = useState("");
+  const [localidade, setLocalidade] = useState(null);
+  const [nomeAluno, setNomeAluno] = useState(null);
+  const [dataInicioJudo, setDataInicioJudo] = useState(new Date());
+  const [sexo, setSexo] = useState(null);
   const [dataNascimento, setDataNascimento] = useState(new Date());
-  const [peso, setPeso] = useState("");
-  const [faixa, setFaixa] = useState("");
-  const [FJERJ, setFJERJ] = useState("");
-  const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState("");
+  const [peso, setPeso] = useState(null);
+  const [faixa, setFaixa] = useState(null);
+  const [FJERJ, setFJERJ] = useState(null);
+  const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState(null);
   const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
-  const [RG, setRG] = useState("");
-  const [CPF, setCPF] = useState("");
-  const [telResidencial, setTelResidencial] = useState("");
-  const [celular, setCelular] = useState("");
-  const [email, setEmail] = useState("");
-  const [horaAula, setHoraAula] = useState("");
+  const [RG, setRG] = useState(null);
+  const [CPF, setCPF] = useState(null);
+  const [telResidencial, setTelResidencial] = useState(null);
+  const [celular, setCelular] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [horaAula, setHoraAula] = useState(null);
   const [CEP, setCEP] = useState("");
-  const [logradouro, setLogradouro] = useState("");
-  const [numeroLogradouro, setNumeroLogradouro] = useState("");
-  const [complemento, setComplemento] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [pagamento, setPagamento] = useState("");
-  const [senha, setSenha] = useState("");
-  const [checkSenha, setCheckSenha] = useState("");
-  const [palavraChave, setPalavraChave] = useState("");
+  const [logradouro, setLogradouro] = useState(null);
+  const [numeroLogradouro, setNumeroLogradouro] = useState(null);
+  const [complemento, setComplemento] = useState(null);
+  const [cidade, setCidade] = useState(null);
+  const [pagamento, setPagamento] = useState(null);
+  const [senha, setSenha] = useState(null);
+  const [checkSenha, setCheckSenha] = useState(null);
+  const [palavraChave, setPalavraChave] = useState(null);
   const [image, setImage] = useState(null);
 
   const isIos = Platform.OS === 'ios';
@@ -104,11 +110,11 @@ export const Register = () => {
       nome: 'Informe sua faixa', id: '0'
     },
     {
-      nome: 'Branca',
+      nome: 'BRANCA',
       id: 'BRANCA'
     },
     {
-      nome: 'Amarela',
+      nome: 'AMARELA',
       id: 'AMARELA'
     }
   ];
@@ -118,11 +124,11 @@ export const Register = () => {
       id: '0'
     },
     {
-      nome: 'Konnen',
+      nome: 'KONNEN',
       id: 'KONNEN'
     },
     {
-      nome: 'Itaipava',
+      nome: 'ITAIPAVA',
       id: 'ITAIPAVA'
     }
   ]
@@ -132,11 +138,11 @@ export const Register = () => {
       id: '0'
     },
     {
-      nome: 'Feminino',
+      nome: 'FEMININO',
       id: 'FEMININO'
     },
     {
-      nome: 'Masculino',
+      nome: 'MASCULINO',
       id: 'MASCULINO'
     }
   ]
@@ -146,15 +152,15 @@ export const Register = () => {
       id: '0'
     },
     {
-      nome: 'Cartão(crédito)',
+      nome: 'CREDITO',
       id: 'CREDITO'
     },
     {
-      nome: 'Cartão(débito)',
+      nome: 'DEBITO',
       id: 'DEBITO'
     },
     {
-      nome: 'Transferência',
+      nome: 'TRANSFERENCIA',
       id: 'TRANSFERENCIA'
     },
     {
@@ -162,7 +168,7 @@ export const Register = () => {
       id: 'PIX'
     },
     {
-      nome: 'Boleto',
+      nome: 'BOLETO',
       id: 'BOLETO'
     },
   ]
@@ -209,94 +215,68 @@ export const Register = () => {
 
   const pattern = "yyyy-MM-dd";
 
-  const jsonAlunoResponsavel = {
-    altura: 0,
+
+  const alunoVO = {
+    altura: 1.80,
     cbjZempo: CBJ_ZEMPO,
     cep: CEP,
     complemento: complemento,
     cpf: CPF,
     dataCadastro: format(new Date(), pattern),
     dataIngresso: format(dataInicioJudo, pattern),
-    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
-    email: emailResponsavel,
-    faixa: faixa,
-    fjerj: FJERJ,
-    foto: {
-      dados: image,
-      id: 0,
-      nome: "alunoImage",
-      tipo: "image",
-    },
-    horarioAula: horaAula,
-    localTreino: localidade,
-    nome: nomeAluno,
-    nomeResponsavel: nomeResponsavel,
-    numero: numeroLogradouro,
-    pagamento: pagamento,
-    palavraChave: palavraChave,
-    peso: peso,
-    rg: RG,
-    senha: senha,
-    sexo: sexo,
-    telefone: telResidencial,
-    telefoneResponsavel: telResponsavel
-  }
-  const jsonAluno = {
-    altura: 0,
-    cbjZempo: CBJ_ZEMPO,
-    cep: CEP,
-    complemento: complemento,
-    cpf: CPF,
-    dataCadastro: format(new Date(), pattern),
-    dataIngresso: format(dataInicioJudo, pattern),
-    dataNascimento: format(dataNascimento, pattern), // fazer a conversão adequada (date nfs)
+    dataNascimento: format(dataNascimento, pattern),
     email: email,
     faixa: faixa,
     fjerj: FJERJ,
-    foto: {
-      dados: image,
-      id: 0,
-      nome: "alunoImage",
-      tipo: "image",
-    },
     horarioAula: horaAula,
     localTreino: localidade,
     nome: nomeAluno,
     nomeResponsavel: nomeResponsavel,
-    numero: numeroLogradouro,
+    numero: 80,
     pagamento: pagamento,
     palavraChave: palavraChave,
-    peso: peso,
+    peso: 80,
     rg: RG,
     senha: senha,
     sexo: sexo,
     telefone: telResidencial,
+    telefoneResponsavel: telResponsavel,
+  }
+  const voTeste = {
+    altura: 1.80,
+    cbjZempo: null,
+    cep: "25650260",
+    complemento: "casa do abacateiro",
+    cpf: "34533647081",
+    dataCadastro: "2021-07-27",
+    dataIngresso: "2021-07-27",
+    dataNascimento: "2000-07-27",
+    email: "juliadonascimentosantos7@gmail.com",
+    faixa: "AMARELA",
+    fjerj: null,
+    horarioAula: "13:00",
+    localTreino: "Konnen",
+    nome: "Maria",
+    numero: 47,
+    pagamento: "BOLETO",
+    palavraChave: "abacate",
+    peso: 55,
+    rg: "123335559",
+    senha: "abacate123",
+    sexo: "FEMININO",
+    telefone: "24998881343",
+    telefoneResponsavel: null,
+    foto: image
   }
 
-  function handleAddAluno(jsonAlunoResponsavel, jsonAluno) {
-    if (emailResponsavel) {
-      addAluno(jsonAlunoResponsavel)
-        .then((d) => {
-          alert("Aluno registrado com sucesso!");
 
-        })
-        .catch((error) => alert(error, 'Por favor repita o cadastro'));
-      setEmailResponsavel(null),
-        setTelResponsavel(null),
-        setNomeResponsavel(null)
-    }
-    else {
-      addAluno(jsonAluno)
-        .then((d) => {
-          alert("Aluno registrado com sucesso!");
 
-        })
-        .catch((error) => alert(error, 'Por favor repita o cadastro'));
-      setEmailResponsavel(null),
-        setTelResponsavel(null),
-        setNomeResponsavel(null)
-    }
-
+  const handleAddAluno = () => {
+    addAluno(alunoVO)
+      .then((res) => {
+        alert("Sucesso")
+      })
+      .catch((e) => alert("Erro ao cadastrar aluno", e))
 
   }
 
@@ -312,20 +292,42 @@ export const Register = () => {
     })();
   }, []);
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    //  let result = 
+    await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [3, 3],
       quality: 1,
+      exif: true,
+      base64: true
+    }).then(img => {
+      setImage(img.base64)
+    }).catch(error => {
+      console.log("erro ao salvar imagem")
     });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
+    // if (!result.cancelled) {
+    //   setImage(result.uri);
+    // }
 
   };
   const handleGoBack = () => {
     navigation.goBack()
   }
+
+
+  const cepLength = CEP.length
+
+  var decodedImage = `data:image/png;base64,${image}`;
+  // const handleCEP = (textChange) => {
+  //   setCEP(textChange)
+
+  // if (cepLength >= 8) {
+  //   axios.get(`viacep.com.br/ws/${CEP}/json/`).then((res) =>
+  //     console.log(res.data)
+  //   )
+  // }
+
+  // }
 
   return (
     <View style={styles.background}>
@@ -359,7 +361,8 @@ export const Register = () => {
             </View>
               :
               <TouchableOpacity onPress={pickImage}>
-                <Image source={{ uri: image }} style={{ marginTop: 10, width: 150, height: 150, borderRadius: 100, }} />
+
+                <Image source={{ uri: decodedImage }} style={{ marginTop: 10, width: 150, height: 150, borderRadius: 100, }} />
               </TouchableOpacity>
             }
 
@@ -395,6 +398,7 @@ export const Register = () => {
                 minimumDate={new Date(1920, 0, 1)}
                 maximumDate={new Date()}
                 style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
+
                 value={dataInicioJudo}
                 mode="date"
                 display="default"
@@ -485,7 +489,12 @@ export const Register = () => {
             )}
 
             <Text style={styles.textInput}>RG</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              type={'custom'}
+              options={{
+                mask: '99.999.999-9'
+              }}
+              value={RG}
               placeholder="Informe seu RG"
               autoCorrect={false}
               onChangeText={(text) => setRG(text)}
@@ -500,7 +509,14 @@ export const Register = () => {
             />
 
             <Text style={styles.textInput}>Telefone</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              options={{
+                maskType: 'BRL',
+                withDDD: true,
+                dddMask: '(99) '
+              }}
+              value={telResidencial}
+              type={'cel-phone'}
               placeholder="Informe seu telefone"
               keyboardType="numeric"
               autoCorrect={false}

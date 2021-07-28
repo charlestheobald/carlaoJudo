@@ -17,6 +17,13 @@ export const updateAluno = (id, aluno) => {
 };
 
 export const addAluno = (aluno) => {
+
   return api.post("/aluno/", aluno)
-    .then((res) => res.data);
+    .then((res) => console.log(res.data));
+
+
+};
+export const countAluno = () => {
+
+  return api.get(`/aluno/count`).then((res) => console.log(res.data));
 };

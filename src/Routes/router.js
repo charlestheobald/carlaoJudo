@@ -34,18 +34,18 @@ export const Router = () => {
         component={Login}
       />
       <Screen
+        name='Register'
+        component={Register}
+      />
+      <Screen
         name="ForgotKeyword"
         component={ForgotKeyword}
       />
-
       <Screen
         name='PreRegister'
         component={PreRegister}
       />
-      <Screen
-        name='Register'
-        component={Register}
-      />
+
       <Screen
         name='ParentsRegister'
         component={ParentsRegister}
