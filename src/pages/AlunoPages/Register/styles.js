@@ -61,11 +61,23 @@ export const styles = StyleSheet.create({
   },
 
   TextPhoto: {
+    fontFamily: theme.fonts.text400,
     justifyContent: 'center',
     color: theme.colors.primary10
   },
+  textAlert: {
+    alignSelf: 'flex-start',
+    marginLeft: '8%',
+    marginBottom: 5,
+    fontSize: 12,
+    marginTop: 20,
+    marginBottom: 20,
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.secondary30
+  },
 
   textInput: {
+    fontFamily: theme.fonts.text400,
     alignSelf: 'flex-start',
     marginLeft: '8%',
     marginBottom: 5,
@@ -73,7 +85,7 @@ export const styles = StyleSheet.create({
 
   input: {
     backgroundColor: theme.colors.primary20,
-
+    fontFamily: theme.fonts.text400,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 25 },
     shadowOpacity: 0.07,

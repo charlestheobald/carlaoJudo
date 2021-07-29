@@ -6,6 +6,7 @@ import { styles } from './styles';
 
 export const Header = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
 
 

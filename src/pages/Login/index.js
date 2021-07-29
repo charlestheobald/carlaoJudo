@@ -153,6 +153,7 @@ export const Login = (aluno) => {
           <TextInput style={styles.input}
             placeholder="Senha"
             autoCorrect={false}
+            autoCapitalize='none'
             secureTextEntry={true}
             onChangeText={(e) => setSenha(e)}
           />

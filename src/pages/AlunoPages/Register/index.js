@@ -18,8 +18,8 @@ import {
   Button
 } from 'react-native';
 
-import FormData from 'form-data';
-import { decode, encode } from 'base-64'
+import * as yup from 'yup';
+
 
 import axios from 'axios';
 
@@ -53,14 +53,17 @@ export const Register = () => {
 
   const [localidade, setLocalidade] = useState(null);
   const [nomeAluno, setNomeAluno] = useState(null);
-  const [dataInicioJudo, setDataInicioJudo] = useState(new Date());
+  const [usuario, setUsuario] = useState(null);
   const [sexo, setSexo] = useState(null);
+  const [dataInicioJudo, setDataInicioJudo] = useState(new Date());
   const [dataNascimento, setDataNascimento] = useState(new Date());
+  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
+  const [dataCadastro, setDataCadastro] = useState(new Date());
   const [peso, setPeso] = useState(null);
+  const [altura, setAltura] = useState(null);
   const [faixa, setFaixa] = useState(null);
   const [FJERJ, setFJERJ] = useState(null);
   const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState(null);
-  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
   const [RG, setRG] = useState(null);
   const [CPF, setCPF] = useState(null);
   const [telResidencial, setTelResidencial] = useState(null);
@@ -215,16 +218,93 @@ export const Register = () => {
 
   const pattern = "yyyy-MM-dd";
 
+  const alunoSchema = yup.object().shape({
+    altura: yup
+      .number()
+      .required(),
+    cbjZempo: yup
+      .string()
+      .required(),
+    cep: yup
+      .string()
+      .required(),
+    complemento: yup
+      .string()
+      .required(),
+    cpf: yup
+      .string()
+      .required(),
+    dataCadastro: yup
+      .string()
+      .required(),
+    dataIngresso: yup
+      .string()
+      .required(),
+    dataNascimento: yup
+      .string()
+      .required(),
+    dataUltimoExame: yup
+      .string(),
+    email: yup
+      .string()
+      .required(),
+    faixa: yup
+      .string()
+      .required(),
+    fjerj: yup
+      .string()
+      .required(),
+    horarioAula: yup
+      .string()
+      .required(),
+    localTreino: yup
+      .string()
+      .required(),
+    nome: yup
+      .string()
+      .required(),
+    nomeResponsavel: yup
+      .string()
+      .required(),
+    numero: yup
+      .number()
+      .required(),
+    pagamento: yup
+      .string()
+      .required(),
+    palavraChave: yup
+      .string()
+      .required(),
+    peso: yup
+      .number()
+      .required(),
+    rg: yup
+      .string()
+      .required(),
+    senha: yup
+      .string()
+      .required(),
+    sexo: yup
+      .string()
+      .required(),
+    telefone: yup
+      .string()
+      .required(),
+    telefoneResponsavel: yup
+      .string()
+      .required()
 
+  })
   const alunoVO = {
-    altura: 1.80,
+    altura: parseFloat(altura),
     cbjZempo: CBJ_ZEMPO,
     cep: CEP,
     complemento: complemento,
     cpf: CPF,
-    dataCadastro: format(new Date(), pattern),
+    dataCadastro: format(dataCadastro, pattern),
     dataIngresso: format(dataInicioJudo, pattern),
     dataNascimento: format(dataNascimento, pattern),
+    dataUltimoExame: dataUltimoExame === dataCadastro ? null : format(dataUltimoExame, pattern),
     email: email,
     faixa: faixa,
     fjerj: FJERJ,
@@ -232,51 +312,36 @@ export const Register = () => {
     localTreino: localidade,
     nome: nomeAluno,
     nomeResponsavel: nomeResponsavel,
-    numero: 80,
+    numero: parseFloat(numeroLogradouro),
     pagamento: pagamento,
     palavraChave: palavraChave,
-    peso: 80,
+    peso: parseFloat(peso),
     rg: RG,
     senha: senha,
     sexo: sexo,
     telefone: telResidencial,
     telefoneResponsavel: telResponsavel,
+    usuario: usuario
   }
-  const voTeste = {
-    altura: 1.80,
-    cbjZempo: null,
-    cep: "25650260",
-    complemento: "casa do abacateiro",
-    cpf: "34533647081",
-    dataCadastro: "2021-07-27",
-    dataIngresso: "2021-07-27",
-    dataNascimento: "2000-07-27",
-    email: "juliadonascimentosantos7@gmail.com",
-    faixa: "AMARELA",
-    fjerj: null,
-    horarioAula: "13:00",
-    localTreino: "Konnen",
-    nome: "Maria",
-    numero: 47,
-    pagamento: "BOLETO",
-    palavraChave: "abacate",
-    peso: 55,
-    rg: "123335559",
-    senha: "abacate123",
-    sexo: "FEMININO",
-    telefone: "24998881343",
-    telefoneResponsavel: null,
-    foto: image
-  }
+
 
 
 
   const handleAddAluno = () => {
-    addAluno(alunoVO)
-      .then((res) => {
-        alert("Sucesso")
-      })
-      .catch((e) => alert("Erro ao cadastrar aluno", e))
+    console.log(alunoVO)
+    var validated = new Boolean
+    alunoSchema.isValid(alunoVO)
+      .then(valid => {
+        validated = valid
+      }).catch((e) => alert(e, "Repita o cadastro"))
+    if (validated === true & senha === checkSenha) {
+      addAluno(alunoVO)
+        .then((res) => {
+          alert("Sucesso")
+        })
+        .catch((e) => alert("Erro ao cadastrar aluno", e))
+    }
+    else return alert("Há erros no seu cadastro, talvez os campos de senha não combinem")
 
   }
 
@@ -315,19 +380,21 @@ export const Register = () => {
   }
 
 
-  const cepLength = CEP.length
+
 
   var decodedImage = `data:image/png;base64,${image}`;
-  // const handleCEP = (textChange) => {
-  //   setCEP(textChange)
 
-  // if (cepLength >= 8) {
-  //   axios.get(`viacep.com.br/ws/${CEP}/json/`).then((res) =>
-  //     console.log(res.data)
-  //   )
-  // }
+  const handleViaCep = () => {
 
-  // }
+    axios.get(`https://viacep.com.br/ws/${CEP}/json`).then((res) =>
+      //console.log(res.data.localidade)
+      setLogradouro(res.data.logradouro),
+      setCidade(res.data.localidade)
+    ).catch((e) => console.log(e + " CEP inválido"))
+  }
+
+
+
 
   return (
     <View style={styles.background}>
@@ -368,8 +435,8 @@ export const Register = () => {
 
 
 
-
-            <Text style={styles.textInput}>Local de treino</Text>
+            <Text style={styles.textAlert}>Os campos com ' * ' são obrigatorios</Text>
+            <Text style={styles.textInput}>Local de treino *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
                 selectedValue={localidade}
@@ -380,17 +447,17 @@ export const Register = () => {
                 ))}
               </Picker>
             </View>
-            <Text style={styles.textInput}>Nome</Text>
+            <Text style={styles.textInput}>Nome *</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu nome"
               autoCorrect={false}
               onChangeText={(text) => setNomeAluno(text)}
             />
 
-            <Text style={styles.textInput}>Data de inicio no judô</Text>
+            <Text style={styles.textInput}>Data de inicio no judô *</Text>
             <View style={styles.input}>
               <TouchableOpacity onPress={showDatePickerJudo}>
-                <Text>{dataFormatada(dataInicioJudo)}</Text>
+                <Text>{dataInicioJudo ? dataFormatada(dataInicioJudo) : ""}</Text>
               </TouchableOpacity>
             </View>
             {showJudoDate && (
@@ -398,8 +465,7 @@ export const Register = () => {
                 minimumDate={new Date(1920, 0, 1)}
                 maximumDate={new Date()}
                 style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
-
-                value={dataInicioJudo}
+                value={dataInicioJudo ? dataInicioJudo : new Date()}
                 mode="date"
                 display="default"
                 onChange={handleJudoDateChange}
@@ -407,7 +473,7 @@ export const Register = () => {
             )}
 
 
-            <Text style={styles.textInput}>Sexo</Text>
+            <Text style={styles.textInput}>Sexo *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
                 selectedValue={sexo}
@@ -418,10 +484,10 @@ export const Register = () => {
                 ))}
               </Picker>
             </View>
-            <Text style={styles.textInput}>Data de nascimento</Text>
+            <Text style={styles.textInput}>Data de nascimento *</Text>
             <View style={styles.input}>
               <TouchableOpacity onPress={showDatePickerBorn}>
-                <Text>{dataFormatada(dataNascimento)}</Text>
+                <Text>{dataNascimento ? dataFormatada(dataNascimento) : ""}</Text>
               </TouchableOpacity>
             </View>
             {showBorn && (
@@ -429,7 +495,7 @@ export const Register = () => {
                 minimumDate={new Date(1920, 0, 1)}
                 maximumDate={new Date()}
                 style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
-                value={dataNascimento}
+                value={dataNascimento ? dataNascimento : new Date()}
                 mode="date"
                 display="default"
                 onChange={handleBornDateChange}
@@ -437,7 +503,7 @@ export const Register = () => {
             )}
 
 
-            <Text style={styles.textInput}>Peso</Text>
+            <Text style={styles.textInput}>Peso *</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu Peso"
               keyboardType="numeric"
@@ -445,7 +511,20 @@ export const Register = () => {
               onChangeText={(text) => setPeso(text)}
             />
 
-            <Text style={styles.textInput}>Faixa</Text>
+            <Text style={styles.textInput}>Altura *</Text>
+            <TextInputMask style={styles.input}
+              type={'custom'}
+              options={{
+                mask: '9.99'
+              }}
+              value={altura}
+              placeholder="Informe sua altura"
+              keyboardType="numeric"
+              autoCorrect={false}
+              onChangeText={(text) => setAltura(text)}
+            />
+
+            <Text style={styles.textInput}>Faixa *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
                 selectedValue={faixa}
@@ -473,7 +552,7 @@ export const Register = () => {
             <Text style={styles.textInput}>Data do último exame</Text>
             <View style={styles.input}>
               <TouchableOpacity onPress={showDatePickerExame}>
-                <Text>{dataFormatada(dataUltimoExame)}</Text>
+                <Text>{dataUltimoExame ? dataFormatada(dataUltimoExame) : ""}</Text>
               </TouchableOpacity>
             </View>
             {showExameDate && (
@@ -481,7 +560,7 @@ export const Register = () => {
                 minimumDate={new Date(1920, 0, 1)}
                 maximumDate={new Date()}
                 style={{ width: isIos ? '100%' : 0, marginLeft: isIos ? '10%' : 0 }}
-                value={dataUltimoExame}
+                value={dataUltimoExame ? dataUltimoExame : new Date()}
                 mode="date"
                 display="default"
                 onChange={handleExameDateChange}
@@ -501,14 +580,16 @@ export const Register = () => {
             />
 
             <Text style={styles.textInput}>CPF</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              type={'cpf'}
+              value={CPF}
               placeholder="Informe seu CPF"
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setCPF(text)}
             />
 
-            <Text style={styles.textInput}>Telefone</Text>
+            <Text style={styles.textInput}>Telefone *</Text>
             <TextInputMask style={styles.input}
               options={{
                 maskType: 'BRL',
@@ -525,7 +606,7 @@ export const Register = () => {
 
             {!emailResponsavel &&
               <>
-                <Text style={styles.textInput}>E-mail</Text>
+                <Text style={styles.textInput}>E-mail *</Text>
                 <TextInput style={styles.input}
                   placeholder="Informe seu e-mail"
                   keyboardType="email-address"
@@ -538,7 +619,7 @@ export const Register = () => {
             }
 
 
-            <Text style={styles.textInput}>Horário de aula</Text>
+            <Text style={styles.textInput}>Horário de aula *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
                 selectedValue={horaAula}
@@ -549,22 +630,27 @@ export const Register = () => {
                 ))}
               </Picker>
             </View>
-            <Text style={styles.textInput}>CEP</Text>
+            <Text style={styles.textInput}>CEP *</Text>
             <TextInput style={styles.input}
               placeholder="Informe seu CEP"
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setCEP(text)}
+              onBlur={() => handleViaCep()}
             />
             <Text style={styles.textInput}>Logradouro</Text>
             <TextInput style={styles.input}
+              editable={false}
+              value={logradouro}
               placeholder="Informe seu logradouro"
               autoCorrect={false}
               onChangeText={(text) => setLogradouro(text)}
             />
-            <Text style={styles.textInput}>Número</Text>
+
+            <Text style={styles.textInput}>Número *</Text>
             <TextInput style={styles.input}
               placeholder="Informe o numero no logradouro"
+              keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setNumeroLogradouro(text)}
             />
@@ -575,13 +661,15 @@ export const Register = () => {
               onChangeText={(text) => setComplemento(text)}
             />
 
-            <Text style={styles.textInput}>Cidade</Text>
+            <Text style={styles.textInput}>Cidade *</Text>
             <TextInput style={styles.input}
+              editable={false}
+              value={cidade}
               placeholder="Informe sua cidade"
               autoCorrect={false}
               onChangeText={(text) => setCidade(text)}
             />
-            <Text style={styles.textInput}>Forma de pagamento</Text>
+            <Text style={styles.textInput}>Forma de pagamento *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
                 selectedValue={pagamento}
@@ -593,14 +681,20 @@ export const Register = () => {
               </Picker>
             </View>
 
-            <Text style={styles.textInput}>Palavra Chave</Text>
+            <Text style={styles.textInput}>Palavra Chave *</Text>
             <TextInput style={styles.input}
-              placeholder="Insira uma palavra de segurança"
+              placeholder="Palavra secreta para recuperar senha"
               autoCorrect={false}
               onChangeText={(text) => setPalavraChave(text)}
             />
+            <Text style={styles.textInput}>Nome de usuario *</Text>
+            <TextInput style={styles.input}
+              placeholder="Informe um novo nome de usuario"
+              autoCorrect={false}
+              onChangeText={(text) => setUsuario(text)}
+            />
 
-            <Text style={styles.textInput}>Senha</Text>
+            <Text style={styles.textInput}>Senha *</Text>
             <TextInput style={styles.input}
               placeholder="Informe sua senha"
               autoCorrect={false}
@@ -608,7 +702,7 @@ export const Register = () => {
               secureTextEntry={true}
               onChangeText={(text) => setSenha(text)}
             />
-            <Text style={styles.textInput}>Repetir senha</Text>
+            <Text style={styles.textInput}>Repetir senha *</Text>
             <TextInput style={styles.input}
               placeholder="Repita a Senha"
               secureTextEntry={true}
