@@ -78,7 +78,7 @@ export const AuthRouter = () => {
     }}
     >
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Atividades"
         component={Activities}
         options={{
@@ -89,7 +89,7 @@ export const AuthRouter = () => {
               color={focused ? theme.colors.secondary20 : "black"} />
 
         }}
-      />
+      /> */}
 
       <Tab.Screen
         name="Ranking"
@@ -103,7 +103,7 @@ export const AuthRouter = () => {
 
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}
         options={{
@@ -114,7 +114,7 @@ export const AuthRouter = () => {
               color={focused ? theme.colors.secondary20 : "black"} />
 
         }}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }

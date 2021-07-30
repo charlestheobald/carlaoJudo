@@ -82,6 +82,15 @@ export const styles = StyleSheet.create({
     marginLeft: '8%',
     marginBottom: 5,
   },
+  erroInput: {
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.secondary30,
+    fontSize: 12,
+    alignSelf: 'flex-start',
+    marginLeft: '8%',
+    marginTop: -10,
+    marginBottom: 5
+  },
 
   input: {
     backgroundColor: theme.colors.primary20,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, } from 'react';
 import { TextInputMask } from 'react-native-masked-text'
 
 import {
@@ -40,6 +40,7 @@ import { StandardButton } from '../../../components/StandardButton';
 import { ParentContext } from '../../../contexts/alunos/ParentContext';
 
 import { useNavigation } from "@react-navigation/native";
+import { Formik } from 'formik';
 
 export const Register = () => {
   const navigation = useNavigation();
@@ -67,18 +68,17 @@ export const Register = () => {
   const [RG, setRG] = useState(null);
   const [CPF, setCPF] = useState(null);
   const [telResidencial, setTelResidencial] = useState(null);
-  const [celular, setCelular] = useState(null);
+
   const [email, setEmail] = useState(null);
   const [horaAula, setHoraAula] = useState(null);
   const [CEP, setCEP] = useState("");
-  const [logradouro, setLogradouro] = useState(null);
+  const [logradouro, setLogradouro] = useState("");
   const [numeroLogradouro, setNumeroLogradouro] = useState(null);
   const [complemento, setComplemento] = useState(null);
-  const [cidade, setCidade] = useState(null);
+  const [cidade, setCidade] = useState("");
   const [pagamento, setPagamento] = useState(null);
   const [senha, setSenha] = useState(null);
   const [checkSenha, setCheckSenha] = useState(null);
-  const [palavraChave, setPalavraChave] = useState(null);
   const [image, setImage] = useState(null);
 
   const isIos = Platform.OS === 'ios';
@@ -131,8 +131,8 @@ export const Register = () => {
       id: 'KONNEN'
     },
     {
-      nome: 'ITAIPAVA',
-      id: 'ITAIPAVA'
+      nome: 'OUTRO',
+      id: 'OUTRO'
     }
   ]
   const listaSexo = [
@@ -218,85 +218,9 @@ export const Register = () => {
 
   const pattern = "yyyy-MM-dd";
 
-  const alunoSchema = yup.object().shape({
-    altura: yup
-      .number()
-      .required(),
-    cbjZempo: yup
-      .string()
-      .required(),
-    cep: yup
-      .string()
-      .required(),
-    complemento: yup
-      .string()
-      .required(),
-    cpf: yup
-      .string()
-      .required(),
-    dataCadastro: yup
-      .string()
-      .required(),
-    dataIngresso: yup
-      .string()
-      .required(),
-    dataNascimento: yup
-      .string()
-      .required(),
-    dataUltimoExame: yup
-      .string(),
-    email: yup
-      .string()
-      .required(),
-    faixa: yup
-      .string()
-      .required(),
-    fjerj: yup
-      .string()
-      .required(),
-    horarioAula: yup
-      .string()
-      .required(),
-    localTreino: yup
-      .string()
-      .required(),
-    nome: yup
-      .string()
-      .required(),
-    nomeResponsavel: yup
-      .string()
-      .required(),
-    numero: yup
-      .number()
-      .required(),
-    pagamento: yup
-      .string()
-      .required(),
-    palavraChave: yup
-      .string()
-      .required(),
-    peso: yup
-      .number()
-      .required(),
-    rg: yup
-      .string()
-      .required(),
-    senha: yup
-      .string()
-      .required(),
-    sexo: yup
-      .string()
-      .required(),
-    telefone: yup
-      .string()
-      .required(),
-    telefoneResponsavel: yup
-      .string()
-      .required()
 
-  })
   const alunoVO = {
-    altura: parseFloat(altura),
+    altura: Number(altura),
     cbjZempo: CBJ_ZEMPO,
     cep: CEP,
     complemento: complemento,
@@ -304,24 +228,23 @@ export const Register = () => {
     dataCadastro: format(dataCadastro, pattern),
     dataIngresso: format(dataInicioJudo, pattern),
     dataNascimento: format(dataNascimento, pattern),
-    dataUltimoExame: dataUltimoExame === dataCadastro ? null : format(dataUltimoExame, pattern),
     email: email,
     faixa: faixa,
     fjerj: FJERJ,
+    foto: image,
     horarioAula: horaAula,
     localTreino: localidade,
     nome: nomeAluno,
     nomeResponsavel: nomeResponsavel,
-    numero: parseFloat(numeroLogradouro),
+    numero: parseInt(numeroLogradouro),
     pagamento: pagamento,
-    palavraChave: palavraChave,
-    peso: parseFloat(peso),
+    peso: Number(peso),
     rg: RG,
     senha: senha,
     sexo: sexo,
     telefone: telResidencial,
     telefoneResponsavel: telResponsavel,
-    usuario: usuario
+    usuario: usuario,
   }
 
 
@@ -329,19 +252,23 @@ export const Register = () => {
 
   const handleAddAluno = () => {
     console.log(alunoVO)
-    var validated = new Boolean
-    alunoSchema.isValid(alunoVO)
-      .then(valid => {
-        validated = valid
-      }).catch((e) => alert(e, "Repita o cadastro"))
-    if (validated === true & senha === checkSenha) {
-      addAluno(alunoVO)
-        .then((res) => {
-          alert("Sucesso")
-        })
-        .catch((e) => alert("Erro ao cadastrar aluno", e))
-    }
-    else return alert("Há erros no seu cadastro, talvez os campos de senha não combinem")
+    if (senha != checkSenha)
+      return alert("As senhas não conferem")
+    else if (localidade === 0 || localidade === null)
+      return alert("Opção de localidade inválida")
+    else if (sexo === 0 || sexo === null)
+      return alert("Opção de sexo inválida")
+    else if (horaAula === 0 || horaAula === null)
+      return alert("Opção de sexo inválida")
+
+
+    addAluno(alunoVO)
+      .then((res) => {
+        alert("Sucesso")
+      })
+      .catch((e) => alert("Erro ao cadastrar aluno" + e.message))
+
+
 
   }
 
@@ -386,16 +313,47 @@ export const Register = () => {
 
   const handleViaCep = () => {
 
-    axios.get(`https://viacep.com.br/ws/${CEP}/json`).then((res) =>
-      //console.log(res.data.localidade)
-      setLogradouro(res.data.logradouro),
-      setCidade(res.data.localidade)
-    ).catch((e) => console.log(e + " CEP inválido"))
+    axios.get(`https://viacep.com.br/ws/${CEP}/json`).then((res) => {
+      // console.log(res.data.logradouro)
+      setLogradouro(res.data.logradouro.toString()),
+        setCidade(res.data.localidade.toString())
+    }
+    ).catch((e) => alert(e + " CEP inválido"))
+  }
+
+  const handleAmptyAltura = () => {
+    if (altura === null || altura === 0)
+      return alert("O campo altura é obrigatório")
+  }
+  const handleAmptyEmail = () => {
+    if (email === null)
+      return alert("O campo email é obrigatório")
+  }
+  const handleAmptyNome = () => {
+    if (nomeAluno === null)
+      return alert("O campo nome é obrigatório")
   }
 
 
+  const handleAmptyPeso = () => {
+    if (peso === null || peso === 0)
+      return alert("Campo peso é obrigatório")
+  }
 
+  const handleAmptySenha = () => {
+    if (senha === null)
+      return alert("Campo senha é obrigatório")
+  }
 
+  const handleAmptyTelefone = () => {
+    if (telResidencial === null)
+      return alert("Campo telefone é obrigatório")
+  }
+
+  const handleAmptyUsuario = () => {
+    if (usuario === null)
+      return alert("Campo usuário é obrigatório")
+  }
   return (
     <View style={styles.background}>
 
@@ -436,6 +394,7 @@ export const Register = () => {
 
 
             <Text style={styles.textAlert}>Os campos com ' * ' são obrigatorios</Text>
+
             <Text style={styles.textInput}>Local de treino *</Text>
             <View style={[styles.input, { justifyContent: 'center' }]}>
               <Picker
@@ -451,7 +410,10 @@ export const Register = () => {
             <TextInput style={styles.input}
               placeholder="Informe seu nome"
               autoCorrect={false}
+              autoCapitalize='words'
               onChangeText={(text) => setNomeAluno(text)}
+              onBlur={() => handleAmptyNome()}
+
             />
 
             <Text style={styles.textInput}>Data de inicio no judô *</Text>
@@ -504,11 +466,17 @@ export const Register = () => {
 
 
             <Text style={styles.textInput}>Peso *</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              type={'custom'}
+              options={{
+                mask: '99'
+              }}
+              value={peso}
               placeholder="Informe seu Peso"
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setPeso(text)}
+              onBlur={() => handleAmptyPeso()}
             />
 
             <Text style={styles.textInput}>Altura *</Text>
@@ -522,6 +490,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setAltura(text)}
+              onBlur={() => handleAmptyAltura()}
             />
 
             <Text style={styles.textInput}>Faixa *</Text>
@@ -538,13 +507,25 @@ export const Register = () => {
 
 
             <Text style={styles.textInput}>FJERJ</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              type={'custom'}
+              options={{
+                mask: '999999'
+              }}
+              value={FJERJ}
               placeholder="Informe seu registro FJERJ"
+              keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setFJERJ(text)}
             />
             <Text style={styles.textInput}>CBJ-ZEMPO</Text>
-            <TextInput style={styles.input}
+            <TextInputMask style={styles.input}
+              type={'custom'}
+              options={{
+                mask: 'AA99999999'
+              }}
+              autoCapitalize='characters'
+              value={CBJ_ZEMPO}
               placeholder="Informe seu registro CBJ-ZEMPO"
               autoCorrect={false}
               onChangeText={(text) => setCBJ_ZEMPO(text)}
@@ -580,9 +561,9 @@ export const Register = () => {
             />
 
             <Text style={styles.textInput}>CPF</Text>
-            <TextInputMask style={styles.input}
-              type={'cpf'}
-              value={CPF}
+            <TextInput style={styles.input}
+              // type={'cpf'}
+              //value={CPF}
               placeholder="Informe seu CPF"
               keyboardType="numeric"
               autoCorrect={false}
@@ -594,7 +575,7 @@ export const Register = () => {
               options={{
                 maskType: 'BRL',
                 withDDD: true,
-                dddMask: '(99) '
+                dddMask: '(99)'
               }}
               value={telResidencial}
               type={'cel-phone'}
@@ -602,6 +583,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setTelResidencial(text)}
+              onBlur={() => handleAmptyTelefone()}
             />
 
             {!emailResponsavel &&
@@ -614,6 +596,7 @@ export const Register = () => {
                   autoCapitalize='none'
                   autoCorrect={false}
                   onChangeText={(text) => setEmail(text)}
+                  onBlur={() => handleAmptyEmail()}
                 />
               </>
             }
@@ -636,11 +619,11 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setCEP(text)}
-              onBlur={() => handleViaCep()}
+              onEndEditing={() => handleViaCep()}
             />
-            <Text style={styles.textInput}>Logradouro</Text>
+            <Text style={styles.textInput}>Logradouro *</Text>
             <TextInput style={styles.input}
-              editable={false}
+
               value={logradouro}
               placeholder="Informe seu logradouro"
               autoCorrect={false}
@@ -653,6 +636,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setNumeroLogradouro(text)}
+
             />
             <Text style={styles.textInput}>Complemento</Text>
             <TextInput style={styles.input}
@@ -681,17 +665,13 @@ export const Register = () => {
               </Picker>
             </View>
 
-            <Text style={styles.textInput}>Palavra Chave *</Text>
-            <TextInput style={styles.input}
-              placeholder="Palavra secreta para recuperar senha"
-              autoCorrect={false}
-              onChangeText={(text) => setPalavraChave(text)}
-            />
+
             <Text style={styles.textInput}>Nome de usuario *</Text>
             <TextInput style={styles.input}
               placeholder="Informe um novo nome de usuario"
               autoCorrect={false}
               onChangeText={(text) => setUsuario(text)}
+              onBlur={() => handleAmptyUsuario()}
             />
 
             <Text style={styles.textInput}>Senha *</Text>
@@ -701,6 +681,7 @@ export const Register = () => {
               autoCapitalize='none'
               secureTextEntry={true}
               onChangeText={(text) => setSenha(text)}
+              onBlur={() => handleAmptySenha()}
             />
             <Text style={styles.textInput}>Repetir senha *</Text>
             <TextInput style={styles.input}
@@ -722,7 +703,9 @@ export const Register = () => {
 
               />
             </View>
+
           </View>
+
         </KeyboardAvoidingView >
       </ScrollView>
     </View >

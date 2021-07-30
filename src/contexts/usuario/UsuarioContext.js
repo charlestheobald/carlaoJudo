@@ -5,20 +5,23 @@ export const UsuarioContext = createContext();
 export const UsuarioProvider = ({ children }) => {
 
 
-  const [nomeContexto, setNomeContexto] = useState("");
-  const [emailContexto, setEmailContexto] = useState("")
-  const [senhaContexto, setSenhaContexto] = useState("");
-  const [isLogged, setIsLogged] = useState("");
+  const [nomeContexto, setNomeContexto] = useState(null);
+  const [usernameContexto, setUsernameContexto] = useState(null)
+  const [senhaContexto, setSenhaContexto] = useState(null);
+  const [isLogged, setIsLogged] = useState(null);
+  const [imagemContexto, setImagemContexto] = useState(null)
 
   return (
     <UsuarioContext.Provider
       value={{
         nomeContexto,
         setNomeContexto,
-        emailContexto,
-        setEmailContexto,
+        usernameContexto,
+        setUsernameContexto,
         senhaContexto,
         setSenhaContexto,
+        imagemContexto,
+        setImagemContexto,
         isLogged,
         setIsLogged
 

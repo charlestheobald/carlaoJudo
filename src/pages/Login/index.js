@@ -25,7 +25,7 @@ export const Login = (aluno) => {
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
   const [senha, setSenha] = useState("");
-  const [email, setEmail] = useState("");
+  const [nomeUsuario, setNomeUsuario] = useState("");
 
   useEffect(() => {
     keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
@@ -64,58 +64,60 @@ export const Login = (aluno) => {
   };
   const [listaAlunos, setListaAlunos] = useState([])
 
-  // useEffect(() => {
-  //   getAluno().then((data) => {
-  //     setListaAlunos(data)
-  //   }).catch((err) => {
-  //     console.error("Ops, ocorreu um erro " + err)
-  //   })
-  // })
+  useEffect(() => {
+    getAluno().then((res) => {
+      setListaAlunos(res)
+    }).catch((err) => {
+      console.error("Ops, ocorreu um erro " + err)
+    }, [])
+  })
 
-  const listagemTeste = [
-    {
-      nome: "Astolfo",
-      senha: "123",
-      email: "astolabctolfo.com",
-    },
-    {
-      nome: "Charles",
-      senha: "ch2020",
-      email: "charles@theobald.com",
-    },
-    {
-      nome: "Ricardo",
-      senha: "abobora",
-      email: "ricardo@araujo.com",
-    },
-    {
-      nome: "abc",
-      senha: "abc",
-      email: "abc",
-    },
-  ]
+  // const listagemTeste = [
+  //   {
+  //     nome: "Astolfo",
+  //     senha: "123",
+  //     email: "astolabctolfo.com",
+  //   },
+  //   {
+  //     nome: "Charles",
+  //     senha: "ch2020",
+  //     email: "charles@theobald.com",
+  //   },
+  //   {
+  //     nome: "Ricardo",
+  //     senha: "abobora",
+  //     email: "ricardo@araujo.com",
+  //   },
+  //   {
+  //     nome: "abc",
+  //     senha: "abc",
+  //     email: "abc",
+  //   },
+  // ]
 
   const { setIsLogged, setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
 
 
   const loginHandler = () => {
-    var isTheOne = false;
-    listagemTeste.forEach((aluno) => {
-      if (aluno.senha === senha & aluno.email === email) {
-        setNomeContexto(aluno.nome);
-        setSenhaContexto(aluno.senha);
-        setEmailContexto(aluno.email);
-        isTheOne = true
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "AuthRouter" }]
-        });
+    console.log(listaAlunos)
+    // var isTheOne = false;
+    // listaAlunos.forEach((aluno) => {
+    //   if (aluno.senha === senha & aluno.usuario === nomeUsuario) {
+    //     setNomeContexto(aluno.nome);
+    //     setSenhaContexto(aluno.senha);
+    //     setUsernameContexto(aluno.usuario);
+    //     setImagemContexto(aluno.Imagem)
+    //     isTheOne = true
+    //     navigation.reset({
+    //       index: 0,
+    //       routes: [{ name: "AuthRouter" }]
+    //     });
 
-      }
-    })
-    if (isTheOne === false) {
-      return alert("Senha incorreta")
-    }
+    //   }
+    // })
+    // if (isTheOne === false) {
+    //   return alert("Senha incorreta")
+    // }
 
 
   }
