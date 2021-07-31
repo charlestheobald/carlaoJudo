@@ -21,13 +21,21 @@ export const styles = StyleSheet.create({
   numberContainer: {
     paddingLeft: 27
   },
+  number: {
+    fontSize: 17,
+    fontFamily: theme.fonts.text400
+  },
   nameContainer: {
     flex: 1,
+    flexDirection: 'row',
     marginLeft: 32
 
   },
+  name: {
+    fontSize: 17
+  },
   pointsContainer: {
-    flex: 1,
+    marginRight: '2%',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',

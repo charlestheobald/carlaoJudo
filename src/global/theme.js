@@ -13,6 +13,8 @@ export const theme = {
 
     text: '#000000',
     highlight: '#FFFFFF',
+
+    overlay: "rgba(0,0,0,0.7)",
   },
 
   fonts: {

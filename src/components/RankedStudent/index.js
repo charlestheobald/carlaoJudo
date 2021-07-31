@@ -17,16 +17,16 @@ export const RankedStudent = ({ rank, name, points }) => {
 
     <View style={styles.container}>
       <View style={styles.numberContainer}>
-        <Text style={{ color: rank === 1 ? theme.colors.secondary20 : theme.colors.text, fontSize: 17 }}>
-          {rank ? rank : 1}
+        <Text style={[{ color: rank === 1 ? theme.colors.secondary20 : theme.colors.text }, styles.number]}>
+          {rank}
         </Text>
       </View>
       <View style={styles.nameContainer}>
-        <Text>{name ? name : 'José da Silva Sauro'}</Text>
+        <Text style={styles.name}>{name ? name : 'Nome não informado'}</Text>
       </View>
       <View style={styles.pointsContainer}>
 
-        <Text >{points ? points : '25.000'}</Text>
+        <Text >{points ? points : '0'}</Text>
         <Text>pts</Text>
       </View>
 

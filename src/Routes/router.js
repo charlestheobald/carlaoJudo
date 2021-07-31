@@ -20,7 +20,7 @@ export const Router = () => {
   return (
 
     <Navigator
-      initialRouteName="Register"
+      initialRouteName="Login"
       headerMode="none"
       screenOptions={{
         cardStyle: {
@@ -30,10 +30,6 @@ export const Router = () => {
     >
 
       <Screen
-        name='Register'
-        component={Register}
-      />
-      {/* <Screen
         name="Login"
         component={Login}
       />
@@ -51,9 +47,13 @@ export const Router = () => {
         component={ParentsRegister}
       />
       <Screen
+        name='Register'
+        component={Register}
+      />
+      <Screen
         name='AuthRouter'
         component={AuthRouter}
-      /> */}
+      />
     </Navigator>
 
   )

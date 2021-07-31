@@ -78,18 +78,6 @@ export const AuthRouter = () => {
     }}
     >
 
-      {/* <Tab.Screen
-        name="Atividades"
-        component={Activities}
-        options={{
-          tabBarIcon: ({ size, focused }) =>
-            <AntDesign
-              name="edit"
-              size={size}
-              color={focused ? theme.colors.secondary20 : "black"} />
-
-        }}
-      /> */}
 
       <Tab.Screen
         name="Ranking"
@@ -104,6 +92,18 @@ export const AuthRouter = () => {
         }}
       />
       {/* <Tab.Screen
+          name="Atividades"
+          component={Activities}
+          options={{
+            tabBarIcon: ({ size, focused }) =>
+              <AntDesign
+                name="edit"
+                size={size}
+                color={focused ? theme.colors.secondary20 : "black"} />
+  
+          }}
+        />
+      <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}
         options={{

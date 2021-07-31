@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
 
   },
   headerRanked: {
-    flex: 1,
+
     backgroundColor: theme.colors.primary10,
     width: '100%',
     height: 60,
@@ -37,19 +37,26 @@ export const styles = StyleSheet.create({
     marginLeft: 20,
   },
   iconFilter: {
+
     marginRight: 35
   },
   textTitulo: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: theme.fonts.text500,
-    marginLeft: 30,
+    marginLeft: 15,
+  },
+
+  textTitulo2: {
+    fontSize: 18,
+    fontFamily: theme.fonts.text500,
+    marginRight: 130,
   },
 
 
   tituloRanked: {
-    backgroundColor: theme.colors.secondary20,
+
     height: 50,
-    width: '100%',
+    width: '90%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -58,8 +65,7 @@ export const styles = StyleSheet.create({
   },
 
   trophy: {
-    marginRight: 30,
-
+    marginRight: 22,
   },
 
 })
