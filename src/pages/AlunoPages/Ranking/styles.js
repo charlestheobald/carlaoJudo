@@ -40,32 +40,32 @@ export const styles = StyleSheet.create({
 
     marginRight: 35
   },
+  containerTituloRanked: {
+
+    height: 50,
+    width: '90%',
+    flexDirection: 'row',
+    
+    alignItems: 'center',
+    
+  },
   textTitulo: {
     fontSize: 18,
     fontFamily: theme.fonts.text500,
-    marginLeft: 15,
+    marginLeft: '3%',
   },
 
   textTitulo2: {
     fontSize: 18,
     fontFamily: theme.fonts.text500,
-    marginRight: 130,
+    marginLeft:'5%'
   },
 
 
-  tituloRanked: {
 
-    height: 50,
-    width: '90%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-  },
 
   trophy: {
-    marginRight: 22,
+    marginLeft: '25%',
   },
 
 })

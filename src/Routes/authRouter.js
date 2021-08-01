@@ -33,14 +33,14 @@ const CalendarRoutes = () => {
       }}
     >
 
-      <Screen
+      {/* <Screen
         name="Calendar"
         component={Calendar}
       />
       <Screen
         name="MonthCalendar"
         component={MonthCalendar}
-      />
+      /> */}
       <Screen
         name="WeekCalendar"
         component={WeekCalendar}
@@ -79,7 +79,7 @@ export const AuthRouter = () => {
     >
 
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Ranking"
         component={Ranking}
         options={{
@@ -91,7 +91,7 @@ export const AuthRouter = () => {
 
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
           name="Atividades"
           component={Activities}
           options={{
@@ -102,7 +102,7 @@ export const AuthRouter = () => {
                 color={focused ? theme.colors.secondary20 : "black"} />
   
           }}
-        />
+        /> */}
       <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}
@@ -114,7 +114,7 @@ export const AuthRouter = () => {
               color={focused ? theme.colors.secondary20 : "black"} />
 
         }}
-      /> */}
+      />
     </Tab.Navigator>
   )
 }

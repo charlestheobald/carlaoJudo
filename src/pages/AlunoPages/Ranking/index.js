@@ -82,7 +82,7 @@ export const Ranking = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.tituloRanked}>
+        <View style={styles.containerTituloRanked}>
           <Text style={styles.textTitulo}>Rank</Text>
           <Text style={styles.textTitulo2}>Nome aluno</Text>
           <AntDesign style={styles.trophy} name="Trophy" size={24} color="black" />
