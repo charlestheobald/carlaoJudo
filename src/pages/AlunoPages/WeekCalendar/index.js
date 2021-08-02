@@ -1,47 +1,70 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
-  KeyboardAvoidingView,
   View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  Animated,
-  Keyboard,
-  StatusBar,
   ScrollView,
-  StyleSheet
+  
 } from 'react-native';
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { AntDesign } from '@expo/vector-icons';
-import { Camera } from 'expo-camera';
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from './styles';
-import { theme } from '../../../global/theme';
+import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext';
 
-import { PreRegister } from '../../AlunoPages/PreRegister'
+
+
 import { Header } from '../../../components/Header'
+import { WeekCalendarItem } from '../../../components/Calendar/WeekCalendarItem';
 
 
-
-import { StandardButton } from '../../../components/StandardButton';
-
-
-const goMensalCalendar = () => {
-
-}
 
 export const WeekCalendar = () => {
+  const { isAdmin, setDayOfWeek } = useContext(UsuarioContext)
+  const navigation = useNavigation();
+
+  const handleDom = () => {
+    setDayOfWeek(0)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleSeg = () => {
+    setDayOfWeek(1)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleTer = () => {
+    setDayOfWeek(2)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleQua = () => {
+    setDayOfWeek(3)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleQui = () => {
+    setDayOfWeek(4)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleSex = () => {
+    setDayOfWeek(5)
+    navigation.navigate('DayOfWeekProg')
+  }
+  const handleSab = () => {
+    setDayOfWeek(6)
+    navigation.navigate('DayOfWeekProg')
+  }
 
   return (
 
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <Header />
+
       <View style={styles.content}>
-        <Text>Week calendar</Text>
+        <ScrollView style={styles.ScrollView}>
+          <WeekCalendarItem day='DOM' handlePress={handleDom}/>
+          <WeekCalendarItem day='SEG' handlePress={handleSeg}/>
+          <WeekCalendarItem day='TER' handlePress={handleTer}/>
+          <WeekCalendarItem day='QUA' handlePress={handleQua}/>
+          <WeekCalendarItem day='QUI' handlePress={handleQui}/>
+          <WeekCalendarItem day='SEX' handlePress={handleSex}/>
+          <WeekCalendarItem day='SAB' handlePress={handleSab}/>
+        </ScrollView>
       </View>
     </View >
 

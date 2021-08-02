@@ -8,8 +8,9 @@ export const UsuarioProvider = ({ children }) => {
   const [nomeContexto, setNomeContexto] = useState(null);
   const [usernameContexto, setUsernameContexto] = useState(null)
   const [senhaContexto, setSenhaContexto] = useState(null);
-  const [isLogged, setIsLogged] = useState(null);
-  const [imagemContexto, setImagemContexto] = useState(null)
+  const [isAdmin, setIsAdmin] = useState(true);
+  const [imagemContexto, setImagemContexto] = useState(null);
+  const [dayOfWeek, setDayOfWeek] = useState(null)
 
   return (
     <UsuarioContext.Provider
@@ -22,8 +23,10 @@ export const UsuarioProvider = ({ children }) => {
         setSenhaContexto,
         imagemContexto,
         setImagemContexto,
-        isLogged,
-        setIsLogged
+        isAdmin,
+        setIsAdmin,
+        dayOfWeek,
+        setDayOfWeek
 
       }}
     >

@@ -95,29 +95,40 @@ export const Login = (aluno) => {
   //   },
   // ]
 
-  const { setIsLogged, setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
+  const { setIsAdmin, setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
 
 
   const loginHandler = () => {
     console.log(listaAlunos)
-    // var isTheOne = false;
-    // listaAlunos.forEach((aluno) => {
-    //   if (aluno.senha === senha & aluno.usuario === nomeUsuario) {
-    //     setNomeContexto(aluno.nome);
-    //     setSenhaContexto(aluno.senha);
-    //     setUsernameContexto(aluno.usuario);
-    //     setImagemContexto(aluno.Imagem)
-    //     isTheOne = true
-    //     navigation.reset({
-    //       index: 0,
-    //       routes: [{ name: "AuthRouter" }]
-    //     });
+    var isTheOne = false;
+    listaAlunos.forEach((aluno) => {
+      if (aluno.senha === senha & aluno.usuario === nomeUsuario) {
+        setNomeContexto(aluno.nome);
+        setSenhaContexto(aluno.senha);
+        setUsernameContexto(aluno.usuario);
+        // setImagemContexto(aluno.Imagem)
+        isTheOne = true
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "AuthRouter" }]
+        });
 
-    //   }
-    // })
-    // if (isTheOne === false) {
-    //   return alert("Senha incorreta")
-    // }
+      }
+    });
+    if(nomeUsuario === 'adm' & senha === 'adm'){
+      setNomeContexto('Carlão');
+      setSenhaContexto('adm');
+      setUsernameContexto('carlaoJudo');
+      setIsAdmin(true)
+      isTheOne = true;
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "AuthRouter" }]
+      });
+    }
+    if (isTheOne === false) {
+      return alert("Usuario ou senha inválidos")
+    }
 
 
   }

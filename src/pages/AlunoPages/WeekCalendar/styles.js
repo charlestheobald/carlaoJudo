@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, StatusBar } from "react-native";
-import { theme } from '../../../global/theme'
+import { theme } from '../../../global/theme'; 
 
 export const styles = StyleSheet.create({
 
@@ -17,7 +17,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    marginTop: 20,
+    marginLeft:'10%'
 
+  },
+  ScrollView: {
+    
+    width:'100%',
+    
   },
 
   contentButton: {

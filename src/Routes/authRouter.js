@@ -16,6 +16,7 @@ import { Ranking } from '../pages/AlunoPages/Ranking'
 import { Calendar } from '../pages/AlunoPages/Calendar';
 import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
 import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
+import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 
 
 
@@ -33,17 +34,29 @@ const CalendarRoutes = () => {
       }}
     >
 
+<<<<<<< HEAD
       <Screen
+=======
+       <Screen
+>>>>>>> 2ab5ee395a9e108a1255ba74269f87e143fa68a8
         name="Calendar"
         component={Calendar}
       />
       <Screen
         name="MonthCalendar"
         component={MonthCalendar}
+<<<<<<< HEAD
       />
+=======
+      /> 
+>>>>>>> 2ab5ee395a9e108a1255ba74269f87e143fa68a8
       <Screen
         name="WeekCalendar"
         component={WeekCalendar}
+      /> 
+      <Screen
+        name="DayOfWeekProg"
+        component={DayOfWeekProg}
       />
 
     </Navigator>
@@ -92,6 +105,7 @@ export const AuthRouter = () => {
         }}
       />
       <Tab.Screen
+<<<<<<< HEAD
         name="Atividades"
         component={Activities}
         options={{
@@ -103,6 +117,19 @@ export const AuthRouter = () => {
 
         }}
       />
+=======
+          name="Atividades"
+          component={Activities}
+          options={{
+            tabBarIcon: ({ size, focused }) =>
+              <AntDesign
+                name="edit"
+                size={size}
+                color={focused ? theme.colors.secondary20 : "black"} />
+  
+          }}
+        />
+>>>>>>> 2ab5ee395a9e108a1255ba74269f87e143fa68a8
       <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}
