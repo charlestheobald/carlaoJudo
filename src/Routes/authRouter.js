@@ -16,6 +16,7 @@ import { Ranking } from '../pages/AlunoPages/Ranking'
 import { Calendar } from '../pages/AlunoPages/Calendar';
 import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
 import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
+import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 
 
 
@@ -33,17 +34,21 @@ const CalendarRoutes = () => {
       }}
     >
 
-      {/* <Screen
+       <Screen
         name="Calendar"
         component={Calendar}
       />
       <Screen
         name="MonthCalendar"
         component={MonthCalendar}
-      /> */}
+      /> 
       <Screen
         name="WeekCalendar"
         component={WeekCalendar}
+      /> 
+      <Screen
+        name="DayOfWeekProg"
+        component={DayOfWeekProg}
       />
 
     </Navigator>
@@ -79,7 +84,7 @@ export const AuthRouter = () => {
     >
 
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Ranking"
         component={Ranking}
         options={{
@@ -102,7 +107,7 @@ export const AuthRouter = () => {
                 color={focused ? theme.colors.secondary20 : "black"} />
   
           }}
-        /> */}
+        />
       <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}

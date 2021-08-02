@@ -3,7 +3,6 @@ import { theme } from '../../global/theme'
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -11,7 +10,6 @@ export const styles = StyleSheet.create({
     height: 60,
     width: '90%',
     borderRadius: 10,
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 25 },
     shadowOpacity: 0.07,
