@@ -33,14 +33,14 @@ const CalendarRoutes = () => {
       }}
     >
 
-      {/* <Screen
+      <Screen
         name="Calendar"
         component={Calendar}
       />
       <Screen
         name="MonthCalendar"
         component={MonthCalendar}
-      /> */}
+      />
       <Screen
         name="WeekCalendar"
         component={WeekCalendar}
@@ -79,7 +79,7 @@ export const AuthRouter = () => {
     >
 
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Ranking"
         component={Ranking}
         options={{
@@ -92,17 +92,17 @@ export const AuthRouter = () => {
         }}
       />
       <Tab.Screen
-          name="Atividades"
-          component={Activities}
-          options={{
-            tabBarIcon: ({ size, focused }) =>
-              <AntDesign
-                name="edit"
-                size={size}
-                color={focused ? theme.colors.secondary20 : "black"} />
-  
-          }}
-        /> */}
+        name="Atividades"
+        component={Activities}
+        options={{
+          tabBarIcon: ({ size, focused }) =>
+            <AntDesign
+              name="edit"
+              size={size}
+              color={focused ? theme.colors.secondary20 : "black"} />
+
+        }}
+      />
       <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}
