@@ -5,7 +5,7 @@ import {
   Text,
 
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+
 
 import { styles } from './styles'
 import { theme } from '../../global/theme';
@@ -21,12 +21,12 @@ export const RankedStudent = ({ rank, name, points }) => {
           {rank}
         </Text>
       </View>
+
       <View style={styles.nameContainer}>
         <Text style={styles.name}>{name ? name : 'Nome não informado'}</Text>
       </View>
       <View style={styles.pointsContainer}>
-
-        <Text >{points ? points : '0'}</Text>
+        <Text >{points ? points : '0?'}</Text>
         <Text>pts</Text>
       </View>
 

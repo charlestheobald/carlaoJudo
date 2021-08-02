@@ -12,20 +12,34 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '75%',
-    height: 460,
+
+    width: '80%',
+    height: 560,
     backgroundColor: theme.colors.primary20,
     borderRadius: 20
 
   },
+  textFaixa: {
+    marginTop: -5,
+    fontSize: 14,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   content: {
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-
+    marginHorizontal: 50
   },
+  contentColumn: {
+    marginHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   header: {
     flexDirection: 'row',
+    marginTop: 10
   },
   containerTextHeader: {
     flex: 1,
@@ -42,12 +56,14 @@ export const styles = StyleSheet.create({
 
 
   filterButton: {
-    marginVertical: 5
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15
   },
 
 
   textSub: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: theme.fonts.titleLale400
   },
 

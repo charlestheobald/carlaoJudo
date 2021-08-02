@@ -40,15 +40,19 @@ export const styles = StyleSheet.create({
 
     marginRight: 35
   },
+
   containerTituloRanked: {
 
-    height: 50,
-    width: '90%',
     flexDirection: 'row',
-    
-    alignItems: 'center',
-    
+    marginLeft: 32
+
   },
+  // height: 50,
+  // width: '90%',
+  // flexDirection: 'row',
+  // alignItems: 'center',
+
+
   textTitulo: {
     fontSize: 18,
     fontFamily: theme.fonts.text500,
@@ -58,14 +62,15 @@ export const styles = StyleSheet.create({
   textTitulo2: {
     fontSize: 18,
     fontFamily: theme.fonts.text500,
-    marginLeft:'5%'
+    marginLeft: '5%'
   },
 
 
 
 
   trophy: {
-    marginLeft: '25%',
+
+
   },
 
 })

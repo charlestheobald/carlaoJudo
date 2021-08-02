@@ -3,9 +3,11 @@ import React, { useRef } from 'react';
 import { View, TouchableOpacity, Image, Text, Pressable, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
+import { FontAwesome } from '@expo/vector-icons';
+export const Header = ({ handleConfig }) => {
 
-export const Header = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
+
 
   return (
 
@@ -31,12 +33,9 @@ export const Header = () => {
               <View>
                 <View style={styles.ModalView}>
                   <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.FieldsModal}>Nome</Text>
-                    <Text style={styles.FieldsModal}>Idade</Text>
-                    <Text style={styles.FieldsModal}>Classe</Text>
-                    <Text style={styles.FieldsModal}>Faixa</Text>
-                    <Text style={styles.FieldsModal}>Último Exame</Text>
+                    <FontAwesome name="close" size={24} color="black" />
                   </Pressable>
+
                 </View>
               </View>
             </Modal>
@@ -47,7 +46,9 @@ export const Header = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+          onPress={() => handleConfig()}
+        >
           <AntDesign name="setting" size={30} color="black" />
         </TouchableOpacity>
       </View>

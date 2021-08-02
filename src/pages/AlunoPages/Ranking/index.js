@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Button,
@@ -19,26 +19,32 @@ import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { theme } from '../../../global/theme';
 import { getAluno } from '../../../services/AlunoService/'
-
-import { Header } from '../../../components/Header'
-import { RankedStudent } from '../../../components/RankedStudent';
 import { Ionicons } from '@expo/vector-icons';
+
+import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext';
+import { Header } from '../../../components/Header';
+import { RankedStudent } from '../../../components/RankedStudent';
 import { StandardButton } from '../../../components/StandardButton';
 import { ModalView } from '../../../components/ModalView';
 
 export const Ranking = () => {
 
   const [listaAlunos, setListaAlunos] = useState([])
-  const [queryData, setQueryData] = useState([])
+  const [queryParam, setQueryParam] = useState("GERAL")
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterQuery, setFilterQuery] = useState([200, 0])
 
+  const { isAdmin, nomeContexto, fullData } = useContext(UsuarioContext)
 
+
+  function isTheFuckingOne(value) {
+    return value.classe === queryParam
+  }
 
   useEffect(() => {
-    getAluno().then((res) => {
+    if (queryParam != 'GERAL') {
       setListaAlunos(
-        res.sort((a, b) => {
+        fullData.filter(isTheFuckingOne).sort((a, b) => {
           if (a.pontuacao < b.pontuacao) {
             return 1;
           }
@@ -46,20 +52,46 @@ export const Ranking = () => {
             return -1;
           }
         }))
-    }).catch((err) => {
-      console.error("Ops, ocorreu um erro " + err)
-    }, [])
+    }
+    else {
+      setListaAlunos(
+        fullData.sort((a, b) => {
+          if (a.pontuacao < b.pontuacao) {
+            return 1;
+          }
+          if (a.pontuacao > b.pontuacao) {
+            return -1;
+          }
+        }))
+    }
+  }, [queryParam])
 
-  })
 
 
 
 
+  // function filterParam(nomeClasse) {
+  //   if (nomeCLasse === 'all') {
+
+  //     return (aluno.classe === 'SUB-5' ||
+  //       aluno.classe === 'SUB-7' ||
+  //       aluno.classe === 'SUB-9' ||
+  //       aluno.classe === 'SUB-11' ||
+  //       aluno.classe === 'SUB-13' ||
+  //       aluno.classe === 'SUB-15' ||
+  //       aluno.classe === 'SUB-18' ||
+  //       aluno.classe === 'SUB-21' ||
+
+  //      );
+
+  //   }
+
+  // }
 
 
-  const handleFilterQuery = (menorQue, maiorQue) => {
-    console.log(listaAlunos)
-    setFilterQuery([menorQue, maiorQue])
+
+  const handleFilterQuery = (param) => {
+    setQueryParam(param)
     setIsModalVisible(false)
   }
 
@@ -83,9 +115,15 @@ export const Ranking = () => {
         </View>
 
         <View style={styles.containerTituloRanked}>
-          <Text style={styles.textTitulo}>Rank</Text>
-          <Text style={styles.textTitulo2}>Nome aluno</Text>
-          <AntDesign style={styles.trophy} name="Trophy" size={24} color="black" />
+          <View >
+            <Text style={styles.textTitulo}>Rank</Text>
+          </View>
+          <View>
+            <Text style={styles.textTitulo2}>Nome aluno</Text>
+          </View>
+          <View style={{ flex: 1, marginLeft: '35%' }}>
+            <AntDesign style={styles.trophy} name="Trophy" size={24} color="black" />
+          </View>
         </View>
 
         <ScrollView style={{ paddingLeft: '10%', width: '110%' }}>

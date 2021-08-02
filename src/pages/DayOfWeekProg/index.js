@@ -3,13 +3,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   ScrollView,
-	Text
-  
+  Text
+
 } from 'react-native';
 
 
 import { styles } from './styles';
-import { UsuarioContext } from '../../contexts/usuario/UsuarioContext'; 
+import { UsuarioContext } from '../../contexts/usuario/UsuarioContext';
 
 
 import { Header } from '../../components/Header';
@@ -21,35 +21,35 @@ export const DayOfWeekProg = () => {
 
   const mocked = [
     {
-      perido:[8,10],
-      titulo:'Aula Konnen'
+      perido: [8, 10],
+      titulo: 'Aula Konnen'
     },
   ]
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <Header />
       <View style={styles.content}>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: '28%' }}>
 
-          <WeekDayItem 
+          <WeekDayItem
             label='Treino'
-            period={[8,9]}
+            period={[8, 9]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.
              Morbi eget'
           />
-          <WeekDayItem 
+          <WeekDayItem
             label='Treino'
-            period={[8,9]}
+            period={[8, 9]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.
              Morbi eget'
           />
-          <WeekDayItem 
+          <WeekDayItem
             label='Treino'
-            period={[8,9]}
+            period={[8, 9]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.

@@ -218,7 +218,6 @@ export const Register = () => {
 
   const pattern = "yyyy-MM-dd";
 
-
   const alunoVO = {
     altura: Number(altura),
     cbjZempo: CBJ_ZEMPO,
@@ -228,6 +227,7 @@ export const Register = () => {
     dataCadastro: format(dataCadastro, pattern),
     dataIngresso: format(dataInicioJudo, pattern),
     dataNascimento: format(dataNascimento, pattern),
+    dataUltimoExame: format(dataUltimoExame, pattern),
     email: email,
     faixa: faixa,
     fjerj: FJERJ,
@@ -259,7 +259,7 @@ export const Register = () => {
     else if (sexo === 0 || sexo === null)
       return alert("Opção de sexo inválida")
     else if (horaAula === 0 || horaAula === null)
-      return alert("Opção de sexo inválida")
+      return alert("Opção de horario de aula invalida")
 
 
     addAluno(alunoVO)

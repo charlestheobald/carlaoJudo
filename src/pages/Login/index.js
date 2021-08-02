@@ -20,7 +20,8 @@ import { UsuarioContext } from '../../contexts/usuario/UsuarioContext';
 import { ForgotKeyword } from '../../pages/forgotKeyword'
 
 
-export const Login = (aluno) => {
+export const Login = () => {
+  const { setIsAdmin, setNomeContexto, setFullData } = useContext(UsuarioContext)
   const navigation = useNavigation();
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
@@ -66,40 +67,17 @@ export const Login = (aluno) => {
 
   useEffect(() => {
     getAluno().then((res) => {
+
+      setFullData(res)
       setListaAlunos(res)
     }).catch((err) => {
       console.error("Ops, ocorreu um erro " + err)
-    }, [])
-  })
-
-  // const listagemTeste = [
-  //   {
-  //     nome: "Astolfo",
-  //     senha: "123",
-  //     email: "astolabctolfo.com",
-  //   },
-  //   {
-  //     nome: "Charles",
-  //     senha: "ch2020",
-  //     email: "charles@theobald.com",
-  //   },
-  //   {
-  //     nome: "Ricardo",
-  //     senha: "abobora",
-  //     email: "ricardo@araujo.com",
-  //   },
-  //   {
-  //     nome: "abc",
-  //     senha: "abc",
-  //     email: "abc",
-  //   },
-  // ]
-
-  const { setIsAdmin, setNomeContexto, setEmailContexto, setSenhaContexto } = useContext(UsuarioContext)
+    })
+  }, [])
 
 
   const loginHandler = () => {
-    console.log(listaAlunos)
+
     var isTheOne = false;
     listaAlunos.forEach((aluno) => {
       if (aluno.senha === senha & aluno.usuario === nomeUsuario) {
@@ -115,10 +93,8 @@ export const Login = (aluno) => {
 
       }
     });
-    if(nomeUsuario === 'adm' & senha === 'adm'){
+    if (nomeUsuario === 'adm' & senha === 'adm') {
       setNomeContexto('Carlão');
-      setSenhaContexto('adm');
-      setUsernameContexto('carlaoJudo');
       setIsAdmin(true)
       isTheOne = true;
       navigation.reset({
@@ -157,10 +133,10 @@ export const Login = (aluno) => {
         <View style={styles.container}>
 
           <TextInput style={styles.input}
-            placeholder="Email"
+            placeholder="Usuário"
             autoCapitalize='none'
             autoCorrect={false}
-            onChangeText={(e) => setEmail(e)}
+            onChangeText={(e) => setNomeUsuario(e)}
           />
 
           <TextInput style={styles.input}
