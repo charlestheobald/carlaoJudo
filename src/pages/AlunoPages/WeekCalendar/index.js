@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import {
   View,
   ScrollView,
-  
+
 } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
@@ -50,20 +50,24 @@ export const WeekCalendar = () => {
     navigation.navigate('DayOfWeekProg')
   }
 
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
+
   return (
 
-    <View style={styles.container}> 
-      <Header />
+    <View style={styles.container}>
+      <Header handleNavigationModal={handleNavigationConfigs} />
 
       <View style={styles.content}>
         <ScrollView style={styles.ScrollView}>
-          <WeekCalendarItem day='DOM' handlePress={handleDom}/>
-          <WeekCalendarItem day='SEG' handlePress={handleSeg}/>
-          <WeekCalendarItem day='TER' handlePress={handleTer}/>
-          <WeekCalendarItem day='QUA' handlePress={handleQua}/>
-          <WeekCalendarItem day='QUI' handlePress={handleQui}/>
-          <WeekCalendarItem day='SEX' handlePress={handleSex}/>
-          <WeekCalendarItem day='SAB' handlePress={handleSab}/>
+          <WeekCalendarItem day='DOM' handlePress={handleDom} />
+          <WeekCalendarItem day='SEG' handlePress={handleSeg} />
+          <WeekCalendarItem day='TER' handlePress={handleTer} />
+          <WeekCalendarItem day='QUA' handlePress={handleQua} />
+          <WeekCalendarItem day='QUI' handlePress={handleQui} />
+          <WeekCalendarItem day='SEX' handlePress={handleSex} />
+          <WeekCalendarItem day='SAB' handlePress={handleSab} />
         </ScrollView>
       </View>
     </View >

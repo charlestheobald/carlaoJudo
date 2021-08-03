@@ -22,6 +22,8 @@ import { decode, encode } from 'base-64'
 
 import { Header } from './src/components/Header'
 
+import { UserConfigs } from './src/pages/UserConfigs';
+
 
 const App = () => {
 
@@ -47,7 +49,7 @@ const App = () => {
     <ParentProvider>
       <UsuarioProvider>
         <NavigationContainer>
-          <Router />
+          <UserConfigs />
         </NavigationContainer>
       </UsuarioProvider>
     </ParentProvider>

@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from './styles';
 import { theme } from '../../../global/theme';
@@ -30,16 +31,20 @@ import { Header } from '../../../components/Header'
 import { StandardButton } from '../../../components/StandardButton';
 
 
-const goMensalCalendar = () => {
 
-}
 
 export const MonthCalendar = () => {
+
+  const navigation = useNavigation();
+
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
 
   return (
 
     <View style={styles.container}>
-      <Header />
+      <Header handleNavigationModal={handleNavigationConfigs} />
       <View style={styles.content}>
         <Text>Month calendar</Text>
       </View>

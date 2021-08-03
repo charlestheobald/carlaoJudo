@@ -20,6 +20,7 @@ import { styles } from './styles';
 import { theme } from '../../../global/theme';
 import { getAluno } from '../../../services/AlunoService/'
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext';
 import { Header } from '../../../components/Header';
@@ -36,6 +37,7 @@ export const Ranking = () => {
 
   const { isAdmin, nomeContexto, fullData } = useContext(UsuarioContext)
 
+  const navigation = useNavigation();
 
   function isTheFuckingOne(value) {
     return value.classe === queryParam
@@ -67,9 +69,6 @@ export const Ranking = () => {
   }, [queryParam])
 
 
-
-
-
   // function filterParam(nomeClasse) {
   //   if (nomeCLasse === 'all') {
 
@@ -88,20 +87,21 @@ export const Ranking = () => {
 
   // }
 
-
-
   const handleFilterQuery = (param) => {
     setQueryParam(param)
     setIsModalVisible(false)
   }
 
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
 
 
   return (
 
     <View style={styles.background}>
 
-      <Header />
+      <Header handleNavigationModal={handleNavigationConfigs} />
       <View style={styles.content}>
 
         <View style={styles.headerRanked}>

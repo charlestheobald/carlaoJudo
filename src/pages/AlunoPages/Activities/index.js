@@ -11,13 +11,15 @@ import {
   Keyboard,
   StatusBar,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Linking
 } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from './styles';
 import { theme } from '../../../global/theme';
@@ -29,32 +31,36 @@ import { Header } from '../../../components/Header'
 import { StandardButton } from '../../../components/StandardButton';
 
 export const Activities = () => {
+  const navigation = useNavigation();
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
 
   return (
 
     <View style={styles.background}>
-      <Header />
+      <Header handleNavigationModal={handleNavigationConfigs} />
 
       <View style={styles.container}>
 
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}
-            label='Caça-Palavras'
+            label='Judô Brasileiro, jogos Olímpicos'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={() => Linking.openURL('https://cbj.com.br/painel/arquivos/documentos_oficiais/arquivo_cbj_223502210721.pdf')}
             widthProp='90%'
           />
         </View>
 
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}
-            label='Caça-Palavras'
+            label='História do Judo'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={() => Linking.openURL('https://cbj.com.br/historia_do_judo/')}
             widthProp='90%'
           />
         </View>

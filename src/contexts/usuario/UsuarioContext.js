@@ -8,13 +8,55 @@ export const UsuarioProvider = ({ children }) => {
   const [nomeContexto, setNomeContexto] = useState(null);
   const [usernameContexto, setUsernameContexto] = useState(null)
   const [senhaContexto, setSenhaContexto] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [imagemContexto, setImagemContexto] = useState(null);
   const [dayOfWeek, setDayOfWeek] = useState(null)
+  const [user, setUser] = useState(
+    {
+      id: 1,
+      altura: 1.60,
+      horarioAula: "11:00",
+      classe: "SENIOR_BRANCA_AMARELA",
+      categoria: "MEDIO",
+      dataIngresso: "2021-07-29",
+      localTreino: "Centro",
+      fjerj: null,
+      cbjZempo: null,
+      pontuacao: 123,
+      dataUltimoExame: null,
+      pagamento: "BOLETO",
+      faixa: "AMARELA",
+      sexo: "FEMININO",
+      nomeResponsavel: null,
+      emailResponsavel: 'mariadascouves@gmail.com',
+      telefoneResponsavel: null,
+      endereco: {
+        id: 1,
+        cep: "25635401",
+        logradouro: "Servidão João Rodrigues Batista",
+        numero: 100,
+        complemento: "Casa A",
+        localidade: "Petrópolis",
+        bairro: "Alto da Serra"
+      },
+      nome: "Lucão",
+      usuario: "gisele123",
+      dataNascimento: "1990-07-29",
+      rg: null,
+      cpf: null,
+      telefone: "(24)99855-2233",
+      email: "juliadonascimentosantos7@gmail.com",
+      telefoneResp: null,
+      senha: 'meuGatoPosUmOvo',
+      peso: 160
+
+    }
+  )
   const [fullData, setFullData] = useState([
 
     {
       id: 2,
+      altura: 1.60,
       horarioAula: "11:00",
       classe: "SENIOR_BRANCA_AMARELA",
       categoria: "MEDIO",
@@ -49,6 +91,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 3,
+      altura: 1.40,
       horarioAula: "11:00",
       classe: "SENIOR_BRANCA_VERDE",
       categoria: "LEVE",
@@ -83,6 +126,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 4,
+      altura: 1.50,
       horarioAula: "11:00",
       classe: "SENIOR_ROXA_PRETA",
       categoria: "LEVE",
@@ -117,6 +161,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 5,
+      altura: 1.40,
       horarioAula: "11:00",
       classe: "SENIOR_LARANJA_VERDE",
       categoria: "LEVE",
@@ -151,6 +196,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 6,
+      altura: 1.40,
       horarioAula: "11:00",
       classe: "SENIOR_BRANCA_VERDE",
       categoria: "LEVE",
@@ -185,6 +231,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 7,
+      altura: 1.40,
       horarioAula: "11:00",
       classe: "SENIOR_BRANCA_VERDE",
       categoria: "LEVE",
@@ -219,6 +266,7 @@ export const UsuarioProvider = ({ children }) => {
     },
     {
       id: 8,
+      altura: 1.40,
       horarioAula: "11:00",
       classe: "VETERANO_1",
       categoria: "LEVE",
@@ -269,7 +317,9 @@ export const UsuarioProvider = ({ children }) => {
         dayOfWeek,
         setDayOfWeek,
         fullData,
-        setFullData
+        setFullData,
+        user,
+        setUser
 
       }}
     >

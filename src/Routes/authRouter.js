@@ -17,9 +17,63 @@ import { Calendar } from '../pages/AlunoPages/Calendar';
 import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
 import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
 import { DayOfWeekProg } from '../pages/DayOfWeekProg';
+import { UserConfigs } from '../pages/UserConfigs';
 
 
+const RankingRoutes = () => {
 
+  const { Navigator, Screen } = createStackNavigator();
+  return (
+    <Navigator
+      initialRouteName="Ranking"
+      headerMode="none"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: theme.colors.primary10
+        },
+      }}
+    >
+
+      <Screen
+        name="Ranking"
+        component={Ranking}
+      />
+      <Screen
+        name="UserConfigs"
+        component={UserConfigs}
+      />
+
+
+    </Navigator>
+  );
+}
+const ActivitiesRoutes = () => {
+
+  const { Navigator, Screen } = createStackNavigator();
+  return (
+    <Navigator
+      initialRouteName="Atividades"
+      headerMode="none"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: theme.colors.primary10
+        },
+      }}
+    >
+
+      <Screen
+        name="Atividades"
+        component={Activities}
+      />
+      <Screen
+        name="UserConfigs"
+        component={UserConfigs}
+      />
+
+
+    </Navigator>
+  );
+}
 
 const CalendarRoutes = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -34,21 +88,25 @@ const CalendarRoutes = () => {
       }}
     >
 
-       <Screen
+      <Screen
         name="Calendar"
         component={Calendar}
       />
       <Screen
         name="MonthCalendar"
         component={MonthCalendar}
-      /> 
+      />
       <Screen
         name="WeekCalendar"
         component={WeekCalendar}
-      /> 
+      />
       <Screen
         name="DayOfWeekProg"
         component={DayOfWeekProg}
+      />
+      <Screen
+        name="UserConfigs"
+        component={UserConfigs}
       />
 
     </Navigator>
@@ -86,7 +144,7 @@ export const AuthRouter = () => {
 
       <Tab.Screen
         name="Ranking"
-        component={Ranking}
+        component={RankingRoutes}
         options={{
           tabBarIcon: ({ size, focused }) =>
             <MaterialCommunityIcons
@@ -97,17 +155,17 @@ export const AuthRouter = () => {
         }}
       />
       <Tab.Screen
-          name="Atividades"
-          component={Activities}
-          options={{
-            tabBarIcon: ({ size, focused }) =>
-              <AntDesign
-                name="edit"
-                size={size}
-                color={focused ? theme.colors.secondary20 : "black"} />
-  
-          }}
-        />
+        name="Atividades"
+        component={ActivitiesRoutes}
+        options={{
+          tabBarIcon: ({ size, focused }) =>
+            <AntDesign
+              name="edit"
+              size={size}
+              color={focused ? theme.colors.secondary20 : "black"} />
+
+        }}
+      />
       <Tab.Screen
         name="Calendario"
         component={CalendarRoutes}

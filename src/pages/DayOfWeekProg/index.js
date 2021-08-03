@@ -6,7 +6,7 @@ import {
   Text
 
 } from 'react-native';
-
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from './styles';
 import { UsuarioContext } from '../../contexts/usuario/UsuarioContext';
@@ -19,6 +19,11 @@ import { WeekDayItem } from '../../components/Calendar/WeekDayItem';
 export const DayOfWeekProg = () => {
   const { isAdmin, dayOfWeek } = useContext(UsuarioContext)
 
+  const navigation = useNavigation();
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
+
   const mocked = [
     {
       perido: [8, 10],
@@ -27,7 +32,7 @@ export const DayOfWeekProg = () => {
   ]
   return (
     <View style={styles.container}>
-      <Header />
+      <Header handleNavigationModal={handleNavigationConfigs} />
       <View style={styles.content}>
         <ScrollView style={{ marginBottom: '28%' }}>
 

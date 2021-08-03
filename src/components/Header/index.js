@@ -1,13 +1,18 @@
 
 import React, { useRef } from 'react';
-import { View, TouchableOpacity, Image, Text, Pressable, Modal } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Pressable, Modal, Button } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
-export const Header = ({ handleConfig }) => {
+export const Header = ({ isVisible, handleNavigationModal }) => {
+
+
 
   const [modalVisible, setModalVisible] = React.useState(false);
 
+  const handleClose = () => {
+    setModalVisible(false)
+  }
 
   return (
 
@@ -20,34 +25,33 @@ export const Header = ({ handleConfig }) => {
 
       <View style={styles.rightSide}>
 
-        <TouchableOpacity style={styles.button}>
-          <View>
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert();
-                setModalVisible(!modalVisible);
-              }}>
-              <View>
-                <View style={styles.ModalView}>
-                  <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <FontAwesome name="close" size={24} color="black" />
-                  </Pressable>
 
-                </View>
+        <View>
+          <Modal animationType="slide" visible={modalVisible} transparent={true} >
+            <View style={styles.overlay}>
+
+              <View style={styles.ModalView}>
+                <TouchableOpacity onPress={handleClose}>
+                  <FontAwesome name="close" size={24} color="black" />
+                </TouchableOpacity>
+                <Button title='Press'
+                  onPress={handleNavigationModal}
+                />
+
               </View>
-            </Modal>
-            <Pressable
-              onPress={() => setModalVisible(true)}>
-              <View style={styles.avatar}></View>
-            </Pressable>
-          </View>
-        </TouchableOpacity>
+            </View>
+          </Modal>
+
+
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}>
+            <View style={styles.avatar}></View>
+          </TouchableOpacity>
+        </View>
+
 
         <TouchableOpacity style={styles.button}
-          onPress={() => handleConfig()}
+
         >
           <AntDesign name="setting" size={30} color="black" />
         </TouchableOpacity>

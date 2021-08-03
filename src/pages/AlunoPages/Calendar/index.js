@@ -40,10 +40,14 @@ export const Calendar = () => {
   const goWeekCalendar = () => {
     navigation.navigate("WeekCalendar")
   }
+
+  const handleNavigationConfigs = () => {
+    navigation.navigate('UserConfigs')
+  }
   return (
 
     <View style={styles.container}>
-      <Header />
+      <Header handleNavigationModal={handleNavigationConfigs} />
       <View style={styles.content}>
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}

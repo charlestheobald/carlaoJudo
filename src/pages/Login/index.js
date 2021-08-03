@@ -21,7 +21,7 @@ import { ForgotKeyword } from '../../pages/forgotKeyword'
 
 
 export const Login = () => {
-  const { setIsAdmin, setNomeContexto, setFullData } = useContext(UsuarioContext)
+  const { setIsAdmin, setNomeContexto, setFullData, setUsernameContexto, setSenhaContexto } = useContext(UsuarioContext)
   const navigation = useNavigation();
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));

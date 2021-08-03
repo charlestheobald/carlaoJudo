@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext, } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { TextInputMask } from 'react-native-masked-text'
 
 import {
@@ -15,7 +15,7 @@ import {
   StyleSheet,
   Platform,
   Picker,
-  Button
+  Alert
 } from 'react-native';
 
 import * as yup from 'yup';
@@ -117,10 +117,38 @@ export const Register = () => {
       id: 'BRANCA'
     },
     {
+      nome: 'CINZA',
+      id: 'CINZA'
+    },
+    {
+      nome: 'AZUL',
+      id: 'AZUL'
+    },
+    {
       nome: 'AMARELA',
       id: 'AMARELA'
-    }
-  ];
+    },
+    {
+      nome: 'LARANJA',
+      id: 'LARANJA'
+    },
+    {
+      nome: 'VERDE',
+      id: 'VERDE'
+    },
+    {
+      nome: 'ROXA',
+      id: 'ROXA'
+    },
+    {
+      nome: 'MARROM',
+      id: 'MARROM'
+    },
+    {
+      nome: 'PRETA',
+      id: 'PRETA'
+    },
+  ]
   const listaLocais = [
     {
       nome: 'Informe o local de treino',
@@ -133,7 +161,7 @@ export const Register = () => {
     {
       nome: 'OUTRO',
       id: 'OUTRO'
-    }
+    },
   ]
   const listaSexo = [
     {
@@ -147,7 +175,7 @@ export const Register = () => {
     {
       nome: 'MASCULINO',
       id: 'MASCULINO'
-    }
+    },
   ]
   const listaPagamentos = [
     {
@@ -219,7 +247,7 @@ export const Register = () => {
   const pattern = "yyyy-MM-dd";
 
   const alunoVO = {
-    altura: Number(altura),
+    tamanho: Number(altura),
     cbjZempo: CBJ_ZEMPO,
     cep: CEP,
     complemento: complemento,
@@ -262,11 +290,18 @@ export const Register = () => {
       return alert("Opção de horario de aula invalida")
 
 
+
+
+
     addAluno(alunoVO)
       .then((res) => {
         alert("Sucesso")
       })
-      .catch((e) => alert("Erro ao cadastrar aluno" + e.message))
+      .catch((e) => Alert.alert(
+        "Erro!",
+        `${e.response.data}`,
+        [{ text: "ok" }]
+      ));
 
 
 
@@ -297,17 +332,11 @@ export const Register = () => {
     }).catch(error => {
       console.log("erro ao salvar imagem")
     });
-    // if (!result.cancelled) {
-    //   setImage(result.uri);
-    // }
 
   };
   const handleGoBack = () => {
     navigation.goBack()
   }
-
-
-
 
   var decodedImage = `data:image/png;base64,${image}`;
 
@@ -562,8 +591,6 @@ export const Register = () => {
 
             <Text style={styles.textInput}>CPF</Text>
             <TextInput style={styles.input}
-              // type={'cpf'}
-              //value={CPF}
               placeholder="Informe seu CPF"
               keyboardType="numeric"
               autoCorrect={false}

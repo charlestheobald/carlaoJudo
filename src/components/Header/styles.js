@@ -2,6 +2,15 @@ import { StyleSheet, StatusBar } from 'react-native'
 import { theme } from '../../global/theme';
 export const styles = StyleSheet.create({
 
+  overlay: {
+    flex: 1,
+    backgroundColor: theme.colors.overlay,
+
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+
   container: {
     marginTop: StatusBar.currentHeight ? StatusBar.currentHeight : 0,
     flexDirection: "row",
@@ -12,6 +21,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: theme.colors.primary10
   },
+
+
+
 
   avatar: {
     backgroundColor: theme.colors.secondary20,
@@ -42,20 +54,15 @@ export const styles = StyleSheet.create({
   },
 
   ModalView: {
-    margin: 20,
-    marginTop: 70,
-    width: '100%',
-    marginLeft: 3,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    flexDirection: 'column',
+    alignItems: 'center',
+
+    width: '80%',
+    height: 560,
+    backgroundColor: theme.colors.primary20,
+    borderRadius: 20
   },
+
 
   FieldsModal: {
     marginBottom: 15,
