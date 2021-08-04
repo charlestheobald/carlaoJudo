@@ -67,7 +67,7 @@ export const Login = () => {
 
   useEffect(() => {
     getAluno().then((res) => {
-
+      console.log(res)
       setFullData(res)
       setListaAlunos(res)
     }).catch((err) => {

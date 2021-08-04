@@ -26,7 +26,7 @@ export const RankedStudent = ({ rank, name, points }) => {
         <Text style={styles.name}>{name ? name : 'Nome não informado'}</Text>
       </View>
       <View style={styles.pointsContainer}>
-        <Text >{points ? points : '0?'}</Text>
+        <Text >{points ? points : '0'}</Text>
         <Text>pts</Text>
       </View>
 

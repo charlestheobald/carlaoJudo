@@ -117,20 +117,40 @@ export const Register = () => {
       id: 'BRANCA'
     },
     {
+      nome: 'BRANCA PONTA CINZA',
+      id: 'BRANCA_PONTA_CINZA'
+    },
+    {
       nome: 'CINZA',
       id: 'CINZA'
+    },
+    {
+      nome: 'CINZA PONTA AZUL',
+      id: 'CINZA_PONTA_AZUL'
     },
     {
       nome: 'AZUL',
       id: 'AZUL'
     },
     {
+      nome: 'AZUL PONTA AMARELA',
+      id: 'AZUL_PONTA_AMARELA'
+    },
+    {
       nome: 'AMARELA',
+      id: 'AMARELA'
+    },
+    {
+      nome: 'AMARELA PONTA LARANJA',
       id: 'AMARELA'
     },
     {
       nome: 'LARANJA',
       id: 'LARANJA'
+    },
+    {
+      nome: 'LARANJA PONTA VERDE',
+      id: 'LARANJA_PONTA_VERDE'
     },
     {
       nome: 'VERDE',
@@ -145,9 +165,47 @@ export const Register = () => {
       id: 'MARROM'
     },
     {
-      nome: 'PRETA',
-      id: 'PRETA'
+      nome: 'PRETA 1º DAN',
+      id: 'PRETA_1_DAN'
     },
+    {
+      nome: 'PRETA 2º DAN',
+      id: 'PRETA_2_DAN'
+    },
+    {
+      nome: 'PRETA 3º DAN',
+      id: 'PRETA_3_DAN'
+    },
+    {
+      nome: 'PRETA 4º DAN',
+      id: 'PRETA_4_DAN'
+    },
+    {
+      nome: 'PRETA 5º DAN',
+      id: 'PRETA_5_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 6º DAN',
+      id: 'VERMELHA_BRANCO_6_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 7º DAN',
+      id: 'VERMELHA_BRANCO_7_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 8º DAN',
+      id: 'VERMELHA_BRANCO_8_DAN'
+    },
+    {
+      nome: 'VERMELHA 9º DAN',
+      id: 'VERMELHA_9_DAN'
+    },
+    {
+      nome: 'VERMELHA 10º DAN',
+      id: 'VERMELHA_10_DAN'
+    },
+
+
   ]
   const listaLocais = [
     {
@@ -247,7 +305,7 @@ export const Register = () => {
   const pattern = "yyyy-MM-dd";
 
   const alunoVO = {
-    tamanho: Number(altura),
+    altura: Number(altura),
     cbjZempo: CBJ_ZEMPO,
     cep: CEP,
     complemento: complemento,
@@ -289,13 +347,13 @@ export const Register = () => {
     else if (horaAula === 0 || horaAula === null)
       return alert("Opção de horario de aula invalida")
 
-
-
-
-
     addAluno(alunoVO)
       .then((res) => {
         alert("Sucesso")
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }]
+        });
       })
       .catch((e) => Alert.alert(
         "Erro!",
@@ -498,7 +556,7 @@ export const Register = () => {
             <TextInputMask style={styles.input}
               type={'custom'}
               options={{
-                mask: '99'
+                mask: '999'
               }}
               value={peso}
               placeholder="Informe seu Peso"

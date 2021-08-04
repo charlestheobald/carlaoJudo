@@ -227,7 +227,6 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Peso *</Text>
                 <TextInput style={styles.input}
-                  value={usuario.peso}
                   placeholder="Informe seu Peso"
                   keyboardType="numeric"
                   autoCorrect={false}
@@ -237,8 +236,6 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Altura (cm)*</Text>
                 <TextInput style={styles.input}
-
-                  value={usuario.altura}
                   placeholder={'Altura em centimetros'}
                   keyboardType="numeric"
                   autoCorrect={false}

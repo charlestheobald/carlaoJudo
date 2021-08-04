@@ -10,8 +10,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
-  Modal
-
+  Modal,
+  FlatList,
+  Alert
 } from 'react-native';
 
 
@@ -35,18 +36,18 @@ export const Ranking = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterQuery, setFilterQuery] = useState([200, 0])
 
-  const { isAdmin, nomeContexto, fullData } = useContext(UsuarioContext)
+  const { isAdmin, nomeContexto, fullData, setFullData } = useContext(UsuarioContext)
 
   const navigation = useNavigation();
 
-  function isTheFuckingOne(value) {
+  function filterFunction(value) {
     return value.classe === queryParam
   }
 
   useEffect(() => {
     if (queryParam != 'GERAL') {
       setListaAlunos(
-        fullData.filter(isTheFuckingOne).sort((a, b) => {
+        fullData.filter(filterFunction).sort((a, b) => {
           if (a.pontuacao < b.pontuacao) {
             return 1;
           }
@@ -67,7 +68,6 @@ export const Ranking = () => {
         }))
     }
   }, [queryParam])
-
 
   // function filterParam(nomeClasse) {
   //   if (nomeCLasse === 'all') {
@@ -96,6 +96,41 @@ export const Ranking = () => {
     navigation.navigate('UserConfigs')
   }
 
+  const handleRefresh = () => {
+    getAluno().then((res) => {
+      setFullData(res)
+    }).catch((error) => {
+      Alert.alert(
+        'Erro!',
+        `Alguma coisa ruim aconteceu! ${error.response}`,
+        [{ text: 'ok' }])
+    })
+
+
+    if (queryParam != 'GERAL') {
+      setListaAlunos(
+        fullData.filter(filterFunction).sort((a, b) => {
+          if (a.pontuacao < b.pontuacao) {
+            return 1;
+          }
+          if (a.pontuacao > b.pontuacao) {
+            return -1;
+          }
+        }))
+    }
+    else {
+      setListaAlunos(
+        fullData.sort((a, b) => {
+          if (a.pontuacao < b.pontuacao) {
+            return 1;
+          }
+          if (a.pontuacao > b.pontuacao) {
+            return -1;
+          }
+        })
+      )
+    }
+  }
 
   return (
 
@@ -126,17 +161,32 @@ export const Ranking = () => {
           </View>
         </View>
 
-        <ScrollView style={{ paddingLeft: '10%', width: '110%' }}>
-          {listaAlunos &&
+        {
+          listaAlunos &&
 
-            listaAlunos.map((aluno, index) => (
+          <FlatList style={{ paddingLeft: '10%', width: '110%' }}
+            data={listaAlunos}
+            refreshing={false}
+            onRefresh={handleRefresh}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item: aluno, index }) => {
 
-              <RankedStudent key={aluno.id} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
-            ))
-          }
 
+              return (
+                <TouchableOpacity>
+                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+                </TouchableOpacity>
+              )
+            }
+            }
+          />
+        }
+        {/* {listaAlunos &&
+          listaAlunos.map((aluno, index) => (
 
-        </ScrollView>
+            <RankedStudent key={aluno.id} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+          ))
+        } */}
       </View>
       <ModalView isVisible={isModalVisible} handleClose={() => setIsModalVisible(false)} filterParam={handleFilterQuery} />
 

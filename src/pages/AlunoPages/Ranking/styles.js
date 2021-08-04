@@ -34,10 +34,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontFamily: theme.fonts.titleLale400,
     fontSize: 36,
+    marginTop: 15,
     marginLeft: 20,
   },
   iconFilter: {
-
+    marginTop: 15,
     marginRight: 35
   },
 

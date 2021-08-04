@@ -148,6 +148,11 @@ export function ModalView({ isVisible, filterParam, handleClose }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.filterButton}
+                  onPress={() => handleFilterParam('VETERANO_4')}>
+                  <Text style={styles.textSub}>VETERANO 4</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.filterButton}
                   onPress={() => handleFilterParam('VETERANO_5')}>
                   <Text style={styles.textSub}>VETERANO 5</Text>
                 </TouchableOpacity>
