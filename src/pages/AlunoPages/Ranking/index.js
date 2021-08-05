@@ -36,7 +36,7 @@ export const Ranking = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterQuery, setFilterQuery] = useState([200, 0])
 
-  const { isAdmin, nomeContexto, fullData, setFullData } = useContext(UsuarioContext)
+  const { isAdmin, nomeContexto, fullData, setFullData, setAluno } = useContext(UsuarioContext)
 
   const navigation = useNavigation();
 
@@ -69,31 +69,14 @@ export const Ranking = () => {
     }
   }, [queryParam])
 
-  // function filterParam(nomeClasse) {
-  //   if (nomeCLasse === 'all') {
-
-  //     return (aluno.classe === 'SUB-5' ||
-  //       aluno.classe === 'SUB-7' ||
-  //       aluno.classe === 'SUB-9' ||
-  //       aluno.classe === 'SUB-11' ||
-  //       aluno.classe === 'SUB-13' ||
-  //       aluno.classe === 'SUB-15' ||
-  //       aluno.classe === 'SUB-18' ||
-  //       aluno.classe === 'SUB-21' ||
-
-  //      );
-
-  //   }
-
-  // }
-
   const handleFilterQuery = (param) => {
     setQueryParam(param)
     setIsModalVisible(false)
   }
 
-  const handleNavigationConfigs = () => {
+  const handleNavigationConfigs = (aluno) => {
     if(isAdmin){
+      setAluno(aluno)
       navigation.navigate('AlunoConfigs')
     }else{
     navigation.navigate('UserConfigs')
@@ -177,8 +160,8 @@ export const Ranking = () => {
 
 
               return (
-                <TouchableOpacity onPress={handleNavigationConfigs}>
-                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} idAluno={aluno.id} points={aluno.pontuacao} />
+                <TouchableOpacity onPress={() => handleNavigationConfigs(aluno)}>
+                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
                 </TouchableOpacity>
               )
             }

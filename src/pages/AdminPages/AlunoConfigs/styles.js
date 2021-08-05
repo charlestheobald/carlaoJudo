@@ -17,13 +17,12 @@ export const styles = StyleSheet.create({
   },
 
   containerUserInfo: {
+    marginVertical: 100,
     width: '100%',
     alignItems: 'center',
   },
 
   back: {
-
-    //marginLeft: '5%',
     alignSelf: 'center'
   },
 
