@@ -38,7 +38,7 @@ export const DayOfWeekProg = () => {
 
           <WeekDayItem
             label='Treino'
-            period={[8, 9]}
+            period={[10, 15, 16, 30]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.
@@ -46,7 +46,7 @@ export const DayOfWeekProg = () => {
           />
           <WeekDayItem
             label='Treino'
-            period={[8, 9]}
+            period={[10, 15, 16, 30]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.
@@ -54,7 +54,7 @@ export const DayOfWeekProg = () => {
           />
           <WeekDayItem
             label='Treino'
-            period={[8, 9]}
+            period={[10, 15, 16, 30]}
             local='Konnen'
             description='Lorem ipsum dolor sit amet, consectetur
             adipiscing elit. Donec nec libero ligula.

@@ -18,7 +18,7 @@ import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
 import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
 import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 import { UserConfigs } from '../pages/UserConfigs';
-
+import { Quiz } from '../pages/AlunoPages/Quiz';
 
 const RankingRoutes = () => {
 
@@ -64,6 +64,10 @@ const ActivitiesRoutes = () => {
       <Screen
         name="Atividades"
         component={Activities}
+      />
+      <Screen
+        name="Quiz"
+        component={Quiz}
       />
       <Screen
         name="UserConfigs"
