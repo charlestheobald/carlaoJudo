@@ -13,6 +13,7 @@ export const UsuarioProvider = ({ children }) => {
   const [dayOfWeek, setDayOfWeek] = useState(null)
   const [user, setUser] = useState({})
   const [fullData, setFullData] = useState([])
+  const [aluno, setAluno] = useState({})
 
   return (
     <UsuarioContext.Provider
@@ -32,7 +33,9 @@ export const UsuarioProvider = ({ children }) => {
         fullData,
         setFullData,
         user,
-        setUser
+        setUser,
+        aluno,
+        setAluno
 
       }}
     >

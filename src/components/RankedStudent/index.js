@@ -14,7 +14,6 @@ export const RankedStudent = ({ rank, name, points }) => {
 
   return (
 
-
     <View style={styles.container}>
       <View style={styles.numberContainer}>
         <Text style={[{ color: rank === 1 ? theme.colors.secondary20 : theme.colors.text }, styles.number]}>
