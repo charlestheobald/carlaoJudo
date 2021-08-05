@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { UsuarioContext } from '../../contexts/usuario/UsuarioContext'
 import { StandardButton } from '../../components/StandardButton'
 import { useNavigation } from "@react-navigation/native";
+import { TextInputMask } from 'react-native-masked-text'
 
 const listaLocais = [
   {
@@ -273,7 +274,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Nome *</Text>
                 <TextInput style={styles.input}
-                  // placeholder={nomeAluno}
+                  placeholder={nomeAluno}
                   autoCorrect={false}
                   value={nomeAluno}
 
@@ -296,7 +297,8 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Altura*</Text>
                 <TextInput style={styles.input}
-                  //placeholder={altura}
+
+                  placeholder={altura.toString()}
                   value={altura}
                   keyboardType="numeric"
                   autoCorrect={false}
@@ -319,7 +321,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>FJERJ</Text>
                 <TextInput style={styles.input}
-                  //placeholder={FJERJ?.toString()}
+                  placeholder={FJERJ?.toString()}
                   value={FJERJ}
                   keyboardType="numeric"
                   autoCorrect={false}
@@ -328,7 +330,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>CBJ/ZEMPO</Text>
                 <TextInput style={styles.input}
-                  //placeholder={CBJ_ZEMPO?.toString()}
+                  placeholder={CBJ_ZEMPO?.toString()}
                   value={CBJ_ZEMPO}
                   autoCapitalize='characters'
                   autoCorrect={false}
@@ -338,7 +340,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>RG</Text>
                 <TextInput style={styles.input}
-                  //placeholder={RG}
+                  placeholder={RG?.toString()}
                   value={RG}
                   autoCorrect={false}
                   onChangeText={(text) => setRG(text)}
@@ -346,7 +348,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>CPF</Text>
                 <TextInput style={styles.input}
-                  //placeholder={CPF}
+                  placeholder={CPF?.toString()}
                   value={CPF}
                   keyboardType="numeric"
                   autoCorrect={false}
@@ -355,7 +357,7 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Telefone *</Text>
                 <TextInput style={styles.input}
-                  //placeholder={telefone.toString()}
+                  placeholder={telefone.toString()}
                   value={telefone}
                   keyboardType="numeric"
                   autoCorrect={false}
@@ -426,13 +428,9 @@ export const UserConfigs = () => {
 
                 />
               </View>
-
-
-
             </View>
-
-
           }
+
         </ScrollView>
       </View>
     </>
