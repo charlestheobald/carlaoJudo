@@ -4,6 +4,8 @@ import { View, TouchableOpacity, Image, Text, Pressable, Modal, Button } from 'r
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
+
+
 export const Header = ({ isVisible, handleNavigationModal }) => {
 
 
@@ -11,6 +13,11 @@ export const Header = ({ isVisible, handleNavigationModal }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleClose = () => {
+    setModalVisible(false)
+  }
+
+  const handleNavClose = () => {
+    handleNavigationModal()
     setModalVisible(false)
   }
 
@@ -35,7 +42,7 @@ export const Header = ({ isVisible, handleNavigationModal }) => {
                   <FontAwesome name="close" size={24} color="black" />
                 </TouchableOpacity>
                 <Button title='Press'
-                  onPress={handleNavigationModal}
+                  onPress={handleNavClose}
                 />
 
               </View>
