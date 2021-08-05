@@ -3,123 +3,31 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Picker } fr
 
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles'
-import { theme } from '../../global/theme'
-import { updateAluno } from '../../services/AlunoService'
-import { format } from "date-fns";
-import { UsuarioContext } from '../../contexts/usuario/UsuarioContext'
-import { StandardButton } from '../../components/StandardButton'
+import { theme } from '../../../global/theme';
+import { updateStatus } from '../../../services/AlunoService'
+import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext';
+import { StandardButton } from '../../../components/StandardButton';
 import { useNavigation } from "@react-navigation/native";
-import { TextInputMask } from 'react-native-masked-text'
-
-const listaLocais = [
-  {
-    nome: 'Informe o local de treino',
-    id: '0'
-  },
-  {
-    nome: 'KONNEN',
-    id: 'KONNEN'
-  },
-  {
-    nome: 'OUTRO',
-    id: 'OUTRO'
-  }
-]
-const listaFaixas = [
-  {
-    nome: 'Informe sua faixa', id: '0'
-  },
-  {
-    nome: 'BRANCA',
-    id: 'BRANCA'
-  },
-  {
-    nome: 'CINZA',
-    id: 'CINZA'
-  },
-  {
-    nome: 'AZUL',
-    id: 'AZUL'
-  },
-  {
-    nome: 'AMARELA',
-    id: 'AMARELA'
-  },
-  {
-    nome: 'LARANJA',
-    id: 'LARANJA'
-  },
-  {
-    nome: 'VERDE',
-    id: 'VERDE'
-  },
-  {
-    nome: 'ROXA',
-    id: 'ROXA'
-  },
-  {
-    nome: 'MARROM',
-    id: 'MARROM'
-  },
-  {
-    nome: 'PRETA',
-    id: 'PRETA'
-  },
-]
-const listaHorarios = [
-  {
-    nome: 'Informe seu horário de aula', id: '0'
-  },
-  {
-    nome: '08:00', id: '08:00'
-  },
-  {
-    nome: '09:00', id: '09:00'
-  },
-  {
-    nome: '10:00', id: '10:00'
-  },
-  {
-    nome: '13:00', id: '13:00'
-  },
-  {
-    nome: '15:00', id: '15:00'
-  },
-
-];
-const listaPagamentos = [
-  {
-    nome: 'Informe a opção de pagamento',
-    id: '0'
-  },
-  {
-    nome: 'CREDITO',
-    id: 'CREDITO'
-  },
-  {
-    nome: 'DEBITO',
-    id: 'DEBITO'
-  },
-  {
-    nome: 'TRANSFERENCIA',
-    id: 'TRANSFERENCIA'
-  },
-  {
-    nome: 'PIX',
-    id: 'PIX'
-  },
-  {
-    nome: 'BOLETO',
-    id: 'BOLETO'
-  },
-]
 
 
-
-
-export const UserConfigs = () => {
+export const AlunoConfigs = ({ idAluno }) => {
 
   const pattern = "yyyy-MM-dd";
+
+  const listaStatus = [
+    {
+      nome: "PENDENTE",
+      id: "PENDENTE"
+    },
+    {
+      nome: "ATIVO",
+      id: "ATIVO"
+    },
+    {
+      nome: "INATIVO",
+      id: "INATIVO"
+    }
+  ]
 
   const { isAdmin, user, setUser } = useContext(UsuarioContext)
 
@@ -127,53 +35,15 @@ export const UserConfigs = () => {
 
 
 
-  const [localTreino, setLocalTreino] = useState(user.localTreino)
-  const [nomeAluno, setNomeAluno] = useState(user.nome);
-  const [peso, setPeso] = useState(user.peso);
-  const [altura, setAltura] = useState(user.altura);
-  const [faixa, setFaixa] = useState(user.faixa);
-  const [FJERJ, setFJERJ] = useState(user.fjerj);
-  const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState(user.cbjZempo);
-  const [RG, setRG] = useState(user.rg);
-  const [CPF, setCPF] = useState(user.cpf);
-  const [telefone, setTelefone] = useState(user.telefone);
-  const [email, setEmail] = useState(user.email);
-  const [horaAula, setHoraAula] = useState(user.horarioAula);
-  const [pagamento, setPagamento] = useState(user.pagamento);
-  const [usuario, setUsuario] = useState(user.usuario);
-
-  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
+  const [pontuacao, setPontuacao] = useState(user.pontuacao)
+  const [status, setStatus] = useState(user.status);
 
   if (isAdmin) {
 
   } else {
-    const alunoVO = {
-      altura: Number(altura),
-      cbjZempo: CBJ_ZEMPO,
-      cep: user.endereco.cep,
-      complemento: user.endereco.complemento,
-      cpf: CPF,
-      dataCadastro: user.dataCadastro,
-      dataIngresso: user.dataIngresso,
-      dataNascimento: user.dataNascimento,
-      dataUltimoExame: user.dataUltimoExame,
-      email: email,
-      faixa: faixa,
-      fjerj: FJERJ,
-      foto: user.foto,
-      horarioAula: horaAula,
-      localTreino: localTreino,
-      nome: nomeAluno,
-      nomeResponsavel: user.nomeResponsavel,
-      numero: user.endereco.numero,
-      pagamento: pagamento,
-      peso: Number(peso),
-      rg: RG,
-      senha: user.senha,
-      sexo: user.sexo,
-      telefone: telefone,
-      telefoneResponsavel: user.telefoneResponsavel,
-      usuario: usuario,
+    const alunoUdpateVO = {
+      pontuacao: pontuacao,
+      status: status
     }
   }
 
@@ -181,9 +51,9 @@ export const UserConfigs = () => {
     navigation.goBack()
   }
 
-  const handleEmptyAltura = () => {
-    if (altura === null || altura === 0)
-      return alert("O campo altura é obrigatório")
+  const handleEmptyPontuacao = () => {
+    if (pontuacao === null)
+      return alert("O campo pontuação é obrigatório")
   }
   const handleEmptyEmail = () => {
     if (email === null)
@@ -210,12 +80,11 @@ export const UserConfigs = () => {
       return alert("Campo usuário é obrigatório")
   }
 
-  const handleUpdateAluno = () => {
+  const handleUpdateStatus = () => {
     console.log(alunoVO)
-    updateAluno(user.usuario, alunoVO).then((res) => {
+    updateStatus(idAluno, alunoUdpateVO).then((res) => {
       console.log(res);
       alert('suuuucesso')
-      setUser(res)
       navigation.navigate('Ranking')
     }).catch((e) => alert(e))
 
@@ -235,23 +104,52 @@ export const UserConfigs = () => {
           </TouchableOpacity>
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image style={styles.image} source={require('../../assets/Image/logo2.png')} />
+          <Image style={styles.image} source={require('../../../assets/Image/logo2.png')} />
         </View>
 
       </View>
       <View>
-        {
-          isAdmin &&
+        <View style={styles.content}>
+          <Text>Admin</Text>
+        </View>
 
-          <View style={styles.content}>
-            <Text>Admin</Text>
-          </View>
+        <Text style={styles.textInput}>Status *</Text>
+        <View style={[styles.input, { justifyContent: 'center' }]}>
+          <Picker
+            selectedValue={status}
+            onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}
+          >
+            {listaStatus.map((status) => (
+              <Picker.Item label={status.nome} value={status.id} key={status.id} />
+            ))}
+          </Picker>
+        </View>
 
-        }
+        <Text style={styles.textInput}>Pontuação*</Text>
+        <TextInput style={styles.input}
 
+          placeholder={pontuacao?.toString()}
+          value={pontuacao}
+          keyboardType="numeric"
+          autoCorrect={false}
+          onChangeText={(text) => setPontuacao(text)}
+          onBlur={() => handleEmptyPontuacao()}
+        />
       </View>
 
-      <View style={styles.container}>
+      <View style={styles.containerEditProfileButton}>
+        <StandardButton
+          label='Editar Aluno'
+          textColor={theme.colors.highlight}
+          bgColor={theme.colors.secondary10}
+          font={theme.fonts.text400}
+          onPress={() => handleUpdateStatus()}
+          widthProp='100%'
+
+        />
+      </View>
+
+      {/* <View style={styles.container}>
 
 
         <ScrollView style={{ width: '100%' }}>
@@ -298,28 +196,9 @@ export const UserConfigs = () => {
                   onBlur={() => handleEmptyPeso()}
                 />
 
-                <Text style={styles.textInput}>Altura*</Text>
-                <TextInput style={styles.input}
 
-                  placeholder={altura.toString()}
-                  value={altura}
-                  keyboardType="numeric"
-                  autoCorrect={false}
-                  onChangeText={(text) => setAltura(text)}
-                  onBlur={() => handleEmptyAltura()}
-                />
 
-                <Text style={styles.textInput}>Faixa *</Text>
-                <View style={[styles.input, { justifyContent: 'center' }]}>
-                  <Picker
-                    selectedValue={faixa}
-                    onValueChange={(itemValue, itemIndex) => setFaixa(itemValue)}
-                  >
-                    {listaFaixas.map((faixa) => (
-                      <Picker.Item label={faixa.nome} value={faixa.id} key={faixa.id} />
-                    ))}
-                  </Picker>
-                </View>
+
 
 
                 <Text style={styles.textInput}>FJERJ</Text>
@@ -420,22 +299,12 @@ export const UserConfigs = () => {
                 />
               </View>
 
-              <View style={styles.containerEditProfileButton}>
-                <StandardButton
-                  label='Editar Perfil'
-                  textColor={theme.colors.highlight}
-                  bgColor={theme.colors.secondary10}
-                  font={theme.fonts.text400}
-                  onPress={() => handleUpdateAluno()}
-                  widthProp='100%'
 
-                />
-              </View>
             </View>
           }
 
         </ScrollView>
-      </View>
+      </View> */}
     </>
   )
 }

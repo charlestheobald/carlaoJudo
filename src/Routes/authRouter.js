@@ -19,6 +19,7 @@ import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
 import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 import { UserConfigs } from '../pages/UserConfigs';
 import { Quiz } from '../pages/AlunoPages/Quiz';
+import { AlunoConfigs } from '../pages/AdminPages/AlunoConfigs';
 
 const RankingRoutes = () => {
 
@@ -41,6 +42,10 @@ const RankingRoutes = () => {
       <Screen
         name="UserConfigs"
         component={UserConfigs}
+      />
+      <Screen
+        name="AlunoConfigs"
+        component={AlunoConfigs}
       />
 
 

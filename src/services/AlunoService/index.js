@@ -15,6 +15,9 @@ export const deleteAluno = (id) => {
 export const updateAluno = (username, aluno) => {
   return api.put(`/aluno/${username}`, aluno).then((res) => res.data);
 };
+export const updateStatus = (id, alunoUpdateVO) => {
+  return api.put(`/aluno/${id}`, alunoUpdateVO).then((res) => res.data);
+};
 
 export const addAluno = (alunoVO) => {
 
