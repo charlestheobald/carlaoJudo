@@ -93,7 +93,11 @@ export const Ranking = () => {
   }
 
   const handleNavigationConfigs = () => {
+    if(isAdmin){
+      navigation.navigate('AlunoConfigs')
+    }else{
     navigation.navigate('UserConfigs')
+    }
   }
 
   const handleRefresh = () => {
@@ -162,7 +166,7 @@ export const Ranking = () => {
         </View>
 
         {
-          listaAlunos &&
+          isAdmin &&
 
           <FlatList style={{ paddingLeft: '10%', width: '110%' }}
             data={listaAlunos}
@@ -173,24 +177,32 @@ export const Ranking = () => {
 
 
               return (
-                <TouchableOpacity>
-                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+                <TouchableOpacity onPress={handleNavigationConfigs}>
+                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} idAluno={aluno.id} points={aluno.pontuacao} />
                 </TouchableOpacity>
               )
             }
             }
           />
         }
-        {/* {listaAlunos &&
-          listaAlunos.map((aluno, index) => (
+        {
+          !isAdmin &&
 
-            <RankedStudent key={aluno.id} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
-          ))
-        } */}
+          <FlatList style={{ paddingLeft: '10%', width: '110%' }}
+            data={listaAlunos}
+            refreshing={false}
+            onRefresh={handleRefresh}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item: aluno, index }) => {
+              return (
+                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+              )
+            }
+            }
+          />
+        }
       </View>
       <ModalView isVisible={isModalVisible} handleClose={() => setIsModalVisible(false)} filterParam={handleFilterQuery} />
-
-
     </View>
 
   )
