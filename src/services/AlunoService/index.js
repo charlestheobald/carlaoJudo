@@ -12,13 +12,13 @@ export const deleteAluno = (id) => {
   return api.delete(`/aluno/${id}`).then((res) => res.data);
 };
 
-export const updateAluno = (id, aluno) => {
-  return api.put(`/aluno/${id}`, aluno).then((res) => res.data);
+export const updateAluno = (username, aluno) => {
+  return api.put(`/aluno/${username}`, aluno).then((res) => res.data);
 };
 
-export const addAluno = (aluno) => {
+export const addAluno = (alunoVO) => {
 
-  return api.post("/aluno/", aluno)
+  return api.post(`/aluno`, alunoVO)
     .then((res) => console.log(res.data));
 
 

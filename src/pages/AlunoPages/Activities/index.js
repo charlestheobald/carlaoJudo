@@ -36,6 +36,10 @@ export const Activities = () => {
     navigation.navigate('UserConfigs')
   }
 
+  const goQuiz = () => {
+    navigation.navigate('Quiz')
+  }
+
   return (
 
     <View style={styles.background}>
@@ -67,41 +71,19 @@ export const Activities = () => {
 
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}
-            label='Caça-Palavras'
+            label='Quiz'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
-            onPress={() => { }}
+            onPress={() => goQuiz()}
             widthProp='90%'
           />
         </View>
 
-        <View style={styles.contentButton}>
-          <StandardButton style={styles.textButton}
-            label='Caça-Palavras'
-            textColor={theme.colors.highlight}
-            bgColor={theme.colors.secondary10}
-            font={theme.fonts.text300}
-            onPress={() => { }}
-            widthProp='90%'
-          />
-        </View>
-
-        <View style={styles.contentButton}>
-          <StandardButton style={styles.textButton}
-            label='Caça-Palavras'
-            textColor={theme.colors.highlight}
-            bgColor={theme.colors.secondary10}
-            font={theme.fonts.text300}
-            onPress={() => { }}
-            widthProp='90%'
-          />
-        </View>
 
 
 
       </View>
-
     </View>
 
   )

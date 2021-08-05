@@ -234,6 +234,7 @@ export const Register = () => {
       nome: 'MASCULINO',
       id: 'MASCULINO'
     },
+
   ]
   const listaPagamentos = [
     {
@@ -314,7 +315,7 @@ export const Register = () => {
     dataIngresso: format(dataInicioJudo, pattern),
     dataNascimento: format(dataNascimento, pattern),
     dataUltimoExame: format(dataUltimoExame, pattern),
-    email: email,
+    email: emailResponsavel ? emailResponsavel : email,
     faixa: faixa,
     fjerj: FJERJ,
     foto: image,
@@ -408,36 +409,36 @@ export const Register = () => {
     ).catch((e) => alert(e + " CEP inválido"))
   }
 
-  const handleAmptyAltura = () => {
+  const handleEmptyAltura = () => {
     if (altura === null || altura === 0)
       return alert("O campo altura é obrigatório")
   }
-  const handleAmptyEmail = () => {
+  const handleEmptyEmail = () => {
     if (email === null)
       return alert("O campo email é obrigatório")
   }
-  const handleAmptyNome = () => {
+  const handleEmptyNome = () => {
     if (nomeAluno === null)
       return alert("O campo nome é obrigatório")
   }
 
 
-  const handleAmptyPeso = () => {
+  const handleEmptyPeso = () => {
     if (peso === null || peso === 0)
       return alert("Campo peso é obrigatório")
   }
 
-  const handleAmptySenha = () => {
+  const handleEmptySenha = () => {
     if (senha === null)
       return alert("Campo senha é obrigatório")
   }
 
-  const handleAmptyTelefone = () => {
+  const handleEmptyTelefone = () => {
     if (telResidencial === null)
       return alert("Campo telefone é obrigatório")
   }
 
-  const handleAmptyUsuario = () => {
+  const handleEmptyUsuario = () => {
     if (usuario === null)
       return alert("Campo usuário é obrigatório")
   }
@@ -499,7 +500,7 @@ export const Register = () => {
               autoCorrect={false}
               autoCapitalize='words'
               onChangeText={(text) => setNomeAluno(text)}
-              onBlur={() => handleAmptyNome()}
+              onBlur={() => handleEmptyNome()}
 
             />
 
@@ -563,7 +564,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setPeso(text)}
-              onBlur={() => handleAmptyPeso()}
+              onBlur={() => handleEmptyPeso()}
             />
 
             <Text style={styles.textInput}>Altura *</Text>
@@ -577,7 +578,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setAltura(text)}
-              onBlur={() => handleAmptyAltura()}
+              onBlur={() => handleEmptyAltura()}
             />
 
             <Text style={styles.textInput}>Faixa *</Text>
@@ -668,7 +669,7 @@ export const Register = () => {
               keyboardType="numeric"
               autoCorrect={false}
               onChangeText={(text) => setTelResidencial(text)}
-              onBlur={() => handleAmptyTelefone()}
+              onBlur={() => handleEmptyTelefone()}
             />
 
             {!emailResponsavel &&
@@ -681,7 +682,7 @@ export const Register = () => {
                   autoCapitalize='none'
                   autoCorrect={false}
                   onChangeText={(text) => setEmail(text)}
-                  onBlur={() => handleAmptyEmail()}
+                  onBlur={() => handleEmptyEmail()}
                 />
               </>
             }
@@ -756,7 +757,7 @@ export const Register = () => {
               placeholder="Informe um novo nome de usuario"
               autoCorrect={false}
               onChangeText={(text) => setUsuario(text)}
-              onBlur={() => handleAmptyUsuario()}
+              onBlur={() => handleEmptyUsuario()}
             />
 
             <Text style={styles.textInput}>Senha *</Text>
@@ -766,7 +767,7 @@ export const Register = () => {
               autoCapitalize='none'
               secureTextEntry={true}
               onChangeText={(text) => setSenha(text)}
-              onBlur={() => handleAmptySenha()}
+              onBlur={() => handleEmptySenha()}
             />
             <Text style={styles.textInput}>Repetir senha *</Text>
             <TextInput style={styles.input}

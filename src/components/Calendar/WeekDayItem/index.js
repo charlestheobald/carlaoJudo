@@ -6,9 +6,9 @@ import { theme } from '../../../global/theme'
 
 import { StandardButton } from '../../StandardButton'
 
-export const WeekDayItem = ({ label, period, local, description, handlePress  }) => {
-    return (
-		<View styles={{flex:1}}>	
+export const WeekDayItem = ({ label, period, local, description, handlePress }) => {
+	return (
+		<View styles={{ flex: 1 }}>
 			<View style={styles.container}>
 				<View style={styles.containerLabelPeriod}>
 					<View style={styles.containerLabel}>
@@ -17,7 +17,7 @@ export const WeekDayItem = ({ label, period, local, description, handlePress  })
 					</View>
 					<View style={styles.containerPeriod}>
 						<Text style={styles.boldTitle}>Período: </Text>
-						<Text>{period[0]} às {period[1]}h</Text>
+						<Text>{period[0]}: {period[1]}h às {period[2]}: {period[3]}h</Text>
 					</View>
 				</View>
 				<View style={styles.containerLocal}>
@@ -30,12 +30,12 @@ export const WeekDayItem = ({ label, period, local, description, handlePress  })
 					</View>
 					<View style={styles.descriptionTextContaiener}>
 						<Text>
-							{description} 
+							{description}
 						</Text>
 					</View>
 				</View>
 			</View>
-			<View style={{justifyContent:'center', alignItems:'center', marginBottom:30}}>
+			<View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 30 }}>
 				<StandardButton
 					label='Comparecer'
 					textColor={theme.colors.highlight}
@@ -45,7 +45,7 @@ export const WeekDayItem = ({ label, period, local, description, handlePress  })
 					widthProp='90%'
 				/>
 			</View>
-		</View>			
-    )
+		</View>
+	)
 }
 

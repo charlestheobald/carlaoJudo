@@ -4,10 +4,11 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Picker } fr
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles'
 import { theme } from '../../global/theme'
-
+import { updateAluno } from '../../services/AlunoService'
+import { format } from "date-fns";
 import { UsuarioContext } from '../../contexts/usuario/UsuarioContext'
 import { StandardButton } from '../../components/StandardButton'
-import { TextInputMask } from 'react-native-masked-text'
+import { useNavigation } from "@react-navigation/native";
 
 const listaLocais = [
   {
@@ -117,48 +118,105 @@ const listaPagamentos = [
 
 export const UserConfigs = () => {
 
-  const [checkSenha, setCheckSenha] = useState(null)
+  const pattern = "yyyy-MM-dd";
 
   const { isAdmin, user, setUser } = useContext(UsuarioContext)
 
-  const [usuario, setUsuario] = useState(user)
+  const navigation = useNavigation();
+
+
+
+  const [localTreino, setLocalTreino] = useState(user.localTreino)
+  const [nomeAluno, setNomeAluno] = useState(user.nome);
+  const [peso, setPeso] = useState(user.peso);
+  const [altura, setAltura] = useState(user.altura);
+  const [faixa, setFaixa] = useState(user.faixa);
+  const [FJERJ, setFJERJ] = useState(user.fjerj);
+  const [CBJ_ZEMPO, setCBJ_ZEMPO] = useState(user.cbjZempo);
+  const [RG, setRG] = useState(user.rg);
+  const [CPF, setCPF] = useState(user.cpf);
+  const [telefone, setTelefone] = useState(user.telefone);
+  const [email, setEmail] = useState(user.email);
+  const [horaAula, setHoraAula] = useState(user.horarioAula);
+  const [pagamento, setPagamento] = useState(user.pagamento);
+  const [usuario, setUsuario] = useState(user.usuario);
+
+  const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
+
+
+  const alunoVO = {
+    altura: Number(altura),
+    cbjZempo: CBJ_ZEMPO,
+    cep: user.endereco.cep,
+    complemento: user.endereco.complemento,
+    cpf: CPF,
+    dataCadastro: user.dataCadastro,
+    dataIngresso: user.dataIngresso,
+    dataNascimento: user.dataNascimento,
+    dataUltimoExame: user.dataUltimoExame,
+    email: email,
+    faixa: faixa,
+    fjerj: FJERJ,
+    foto: user.foto,
+    horarioAula: horaAula,
+    localTreino: localTreino,
+    nome: nomeAluno,
+    nomeResponsavel: user.nomeResponsavel,
+    numero: user.endereco.numero,
+    pagamento: pagamento,
+    peso: Number(peso),
+    rg: RG,
+    senha: user.senha,
+    sexo: user.sexo,
+    telefone: telefone,
+    telefoneResponsavel: user.telefoneResponsavel,
+    usuario: usuario,
+  }
 
   const handleGoBack = () => {
     navigation.goBack()
   }
-  const handleAmptyAltura = () => {
-    if (usuario.altura === null || usuario.altura === 0)
+
+  const handleEmptyAltura = () => {
+    if (altura === null || altura === 0)
       return alert("O campo altura é obrigatório")
   }
-  const handleAmptyEmail = () => {
-    if (usuario.email === null)
+  const handleEmptyEmail = () => {
+    if (email === null)
       return alert("O campo email é obrigatório")
   }
-  const handleAmptyNome = () => {
-    if (usuario.nome === null)
+  const handleEmptyNome = () => {
+    if (nomeAluno === null)
       return alert("O campo nome é obrigatório")
   }
 
 
-  const handleAmptyPeso = () => {
-    if (usuario.peso === null || usuario.peso === 0)
+  const handleEmptyPeso = () => {
+    if (peso === null || peso === 0)
       return alert("Campo peso é obrigatório")
   }
 
-  const handleAmptySenha = () => {
-    if (usuario.senha === null)
-      return alert("Campo senha é obrigatório")
-  }
-
-  const handleAmptyTelefone = () => {
-    if (usuario.telefone === null)
+  const handleEmptyTelefone = () => {
+    if (telefone === null)
       return alert("Campo telefone é obrigatório")
   }
 
-  const handleAmptyUsuario = () => {
-    if (usuario.usuario === null)
+  const handleEmptyUsuario = () => {
+    if (usuario === null)
       return alert("Campo usuário é obrigatório")
   }
+
+  const handleUpdateAluno = () => {
+    console.log(alunoVO)
+    updateAluno(user.usuario, alunoVO).then((res) => {
+      console.log(res);
+      alert('suuuucesso')
+      setUser(res)
+      navigation.navigate('Ranking')
+    }).catch((e) => alert(e))
+
+  }
+
 
 
 
@@ -204,8 +262,8 @@ export const UserConfigs = () => {
                 <Text style={styles.textInput}>Local de treino *</Text>
                 <View style={[styles.input, { justifyContent: 'center' }]}>
                   <Picker
-                    selectedValue={usuario.localidade}
-                    onValueChange={(itemValue, itemIndex) => setUsuario({ ...usuario, localTreino: itemValue })}
+                    selectedValue={localTreino}
+                    onValueChange={(itemValue, itemIndex) => setLocalTreino(itemValue)}
                   >
                     {listaLocais.map((local) => (
                       <Picker.Item label={local.nome} value={local.id} key={local.id} />
@@ -215,39 +273,42 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Nome *</Text>
                 <TextInput style={styles.input}
-                  placeholder="Informe seu nome"
+                  // placeholder={nomeAluno}
                   autoCorrect={false}
-                  defaultValue={usuario.nome}
+                  value={nomeAluno}
 
                   autoCapitalize='words'
-                  onChangeText={(text) => setUsuario({ ...usuario, nome: text })}
-                  onBlur={() => handleAmptyNome()}
+                  onChangeText={(text) => setNomeAluno(text)}
+                  onBlur={() => handleEmptyNome()}
 
                 />
 
                 <Text style={styles.textInput}>Peso *</Text>
                 <TextInput style={styles.input}
-                  placeholder="Informe seu Peso"
-                  keyboardType="numeric"
+
+                  placeholder={peso.toString()}
+                  value={peso}
+                  keyboardType='numeric'
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, peso: text })}
-                  onBlur={() => handleAmptyPeso()}
+                  onChangeText={(text) => setPeso(text)}
+                  onBlur={() => handleEmptyPeso()}
                 />
 
-                <Text style={styles.textInput}>Altura (cm)*</Text>
+                <Text style={styles.textInput}>Altura*</Text>
                 <TextInput style={styles.input}
-                  placeholder={'Altura em centimetros'}
+                  //placeholder={altura}
+                  value={altura}
                   keyboardType="numeric"
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, altura: text })}
-                  onBlur={() => handleAmptyAltura()}
+                  onChangeText={(text) => setAltura(text)}
+                  onBlur={() => handleEmptyAltura()}
                 />
 
                 <Text style={styles.textInput}>Faixa *</Text>
                 <View style={[styles.input, { justifyContent: 'center' }]}>
                   <Picker
-                    selectedValue={usuario.faixa}
-                    onValueChange={(itemValue, itemIndex) => setUsuario({ ...usuario, faixa: itemValue })}
+                    selectedValue={faixa}
+                    onValueChange={(itemValue, itemIndex) => setFaixa(itemValue)}
                   >
                     {listaFaixas.map((faixa) => (
                       <Picker.Item label={faixa.nome} value={faixa.id} key={faixa.id} />
@@ -258,73 +319,72 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>FJERJ</Text>
                 <TextInput style={styles.input}
-
-                  defaultValue={usuario.fjerj}
-                  placeholder="Informe seu registro FJERJ"
+                  //placeholder={FJERJ?.toString()}
+                  value={FJERJ}
                   keyboardType="numeric"
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, fjerj: text })}
+                  onChangeText={(text) => setFJERJ(text)}
                 />
 
-                <Text style={styles.textInput}>CBJ-ZEMPO</Text>
+                <Text style={styles.textInput}>CBJ/ZEMPO</Text>
                 <TextInput style={styles.input}
-                  defaultValue={usuario.cbjZempo}
+                  //placeholder={CBJ_ZEMPO?.toString()}
+                  value={CBJ_ZEMPO}
                   autoCapitalize='characters'
-                  placeholder="Informe seu registro CBJ-ZEMPO"
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, cbjZempo: text })}
+                  onChangeText={(text) => setCBJ_ZEMPO(text)}
                 />
 
 
                 <Text style={styles.textInput}>RG</Text>
                 <TextInput style={styles.input}
-                  defaultValue={usuario.rg}
-                  placeholder="Informe seu RG"
+                  //placeholder={RG}
+                  value={RG}
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, rg: text })}
+                  onChangeText={(text) => setRG(text)}
                 />
 
                 <Text style={styles.textInput}>CPF</Text>
                 <TextInput style={styles.input}
-                  defaultValue={usuario.cpf}
-                  placeholder="Informe seu CPF"
+                  //placeholder={CPF}
+                  value={CPF}
                   keyboardType="numeric"
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, cpf: text })}
+                  onChangeText={(text) => setCPF(text)}
                 />
 
                 <Text style={styles.textInput}>Telefone *</Text>
                 <TextInput style={styles.input}
-                  placeholder="Informe seu telefone"
+                  //placeholder={telefone.toString()}
+                  value={telefone}
                   keyboardType="numeric"
-                  defaultValue={usuario.telefone}
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, telefone: text })}
-                  onBlur={() => handleAmptyTelefone()}
+                  onChangeText={(text) => setTelefone(text)}
+                  onBlur={() => handleEmptyTelefone()}
                 />
 
-                {!usuario.emailResponsavel &&
-                  <>
-                    <Text style={styles.textInput}>E-mail *</Text>
-                    <TextInput style={styles.input}
-                      placeholder="Informe seu e-mail"
-                      keyboardType="email-address"
-                      autoCompleteType='email'
-                      autoCapitalize='none'
-                      autoCorrect={false}
-                      defaultValue={usuario.email}
-                      onChangeText={(text) => setUsuario({ ...usuario, email: text })}
-                      onBlur={() => handleAmptyEmail()}
-                    />
-                  </>
-                }
+
+                <>
+                  <Text style={styles.textInput}>E-mail*</Text>
+                  <TextInput style={styles.input}
+                    //placeholder={email.toString()}
+                    value={email}
+                    keyboardType="email-address"
+                    autoCompleteType='email'
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText={(text) => setEmail(text)}
+                    onBlur={() => handleEmptyEmail()}
+                  />
+                </>
+
 
 
                 <Text style={styles.textInput}>Horário de aula *</Text>
                 <View style={[styles.input, { justifyContent: 'center' }]}>
                   <Picker
-                    selectedValue={usuario.horaAula}
-                    onValueChange={(itemValue, itemIndex) => setUsuario({ ...usuario, horarioAula: itemValue })}
+                    selectedValue={horaAula}
+                    onValueChange={(itemValue, itemIndex) => setHoraAula(itemValue)}
                   >
                     {listaHorarios.map((horario) => (
                       <Picker.Item label={horario.nome} value={horario.id} key={horario.id} />
@@ -335,8 +395,8 @@ export const UserConfigs = () => {
                 <Text style={styles.textInput}>Forma de pagamento *</Text>
                 <View style={[styles.input, { justifyContent: 'center' }]}>
                   <Picker
-                    selectedValue={usuario.pagamento}
-                    onValueChange={(itemValue, itemIndex) => setUsuario({ ...usuario, pagamento: itemValue })}
+                    selectedValue={pagamento}
+                    onValueChange={(itemValue, itemIndex) => setPagamento(itemValue)}
                   >
                     {listaPagamentos.map((value) => (
                       <Picker.Item label={value.nome} value={value.id} key={value.id} />
@@ -347,30 +407,12 @@ export const UserConfigs = () => {
 
                 <Text style={styles.textInput}>Nome de usuario *</Text>
                 <TextInput style={styles.input}
-                  placeholder="Informe um novo nome de usuario"
+                  //placeholder={usuario.toString()}
+                  defaultValue={usuario}
                   autoCorrect={false}
-                  onChangeText={(text) => setUsuario({ ...usuario, usuario: text })}
-                  onBlur={() => handleAmptyUsuario()}
+                  onChangeText={(text) => setUsuario(text)}
+                  onBlur={() => handleEmptyUsuario()}
                 />
-
-                <Text style={styles.textInput}>Senha *</Text>
-                <TextInput style={styles.input}
-                  placeholder="Informe sua senha"
-                  autoCorrect={false}
-                  autoCapitalize='none'
-                  secureTextEntry={true}
-                  onChangeText={(text) => setUsuario({ ...usuario, senha: text })}
-                  onBlur={() => handleAmptySenha()}
-                />
-                <Text style={styles.textInput}>Repetir senha *</Text>
-                <TextInput style={styles.input}
-                  placeholder="Repita a Senha"
-                  secureTextEntry={true}
-                  autoCorrect={false}
-                  autoCapitalize='none'
-                  onChangeText={(text) => setCheckSenha(text)}
-                />
-
               </View>
 
               <View style={styles.containerEditProfileButton}>
@@ -379,7 +421,7 @@ export const UserConfigs = () => {
                   textColor={theme.colors.highlight}
                   bgColor={theme.colors.secondary10}
                   font={theme.fonts.text400}
-                  onPress={() => { }}
+                  onPress={() => handleUpdateAluno()}
                   widthProp='100%'
 
                 />
