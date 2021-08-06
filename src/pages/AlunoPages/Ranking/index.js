@@ -36,7 +36,7 @@ export const Ranking = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterQuery, setFilterQuery] = useState([200, 0])
 
-  const { isAdmin, nomeContexto, fullData, setFullData } = useContext(UsuarioContext)
+  const { isAdmin, nomeContexto, fullData, setFullData, setAluno } = useContext(UsuarioContext)
 
   const navigation = useNavigation();
 
@@ -69,31 +69,18 @@ export const Ranking = () => {
     }
   }, [queryParam])
 
-  // function filterParam(nomeClasse) {
-  //   if (nomeCLasse === 'all') {
-
-  //     return (aluno.classe === 'SUB-5' ||
-  //       aluno.classe === 'SUB-7' ||
-  //       aluno.classe === 'SUB-9' ||
-  //       aluno.classe === 'SUB-11' ||
-  //       aluno.classe === 'SUB-13' ||
-  //       aluno.classe === 'SUB-15' ||
-  //       aluno.classe === 'SUB-18' ||
-  //       aluno.classe === 'SUB-21' ||
-
-  //      );
-
-  //   }
-
-  // }
-
   const handleFilterQuery = (param) => {
     setQueryParam(param)
     setIsModalVisible(false)
   }
 
-  const handleNavigationConfigs = () => {
+  const handleNavigationConfigs = (aluno) => {
+    if(isAdmin){
+      setAluno(aluno)
+      navigation.navigate('AlunoConfigs')
+    }else{
     navigation.navigate('UserConfigs')
+    }
   }
 
   const handleRefresh = () => {
@@ -165,7 +152,7 @@ export const Ranking = () => {
         </View>
 
         {
-          listaAlunos &&
+          isAdmin &&
 
           <FlatList style={{ paddingLeft: '10%', width: '110%' }}
             data={listaAlunos}
@@ -176,7 +163,7 @@ export const Ranking = () => {
 
 
               return (
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleNavigationConfigs(aluno)}>
                   <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
                 </TouchableOpacity>
               )
@@ -184,16 +171,24 @@ export const Ranking = () => {
             }
           />
         }
-        {/* {listaAlunos &&
-          listaAlunos.map((aluno, index) => (
+        {
+          !isAdmin &&
 
-            <RankedStudent key={aluno.id} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
-          ))
-        } */}
+          <FlatList style={{ paddingLeft: '10%', width: '110%' }}
+            data={listaAlunos}
+            refreshing={false}
+            onRefresh={handleRefresh}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item: aluno, index }) => {
+              return (
+                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+              )
+            }
+            }
+          />
+        }
       </View>
       <ModalView isVisible={isModalVisible} handleClose={() => setIsModalVisible(false)} filterParam={handleFilterQuery} />
-
-
     </View>
 
   )

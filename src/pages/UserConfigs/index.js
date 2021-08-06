@@ -144,34 +144,37 @@ export const UserConfigs = () => {
 
   const [dataUltimoExame, setDataUltimoExame] = useState(new Date());
 
+  if (isAdmin) {
 
-  const alunoVO = {
-    altura: Number(altura),
-    cbjZempo: CBJ_ZEMPO,
-    cep: user.endereco.cep,
-    complemento: user.endereco.complemento,
-    cpf: CPF,
-    dataCadastro: user.dataCadastro,
-    dataIngresso: user.dataIngresso,
-    dataNascimento: user.dataNascimento,
-    dataUltimoExame: user.dataUltimoExame,
-    email: email,
-    faixa: faixa,
-    fjerj: FJERJ,
-    foto: user.foto,
-    horarioAula: horaAula,
-    localTreino: localTreino,
-    nome: nomeAluno,
-    nomeResponsavel: user.nomeResponsavel,
-    numero: user.endereco.numero,
-    pagamento: pagamento,
-    peso: Number(peso),
-    rg: RG,
-    senha: user.senha,
-    sexo: user.sexo,
-    telefone: telefone,
-    telefoneResponsavel: user.telefoneResponsavel,
-    usuario: usuario,
+  } else {
+    const alunoVO = {
+      altura: Number(altura),
+      cbjZempo: CBJ_ZEMPO,
+      cep: user.endereco.cep,
+      complemento: user.endereco.complemento,
+      cpf: CPF,
+      dataCadastro: user.dataCadastro,
+      dataIngresso: user.dataIngresso,
+      dataNascimento: user.dataNascimento,
+      dataUltimoExame: user.dataUltimoExame,
+      email: email,
+      faixa: faixa,
+      fjerj: FJERJ,
+      foto: user.foto,
+      horarioAula: horaAula,
+      localTreino: localTreino,
+      nome: nomeAluno,
+      nomeResponsavel: user.nomeResponsavel,
+      numero: user.endereco.numero,
+      pagamento: pagamento,
+      peso: Number(peso),
+      rg: RG,
+      senha: user.senha,
+      sexo: user.sexo,
+      telefone: telefone,
+      telefoneResponsavel: user.telefoneResponsavel,
+      usuario: usuario,
+    }
   }
 
   const handleGoBack = () => {

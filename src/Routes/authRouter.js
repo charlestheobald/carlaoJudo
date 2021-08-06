@@ -20,6 +20,7 @@ import { Calendar } from '../pages/AlunoPages/Calendar';
 import { UserConfigs } from '../pages/UserConfigs';
 import { Quiz } from '../pages/AlunoPages/Quiz';
 import { Pagamentos } from '../pages/Pagamentos';
+import { AlunoConfigs } from '../pages/AdminPages/AlunoConfigs';
 
 const RankingRoutes = () => {
 
@@ -46,6 +47,10 @@ const RankingRoutes = () => {
       <Screen
         name="Pagamentos"
         component={Pagamentos}
+      />
+      <Screen
+        name="AlunoConfigs"
+        component={AlunoConfigs}
       />
 
 
