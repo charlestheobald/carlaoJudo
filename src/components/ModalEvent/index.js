@@ -50,7 +50,7 @@ export function ModalEvent({ isVisible, handleClose }) {
                   placeholder="ex: 200" />
 
                 <TouchableOpacity style={styles.buttonSave}>
-
+                  <Text style={styles.textButton}>Salvar Evento</Text>
                 </TouchableOpacity>
 
 

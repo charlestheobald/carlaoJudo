@@ -77,9 +77,15 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     width: 250,
     height: 50,
-    marginBottom: 15
-  }
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 
+  textButton: {
+    color: 'white',
+    fontSize: 16,
+  }
 });
 
 

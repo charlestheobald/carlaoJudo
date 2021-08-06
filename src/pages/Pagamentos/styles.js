@@ -16,23 +16,24 @@ export const styles = StyleSheet.create({
   //   justifyContent: 'center'
   // },
 
-  // containerPagamento: {
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // },
+  containerPagamento: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 
   containerBar: {
-    marginTop: '20%',
+    marginTop: '60%',
   },
 
   title: {
     alignSelf: 'center',
     fontWeight: 'bold',
+    marginBottom: '15%',
   },
 
   bar: {
     height: '74%',
-    width: '40%',
+    width: '50%',
     marginStart: '40%',
   },
 
@@ -40,11 +41,11 @@ export const styles = StyleSheet.create({
     color: '#000',
     fontSize: 10,
     marginTop: '20%',
-    marginStart: '-50%',
+    marginStart: '-70%',
   },
 
   values: {
-    marginStart: '50%',
+    marginStart: '70%',
     marginTop: '-18%',
   },
 
