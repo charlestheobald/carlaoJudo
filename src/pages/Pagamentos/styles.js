@@ -6,23 +6,18 @@ export const styles = StyleSheet.create({
 
   container: {
     marginTop: StatusBar.currentHeight ? StatusBar.currentHeight : 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  // content: {
-  //   flex: 1,
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // },
-
-  containerPagamento: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
   containerBar: {
-    marginTop: '60%',
+    width: '100%',
+    paddingTop: '30%',
+    height: '100%',
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    //flex: 1,
   },
 
   title: {
@@ -32,26 +27,44 @@ export const styles = StyleSheet.create({
   },
 
   bar: {
-    height: '74%',
-    width: '50%',
-    marginStart: '40%',
-  },
-
-  typePayment: {
-    color: '#000',
-    fontSize: 10,
-    marginTop: '20%',
-    marginStart: '-70%',
+    height: '50%',
+    marginEnd: '5%',
+    marginStart: '41%',
+    //marginTop: '-70%',
+    //flex: 1,
+    backgroundColor: 'blue',
   },
 
   values: {
     marginStart: '70%',
-    marginTop: '-18%',
+    marginTop: '-1.7%',
+    //backgroundColor: '#0ff',
+    width: '10%',
+    //zIndex: 1,
+    marginBottom: '3.8%',
+    marginEnd: '5%',
+    marginStart: '42%',
   },
 
   type: {
-    marginTop: '10%',
-    marginBottom: '9%',
+    marginBottom: '2%',
+    marginEnd: '60%',
+    marginStart: '5%',
+    //backgroundColor: 'green',
   },
+
+  containerValues: {
+    marginTop: '-54%',
+    justifyContent: 'space-between',
+  },
+
+  containerText: {
+    justifyContent: 'space-between',
+  },
+  // containerGrafico: {
+  //   justifyContent: 'center',
+  //   zIndex: 1,
+  //   width: '50%',
+  // }
 
 })

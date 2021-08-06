@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
 
   Container: {
     marginTop: '50%',
-    backgroundColor: '#fc1e29',
+    backgroundColor: '#eae5e5',
     marginHorizontal: '5%',
     borderRadius: 15,
     height: '55%',
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
 
   Button: {
     width: '100%',
-    backgroundColor: '#eae5e5',
+    backgroundColor: '#fc1e29',
     borderRadius: 5,
     margin: '2%',
     padding: '5%',

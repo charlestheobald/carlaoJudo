@@ -30,6 +30,7 @@ import { StandardButton } from '../../../components/StandardButton';
 
 export const Calendar = () => {
 
+  const navigation = useNavigation();
   const handleNavigationConfigs = () => {
     navigation.navigate('UserConfigs')
   }

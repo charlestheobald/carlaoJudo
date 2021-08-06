@@ -12,10 +12,9 @@ export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     width: '80%',
-    height: 560,
+    height: 620,
     backgroundColor: theme.colors.primary20,
     borderRadius: 20
-
   },
 
   content: {
