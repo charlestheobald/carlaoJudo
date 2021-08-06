@@ -1,7 +1,7 @@
 import { api } from "../api";
 
 export const getAluno = () => {
-  return api.get("/aluno").then((res) => res.data);
+  return api.get("/aluno")//.then((res) => res.data);
 };
 
 export const getAlunoById = (id) => {
