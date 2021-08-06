@@ -1,10 +1,11 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { View, TouchableOpacity, Image, Text, Pressable, Modal, Button } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { UsuarioContext } from '../../contexts/usuario/UsuarioContext'
 
 export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagamentos }) => {
 
@@ -20,6 +21,8 @@ export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagam
     handleNavigationModal()
     setModalVisible(false)
   }
+
+  const { isAdmin } = useContext(UsuarioContext)
 
   return (
 
@@ -56,12 +59,15 @@ export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagam
           </TouchableOpacity>
         </View>
 
+        {isAdmin &&
 
-        <TouchableOpacity style={styles.button}
-          onPress={handleNavigationPagamentos}
-        >
-          <MaterialCommunityIcons name="clipboard-text-outline" size={34} color="black" />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+            onPress={handleNavigationPagamentos}
+          >
+            <MaterialCommunityIcons name="clipboard-text-outline" size={34} color="black" />
+          </TouchableOpacity>
+
+        }
       </View>
     </View >
 

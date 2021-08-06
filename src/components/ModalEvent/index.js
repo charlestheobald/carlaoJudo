@@ -28,9 +28,10 @@ export function ModalEvent({ isVisible, handleClose }) {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView style={{ marginBottom: '10%', width: '100%' }}>
 
-            <View style={styles.content}>
+          <View style={styles.content}>
+            <ScrollView style={{ marginBottom: '10%', width: '100%' }}>
+
               <View style={styles.contentColumn}>
 
                 <Text style={styles.inputText}>Evento:</Text>
@@ -50,14 +51,14 @@ export function ModalEvent({ isVisible, handleClose }) {
                   placeholder="ex: 200" />
 
                 <TouchableOpacity style={styles.buttonSave}>
-
+                  <Text style={styles.textButton}>Salvar Evento</Text>
                 </TouchableOpacity>
 
 
               </View>
+            </ScrollView>
 
-            </View>
-          </ScrollView>
+          </View>
         </View>
 
       </View>

@@ -5,19 +5,16 @@ export const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: theme.colors.overlay,
-
+    width: '100%',
     alignItems: "center",
     justifyContent: "center",
   },
   container: {
-    flexDirection: 'column',
     alignItems: 'center',
-
     width: '80%',
-    height: 560,
+    height: 620,
     backgroundColor: theme.colors.primary20,
     borderRadius: 20
-
   },
 
   content: {
@@ -77,9 +74,15 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     width: 250,
     height: 50,
-    marginBottom: 15
-  }
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 
+  textButton: {
+    color: 'white',
+    fontSize: 16,
+  }
 });
 
 

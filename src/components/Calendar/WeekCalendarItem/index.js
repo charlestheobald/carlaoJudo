@@ -8,7 +8,7 @@ import { styles } from './styles'
 import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext'
 import { postParticipacao, getParticipantesEvento, getEventos } from '../../../services/AlunoService'
 import { ModalEvent } from '../../../components/ModalEvent'
-import { useNavigation } from "@react-navigation/native";
+
 
 LocaleConfig.locales['br'] = {
 	monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -30,9 +30,15 @@ export const WeekCalendarItem = () => {
 
 	const { isAdmin } = useContext(UsuarioContext);
 	const [isSelected, setSelection] = useState(false);
+
 	const [items, setItems] = useState({});
 
-	const navigation = useNavigation();
+
+	// const handlerChange = () => {
+	// 	console.log(!isSelected + "log1 ")
+	// 	setSelection(!isSelected)
+	// 	console.log(isSelected + "log2")
+	// }
 
 
 	const handleOpenAdmModal = () => {
@@ -50,7 +56,7 @@ export const WeekCalendarItem = () => {
 				const strTime = timeToString(time);
 				if (!items[strTime]) {
 					items[strTime] = [];
-					const numItems = Math.floor(Math.random() * 5);
+					const numItems = Math.floor(Math.random() * 3);
 					for (let j = 0; j < numItems; j++) {
 						items[strTime].push({
 							name: 'Evento do dia ' + strTime,
@@ -84,7 +90,7 @@ export const WeekCalendarItem = () => {
 					<View>
 						<CheckBox
 							value={isSelected}
-							onValueChange={setSelection}
+							onValueChange={() => setSelection(!isSelected)}
 						/>
 
 					</View>

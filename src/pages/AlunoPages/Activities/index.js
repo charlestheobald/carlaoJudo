@@ -52,7 +52,7 @@ export const Activities = () => {
 
         <View style={styles.contentButton}>
           <StandardButton style={styles.textButton}
-            label='Judô Brasileiro, jogos Olímpicos'
+            label='Judô Brasileiro, nas Olímpiadas'
             textColor={theme.colors.highlight}
             bgColor={theme.colors.secondary10}
             font={theme.fonts.text300}
