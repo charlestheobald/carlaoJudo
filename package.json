@@ -18,7 +18,7 @@
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "date-fns": "^2.23.0",
-    "expo": "~42.0.1",
+    "expo": "^42.0.3",
     "expo-app-loading": "^1.1.2",
     "expo-camera": "~11.2.2",
     "expo-font": "~9.2.1",
