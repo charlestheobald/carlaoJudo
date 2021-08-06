@@ -8,7 +8,7 @@ export const UsuarioProvider = ({ children }) => {
   const [nomeContexto, setNomeContexto] = useState(null);
   const [usernameContexto, setUsernameContexto] = useState(null)
   const [senhaContexto, setSenhaContexto] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const [imagemContexto, setImagemContexto] = useState(null);
   const [dayOfWeek, setDayOfWeek] = useState(null)
   const [user, setUser] = useState({})

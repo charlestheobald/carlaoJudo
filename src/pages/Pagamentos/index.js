@@ -6,6 +6,8 @@ import { styles } from './styles';
 
 import { getPagamentos, countAluno, getAluno } from '../../services/AlunoService';
 
+import { StackedBarChart } from 'react-native-svg-charts';
+
 export const Pagamentos = () => {
 
   const [pix, setPix] = useState(null)
@@ -53,6 +55,7 @@ export const Pagamentos = () => {
   function filterByTransferencia(value) {
     return value.pagamento === 'TRANSFERENCIA'
   }
+
   useEffect(() => {
 
 
@@ -61,7 +64,38 @@ export const Pagamentos = () => {
 
 
 
+  const data = [
+    {
+      tipoPagamento: 'TRANFERÊNCIA',
+      total: 3040,
+    },
+    {
+      tipoPagamento: 'PIX',
+      total: 1600,
+    },
+    {
+      tipoPagamento: 'DÉBITO',
+      total: 640,
+    },
+    {
+      tipoPagamento: 'CRÉDITO',
+      total: 3020,
+    },
+    {
+      tipoPagamento: 'BOLETO',
+      total: 2000,
+    },
+    {
+      tipoPagamento: 'ESPÉCIE',
+      total: 320,
+    },
+  ];
+
+  const colors = ['#0ff'];
+  const keys = ['total'];
+
   return (
+
     <View style={styles.container}>
 
       <Header />
@@ -78,6 +112,34 @@ export const Pagamentos = () => {
         <TouchableOpacity onPress={() => { calcPags() }}>
           <Text>Calcular</Text>
         </TouchableOpacity>
+   
+
+      <View style={styles.containerBar}>
+        <Text style={styles.title}>RELATÓRIO DE TIPO DE PAGAMENTO</Text>
+        <StackedBarChart
+          style={styles.bar}
+          keys={keys}
+          colors={colors}
+          data={data}
+          contentInset={{ top: 30, bottom: 30 }}
+          horizontal>
+          <View style={styles.typePayment}>
+            <Text style={{ marginBottom: '9%' }}>TRANFERÊNCIA</Text>
+            <Text style={styles.values}>12%</Text>
+            <Text style={styles.type}>PIX</Text>
+            <Text style={styles.values}>12%</Text>
+            <Text style={styles.type}>DÉBITO</Text>
+            <Text style={styles.values}>12%</Text>
+            <Text style={styles.type}>
+              CRÉDITO
+            </Text>
+            <Text style={styles.values}>12%</Text>
+            <Text style={styles.type}>BOLETO</Text>
+            <Text style={styles.values}>12%</Text>
+            <Text style={styles.type}>ESPÉCIE</Text>
+            <Text style={styles.values}>12%</Text>
+          </View>
+        </StackedBarChart>
       </View>
 
     </View>
