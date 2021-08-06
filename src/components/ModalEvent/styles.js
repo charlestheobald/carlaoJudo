@@ -5,14 +5,12 @@ export const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: theme.colors.overlay,
-
+    width: '100%',
     alignItems: "center",
     justifyContent: "center",
   },
   container: {
-    flexDirection: 'column',
     alignItems: 'center',
-
     width: '80%',
     height: 560,
     backgroundColor: theme.colors.primary20,
