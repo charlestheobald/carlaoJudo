@@ -39,11 +39,14 @@ export const Activities = () => {
   const goQuiz = () => {
     navigation.navigate('Quiz')
   }
+  const goPagamentos = () => {
+    navigation.navigate('Pagamentos')
+  }
 
   return (
 
     <View style={styles.background}>
-      <Header handleNavigationModal={handleNavigationConfigs} />
+      <Header handleNavigationModal={handleNavigationConfigs} handleNavigationPagamentos={goPagamentos} />
 
       <View style={styles.container}>
 

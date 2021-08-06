@@ -4,9 +4,9 @@ import { View, TouchableOpacity, Image, Text, Pressable, Modal, Button } from 'r
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-
-export const Header = ({ isVisible, handleNavigationModal }) => {
+export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagamentos }) => {
 
 
 
@@ -58,9 +58,9 @@ export const Header = ({ isVisible, handleNavigationModal }) => {
 
 
         <TouchableOpacity style={styles.button}
-
+          onPress={handleNavigationPagamentos}
         >
-          <AntDesign name="setting" size={30} color="black" />
+          <MaterialCommunityIcons name="clipboard-text-outline" size={34} color="black" />
         </TouchableOpacity>
       </View>
     </View >

@@ -23,6 +23,9 @@ export const DayOfWeekProg = () => {
   const handleNavigationConfigs = () => {
     navigation.navigate('UserConfigs')
   }
+  const goPagamentos = () => {
+    navigation.navigate('Pagamentos')
+  }
 
   const mocked = [
     {
@@ -32,7 +35,7 @@ export const DayOfWeekProg = () => {
   ]
   return (
     <View style={styles.container}>
-      <Header handleNavigationModal={handleNavigationConfigs} />
+      <Header handleNavigationModal={handleNavigationConfigs} handleNavigationPagamentos={goPagamentos} />
       <View style={styles.content}>
         <ScrollView style={{ marginBottom: '28%' }}>
 

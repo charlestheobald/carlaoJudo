@@ -8,14 +8,20 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.primary10,
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+
 
   },
   content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+
+    width: '100%',
+    marginTop: 20,
+    marginLeft: '10%'
+
+  },
+  ScrollView: {
+
     width: '100%',
 
   },

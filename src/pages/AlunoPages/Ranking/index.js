@@ -131,12 +131,15 @@ export const Ranking = () => {
       )
     }
   }
+  const goPagamentos = () => {
+    navigation.navigate('Pagamentos')
+  }
 
   return (
 
     <View style={styles.background}>
 
-      <Header handleNavigationModal={handleNavigationConfigs} />
+      <Header handleNavigationModal={handleNavigationConfigs} handleNavigationPagamentos={goPagamentos} />
       <View style={styles.content}>
 
         <View style={styles.headerRanked}>

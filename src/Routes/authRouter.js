@@ -14,11 +14,12 @@ import { ParentsRegister } from '../pages/AlunoPages/ParentsRegister'
 import { Activities } from '../pages/AlunoPages/Activities'
 import { Ranking } from '../pages/AlunoPages/Ranking'
 import { Calendar } from '../pages/AlunoPages/Calendar';
-import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
-import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
-import { DayOfWeekProg } from '../pages/DayOfWeekProg';
+// import { MonthCalendar } from '../pages/AlunoPages/MonthCalendar';
+// import { WeekCalendar } from '../pages/AlunoPages/WeekCalendar';
+// import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 import { UserConfigs } from '../pages/UserConfigs';
 import { Quiz } from '../pages/AlunoPages/Quiz';
+import { Pagamentos } from '../pages/Pagamentos';
 
 const RankingRoutes = () => {
 
@@ -41,6 +42,10 @@ const RankingRoutes = () => {
       <Screen
         name="UserConfigs"
         component={UserConfigs}
+      />
+      <Screen
+        name="Pagamentos"
+        component={Pagamentos}
       />
 
 
@@ -73,6 +78,10 @@ const ActivitiesRoutes = () => {
         name="UserConfigs"
         component={UserConfigs}
       />
+      <Screen
+        name="Pagamentos"
+        component={Pagamentos}
+      />
 
 
     </Navigator>
@@ -96,7 +105,7 @@ const CalendarRoutes = () => {
         name="Calendar"
         component={Calendar}
       />
-      <Screen
+      {/* <Screen
         name="MonthCalendar"
         component={MonthCalendar}
       />
@@ -107,10 +116,14 @@ const CalendarRoutes = () => {
       <Screen
         name="DayOfWeekProg"
         component={DayOfWeekProg}
-      />
+      /> */}
       <Screen
         name="UserConfigs"
         component={UserConfigs}
+      />
+      <Screen
+        name="Pagamentos"
+        component={Pagamentos}
       />
 
     </Navigator>
