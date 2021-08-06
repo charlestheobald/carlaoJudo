@@ -4,7 +4,7 @@ import { theme } from '../../../global/theme'
 
 
 export const styles = StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: theme.colors.primary20,
@@ -17,23 +17,46 @@ export const styles = StyleSheet.create({
         shadowRadius: 10,
         marginVertical: 5,
     },
-    dayContainer:{
+    dayContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft:22
-        
+        marginLeft: 22
+
     },
-    day:{
-        fontSize:18,
-        fontFamily:theme.fonts.text400
+    day: {
+        fontSize: 18,
+        fontFamily: theme.fonts.text400
     },
-    labelContainer:{
+    labelContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 20,
     },
-    label:{
+    label: {
         fontFamily: theme.fonts.text400,
-        fontSize:15,
+        fontSize: 15,
+    },
+
+
+
+    item: {
+        backgroundColor: 'white',
+        width: '100%',
+        flex: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginRight: 10,
+        marginTop: 17,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    emptyDate: {
+        flexDirection: 'row',
+        height: 15,
+        flex: 1,
+        marginRight: 10,
+        paddingTop: 30,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
 })

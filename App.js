@@ -25,6 +25,8 @@ import { Header } from './src/components/Header'
 import { UserConfigs } from './src/pages/UserConfigs';
 import { Ranking } from './src/pages/AlunoPages/Ranking';
 
+import { Pagamentos } from './src/pages/Pagamentos';
+
 
 const App = () => {
 
@@ -50,7 +52,7 @@ const App = () => {
     <ParentProvider>
       <UsuarioProvider>
         <NavigationContainer>
-          <Router />
+          <AuthRouter />
         </NavigationContainer>
       </UsuarioProvider>
     </ParentProvider>

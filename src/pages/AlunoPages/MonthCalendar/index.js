@@ -29,7 +29,7 @@ import { Header } from '../../../components/Header'
 
 
 import { StandardButton } from '../../../components/StandardButton';
-
+import MonthCalendarItem from '../../../components/Calendar/MonthCalendarItem'
 
 
 
@@ -41,12 +41,15 @@ export const MonthCalendar = () => {
     navigation.navigate('UserConfigs')
   }
 
+  const goPagamentos = () => {
+    navigation.navigate('Pagamentos')
+  }
   return (
 
     <View style={styles.container}>
-      <Header handleNavigationModal={handleNavigationConfigs} />
+      <Header handleNavigationModal={handleNavigationConfigs} handleNavigationPagamentos={goPagamentos} />
       <View style={styles.content}>
-        <Text>Month calendar</Text>
+        <MonthCalendarItem />
       </View>
     </View >
 
