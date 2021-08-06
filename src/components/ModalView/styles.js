@@ -49,6 +49,7 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.titleLale400,
     color: theme.colors.secondary20,
     fontSize: 16,
+
   },
   containerCloseButton: {
     marginRight: '6%'

@@ -378,7 +378,6 @@ export const Register = () => {
     })();
   }, []);
   const pickImage = async () => {
-    //  let result = 
     await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -402,7 +401,6 @@ export const Register = () => {
   const handleViaCep = () => {
 
     axios.get(`https://viacep.com.br/ws/${CEP}/json`).then((res) => {
-      // console.log(res.data.logradouro)
       setLogradouro(res.data.logradouro.toString()),
         setCidade(res.data.localidade.toString())
     }

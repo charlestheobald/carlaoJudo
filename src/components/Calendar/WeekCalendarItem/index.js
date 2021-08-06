@@ -1,14 +1,14 @@
 
 
 import React, { useState, useContext } from 'react';
-import { View, CheckBox, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, CheckBox, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './styles'
 import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext'
 import { postParticipacao, getParticipantesEvento, getEventos } from '../../../services/AlunoService'
-
-
+import { ModalEvent } from '../../../components/ModalEvent'
+import { useNavigation } from "@react-navigation/native";
 
 LocaleConfig.locales['br'] = {
 	monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -26,13 +26,21 @@ const timeToString = (time) => {
 
 export const WeekCalendarItem = () => {
 
+	const [isModalAdmVisible, setIsModalVisible] = useState(false)
+
 	const { isAdmin } = useContext(UsuarioContext);
 	const [isSelected, setSelection] = useState(false);
 	const [items, setItems] = useState({});
 
-	// const navigation = useNavigation();
-	const handleCreateEvent = () => {
-		navigation.navigate('createEvent')
+	const navigation = useNavigation();
+
+
+	const handleOpenAdmModal = () => {
+		setIsModalVisible(true)
+	}
+
+	const handleCloseAdmModal = () => {
+		setIsModalVisible(false)
 	}
 
 	const loadItems = (day) => {
@@ -69,7 +77,7 @@ export const WeekCalendarItem = () => {
 			<View style={styles.item} >
 				<Text>{item.name}</Text>
 				{isAdmin ?
-					<TouchableOpacity onPress={handleCreateEvent}>
+					<TouchableOpacity onPress={handleOpenAdmModal}>
 						<Ionicons name="ios-add-circle-sharp" size={36} color="red" />
 					</TouchableOpacity>
 					:
@@ -91,9 +99,13 @@ export const WeekCalendarItem = () => {
 				<Text>Nenhum evento agendado!</Text>
 
 				{isAdmin ?
-					<TouchableOpacity>
-						<Ionicons name="ios-add-circle-sharp" size={36} color="red" />
-					</TouchableOpacity>
+					<>
+						<TouchableOpacity onPress={handleOpenAdmModal}
+						>
+							<Ionicons name="ios-add-circle-sharp" size={36} color="red" />
+						</TouchableOpacity>
+
+					</>
 					: <Text>não é admin</Text>
 				}
 
@@ -102,31 +114,33 @@ export const WeekCalendarItem = () => {
 	}
 
 	return (
-		<Agenda
+		<>
+			<Agenda
 
-			loadItemsForMonth={loadItems}
-			items={items}
-			renderItem={renderItem}
-			selected={new Date()}
-			renderEmptyDate={renderEmptyDate}
-			rowHasChanged={rowHasChanged}
-			monthFormat={'MMMM yyyy'}
-			futureScrollRange={12}
-			theme={{
-				agendaTodayColor: 'red',
-				selectedDayBackgroundColor: 'red',
-				markedTodayColor: 'red',
-				dotColor: 'red',
-				color: 'red'
-			}}
+				loadItemsForMonth={loadItems}
+				items={items}
+				renderItem={renderItem}
+				selected={new Date()}
+				renderEmptyDate={renderEmptyDate}
+				rowHasChanged={rowHasChanged}
+				monthFormat={'MMMM yyyy'}
+				futureScrollRange={12}
+				theme={{
+					agendaTodayColor: 'red',
+					selectedDayBackgroundColor: 'red',
+					markedTodayColor: 'red',
+					dotColor: 'red',
+					color: 'red'
+				}}
 
-		// <ImageBackground style={styles.imagemProduto}
-		//                  source={{ uri: produto.produto.url }}
-		//                  resizeMode='center'
-		// />
+			// <ImageBackground style={styles.imagemProduto}
+			//                  source={{ uri: produto.produto.url }}
+			//                  resizeMode='center'
+			// />
 
-		/>
-
+			/>
+			<ModalEvent isVisible={isModalAdmVisible} handleClose={handleCloseAdmModal} />
+		</>
 	);
 };
 
