@@ -19,7 +19,7 @@ import { Calendar } from '../pages/AlunoPages/Calendar';
 // import { DayOfWeekProg } from '../pages/DayOfWeekProg';
 import { UserConfigs } from '../pages/UserConfigs';
 import { Quiz } from '../pages/AlunoPages/Quiz';
-import { Pagamentos } from '../pages/Pagamentos';
+import { Pagamentos } from '../pages/AdminPages/Pagamentos';
 import { AlunoConfigs } from '../pages/AdminPages/AlunoConfigs';
 
 const RankingRoutes = () => {

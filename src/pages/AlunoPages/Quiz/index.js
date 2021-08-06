@@ -79,7 +79,7 @@ export const Quiz = () => {
               {questions[currentQuestion].answerOptions.map((answerOption, index) => (
                 <View style={styles.Button}>
                   <TouchableOpacity
-                    key={index}
+                    key={index.toString()}
                     onPress={() =>
                       handleAnswerOptionClick(answerOption.isCorrect)
                     }>

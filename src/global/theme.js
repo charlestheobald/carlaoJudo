@@ -17,6 +17,7 @@ export const theme = {
     overlay: "rgba(0,0,0,0.7)",
   },
 
+
   fonts: {
     titleLale400: 'Lalezar_400Regular',
     title700: 'Roboto_700Bold',

@@ -1,11 +1,19 @@
 import { api } from "../api";
 
 export const getAluno = () => {
-  return api.get("/aluno")//.then((res) => res.data);
+  return api.get("/aluno").then((res) => res.data);
 };
 
 export const getAlunoById = (id) => {
   return api.get(`/aluno/${id}`).then((res) => res.data);
+};
+
+export const recuperarSenha = (token, usuario, novaSenha) => {
+  return api.put(`/aluno/recuperar-senha?codigo=${token}&usuario=${usuario}&novaSenha=${novaSenha}`).then((res) => res.data);
+};
+
+export const esqueciMinhaSenha = (usuario) => {
+  return api.get(`/aluno/esqueci-minha-senha?usuario=${usuario}`).then((res) => res.data);
 };
 
 export const deleteAluno = (id) => {

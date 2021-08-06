@@ -52,14 +52,10 @@ export const AlunoConfigs = () => {
   }
 
   const handleUpdateStatus = () => {
-    console.log('---------Status ' + alunoUpdateVO.status)
-    console.log('---------Pontuacao ' + alunoUpdateVO.pontuacao)
-    console.log('---------Aluno ' + aluno.id);
     updateStatus(aluno.id, alunoUpdateVO).then((res) => {
-      console.log(res);
-      alert('suuuucesso')
+      alert('sucesso')
       navigation.navigate('Ranking')
-    }).catch((e) => alert(e))
+    }).catch((e) => alert(e.response.messsage))
 
   }
 
@@ -80,7 +76,7 @@ export const AlunoConfigs = () => {
       </View>
       <View style={styles.containerUserInfo}>
 
-        <Text style={styles.textInput}>Status *</Text>
+        <Text style={styles.textInput}>Status*</Text>
         <View style={[styles.input, { justifyContent: 'center' }]}>
           <Picker
             selectedValue={status}
@@ -114,7 +110,6 @@ export const AlunoConfigs = () => {
           />
         </View>
       </View>
-
     </>
   )
 }

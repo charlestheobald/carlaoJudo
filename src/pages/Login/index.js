@@ -63,7 +63,7 @@ export const Login = () => {
       }),
     ]).start();
   };
-  const [listaAlunos, setListaAlunos] = useState([])
+  const [listaAlunos, setListaAlunos] = useState()
 
   useEffect(() => {
     getAluno().then((res) => {
@@ -109,6 +109,7 @@ export const Login = () => {
 
 
   }
+
   const forgotKeyHandler = () => {
     navigation.navigate("ForgotKeyword")
   }
