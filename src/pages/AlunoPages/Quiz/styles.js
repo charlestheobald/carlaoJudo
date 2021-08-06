@@ -9,21 +9,18 @@ export const styles = StyleSheet.create({
     backgroundColor: '#eae5e5',
     marginHorizontal: '5%',
     borderRadius: 15,
-    height: '55%',
+    height: '45%',
   },
 
   App: {
     width: '100%',
-
     paddingVertical: '8%',
-
     justifyContent: 'space-evenly',
   },
 
   ScoreSection: {
     fontSize: 24,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
   },
 
   QuestionSection: {
@@ -37,7 +34,7 @@ export const styles = StyleSheet.create({
 
   CountText: {
     fontSize: 20,
-    marginHorizontal: '25%',
+    alignSelf: 'center',
     fontWeight: 'bold',
   },
 
@@ -49,7 +46,7 @@ export const styles = StyleSheet.create({
   },
 
   ResultText: {
-    marginTop: '15%',
+    marginVertical: '25%',
     marginHorizontal: '5%',
     fontSize: 25,
     fontWeight: 'bold',

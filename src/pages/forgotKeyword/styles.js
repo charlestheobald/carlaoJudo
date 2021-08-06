@@ -100,8 +100,37 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: theme.colors.secondary20,
     fontFamily: theme.fonts.text400,
-  }
+  },
+  buttonCode: {
 
+    backgroundColor: theme.colors.primary30,
+    alignItems: 'center',
+    marginBottom: 10,
+    height: 45,
+    borderRadius: 8,
+    width: '90%',
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    // shadowColor: 'rgba(0, 0, 0, 0.7)',
+    // shadowOffset: { width: 0, height: 1 },
+    // shadowOpacity: 20,
+    // shadowRadius: 10,
+    // elevation: 8,
+
+  },
+  /* Rectangle 8 */
+
+
+  textCode: {
+    fontFamily: theme.fonts.text400,
+    color: 'black',
+    alignItems: 'center',
+
+
+
+  }
 
 
 })

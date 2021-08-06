@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 
-
+import { esqueciMinhaSenha, recuperarSenha } from '../../services/AlunoService';
 
 import { styles } from './styles';
 
@@ -25,15 +25,36 @@ const goHome = () => {
   return null
 }
 
+
+
 export const ForgotKeyword = () => {
 
   const [logo] = useState(new Animated.ValueXY({ x: 143, y: 210 }));
+  const [username, setUsername] = useState(null)
+  const [token, setToken] = useState(null)
+  const [senha, setSenha] = useState(null)
+  const [checkSenha, setCheckSenha] = useState(null)
+
 
   useEffect(() => {
     keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
     keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide);
 
   });
+
+  const enviarCodigo = () => {
+    esqueciMinhaSenha(username).then((res) => {
+      console.log("FOOOOOOOOOOOOOOOOI");
+      alert('Email enviado, verifique sua caixa de entrada e insira o código recebido no campo "Token"')
+    }).catch((e) => 'Algo deu errado no envio do e-mail! por favor repita o processo')
+  }
+
+  const alterarSenha = () => {
+    recuperarSenha(token, username, senha).then((res) => {
+      console.log("FOOOOOOI");
+      alert('Sua senha foi alterada, já pode realizar o login!')
+    }).catch((e) => 'Algo deu errado na recuperação de senha! por favor repita o processo')
+  }
 
   function keyboardDidShow() {
     Animated.parallel([
@@ -77,33 +98,42 @@ export const ForgotKeyword = () => {
             }}
             source={require('../../assets/Image/logo.png')} />
         </View>
+
+
         <View style={styles.container}>
 
 
           <TextInput style={styles.input}
-            placeholder="Email"
+            placeholder="Usuário"
             autoCorrect={false}
-            onChangeText={() => { }}
+            onChangeText={(text) => setUsername(text)}
           />
+          <TouchableOpacity style={styles.buttonCode}
+            onPress={enviarCodigo}>
+            <Text style={styles.textCode}>Insira seu ID Usuario e clique aqui para</Text>
+            <Text style={styles.textCode}> enviar código de segurança para seu E-mail</Text>
+          </TouchableOpacity>
 
           <TextInput style={styles.input}
-            placeholder="Nova Senha"
+            placeholder="Token recebido por e-mail"
+            autoCorrect={false}
+
+            onChangeText={(text) => setToken(text)}
+          />
+          <TextInput style={styles.input}
+            placeholder="Nova senha"
             autoCorrect={false}
             secureTextEntry={true}
-            onChangeText={() => { }}
+            onChangeText={(text) => setSenha(text)}
           />
           <TextInput style={styles.input}
             placeholder="Repita a nova senha"
             autoCorrect={false}
             secureTextEntry={true}
-            onChangeText={() => { }}
+            onChangeText={(text) => setCheckSenha(text)}
           />
-          <TextInput style={styles.input}
-            placeholder="Palavra de segurança"
-            autoCorrect={false}
-            onChangeText={() => { }}
-          />
-          <TouchableOpacity style={styles.buttonLogin}>
+
+          <TouchableOpacity style={styles.buttonLogin} onPress={alterarSenha}>
             <Text style={styles.textLogin}>Alterar senha</Text>
           </TouchableOpacity>
         </View>
