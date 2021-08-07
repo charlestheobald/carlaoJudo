@@ -47,6 +47,11 @@ export const getParticipantesEvento = (idEvento) => {
 export const getEventos = () => {
   return api.get(`/evento`).then((res) => console.log(res.data))
 }
+
+export const addEvento = (eventoVO) => {
+  return api.post(`/evento`, eventoVO).then((res) => res.data)
+}
+
 export const getPagamentos = () => {
   return api.get(`/aluno/pagamentos`).then((res) => console.log(res.data));
 }

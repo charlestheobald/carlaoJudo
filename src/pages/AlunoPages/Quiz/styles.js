@@ -5,11 +5,13 @@ import { theme } from '../../../global/theme'
 export const styles = StyleSheet.create({
 
   Container: {
+    alignItems: 'center',
     marginTop: '50%',
-    backgroundColor: '#eae5e5',
+    justifyContent: 'center',
+    backgroundColor: '#fc1e29',
     marginHorizontal: '5%',
     borderRadius: 15,
-    height: '45%',
+    height: '55%',
   },
 
   App: {
@@ -21,24 +23,28 @@ export const styles = StyleSheet.create({
   ScoreSection: {
     fontSize: 24,
     alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 
   QuestionSection: {
+    alignItems: 'center',
     width: '100%',
     position: 'relative',
   },
 
   QuestionCount: {
     marginBottom: 20,
+    alignItems: 'center',
   },
 
   CountText: {
+    justifyContent: 'center',
     fontSize: 20,
-    alignSelf: 'center',
     fontWeight: 'bold',
   },
 
   QuestionText: {
+    alignItems: 'center',
     margin: '2%',
     marginHorizontal: '5%',
     fontSize: 18,
@@ -46,7 +52,7 @@ export const styles = StyleSheet.create({
   },
 
   ResultText: {
-    marginVertical: '25%',
+    marginTop: '3%',
     marginHorizontal: '5%',
     fontSize: 25,
     fontWeight: 'bold',
@@ -62,7 +68,7 @@ export const styles = StyleSheet.create({
 
   Button: {
     width: '100%',
-    backgroundColor: '#fc1e29',
+    backgroundColor: '#eae5e5',
     borderRadius: 5,
     margin: '2%',
     padding: '5%',

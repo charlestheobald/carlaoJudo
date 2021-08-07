@@ -8,7 +8,7 @@ import { styles } from './styles'
 import { UsuarioContext } from '../../../contexts/usuario/UsuarioContext'
 import { postParticipacao, getParticipantesEvento, getEventos } from '../../../services/AlunoService'
 import { ModalEvent } from '../../../components/ModalEvent'
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 LocaleConfig.locales['br'] = {
 	monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -84,7 +84,7 @@ export const WeekCalendarItem = () => {
 				<Text>{item.name}</Text>
 				{isAdmin ?
 					<TouchableOpacity onPress={handleOpenAdmModal}>
-						<Ionicons name="ios-add-circle-sharp" size={36} color="red" />
+						<MaterialCommunityIcons name="calendar-refresh-outline" size={34} color="red" />
 					</TouchableOpacity>
 					:
 					<View>
@@ -102,7 +102,7 @@ export const WeekCalendarItem = () => {
 	const renderEmptyDate = () => {
 		return (
 			<View style={styles.emptyDate}>
-				<Text>Nenhum evento agendado!</Text>
+				<Text>Adicione um novo evento!</Text>
 
 				{isAdmin ?
 					<>
@@ -112,7 +112,7 @@ export const WeekCalendarItem = () => {
 						</TouchableOpacity>
 
 					</>
-					: <Text>não é admin</Text>
+					: <Text></Text>
 				}
 
 			</View>
@@ -122,7 +122,6 @@ export const WeekCalendarItem = () => {
 	return (
 		<>
 			<Agenda
-
 				loadItemsForMonth={loadItems}
 				items={items}
 				renderItem={renderItem}
