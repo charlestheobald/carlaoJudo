@@ -30,16 +30,117 @@ export const AlunoConfigs = () => {
     }
   ]
 
+  const listaFaixas = [
+    {
+      nome: 'Informe sua faixa', id: '0'
+    },
+    {
+      nome: 'BRANCA',
+      id: 'BRANCA'
+    },
+    {
+      nome: 'BRANCA PONTA CINZA',
+      id: 'BRANCA_PONTA_CINZA'
+    },
+    {
+      nome: 'CINZA',
+      id: 'CINZA'
+    },
+    {
+      nome: 'CINZA PONTA AZUL',
+      id: 'CINZA_PONTA_AZUL'
+    },
+    {
+      nome: 'AZUL',
+      id: 'AZUL'
+    },
+    {
+      nome: 'AZUL PONTA AMARELA',
+      id: 'AZUL_PONTA_AMARELA'
+    },
+    {
+      nome: 'AMARELA',
+      id: 'AMARELA'
+    },
+    {
+      nome: 'AMARELA PONTA LARANJA',
+      id: 'AMARELA'
+    },
+    {
+      nome: 'LARANJA',
+      id: 'LARANJA'
+    },
+    {
+      nome: 'LARANJA PONTA VERDE',
+      id: 'LARANJA_PONTA_VERDE'
+    },
+    {
+      nome: 'VERDE',
+      id: 'VERDE'
+    },
+    {
+      nome: 'ROXA',
+      id: 'ROXA'
+    },
+    {
+      nome: 'MARROM',
+      id: 'MARROM'
+    },
+    {
+      nome: 'PRETA 1º DAN',
+      id: 'PRETA_1_DAN'
+    },
+    {
+      nome: 'PRETA 2º DAN',
+      id: 'PRETA_2_DAN'
+    },
+    {
+      nome: 'PRETA 3º DAN',
+      id: 'PRETA_3_DAN'
+    },
+    {
+      nome: 'PRETA 4º DAN',
+      id: 'PRETA_4_DAN'
+    },
+    {
+      nome: 'PRETA 5º DAN',
+      id: 'PRETA_5_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 6º DAN',
+      id: 'VERMELHA_BRANCO_6_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 7º DAN',
+      id: 'VERMELHA_BRANCO_7_DAN'
+    },
+    {
+      nome: 'VERMELHA BRANCO 8º DAN',
+      id: 'VERMELHA_BRANCO_8_DAN'
+    },
+    {
+      nome: 'VERMELHA 9º DAN',
+      id: 'VERMELHA_9_DAN'
+    },
+    {
+      nome: 'VERMELHA 10º DAN',
+      id: 'VERMELHA_10_DAN'
+    },
+
+  ]
+
   const { aluno } = useContext(UsuarioContext)
 
   const navigation = useNavigation();
 
-  const [pontuacao, setPontuacao] = useState(aluno.pontuacao)
+  const [pontuacao, setPontuacao] = useState(aluno.pontuacao);
   const [status, setStatus] = useState(aluno.status);
+  const [faixa, setFaixa] = useState(aluno.faixa);
 
   const alunoUpdateVO = {
     pontuacao: pontuacao,
-    status: status
+    status: status,
+    faixa: faixa
   }
 
   const handleGoBack = () => {
@@ -84,6 +185,18 @@ export const AlunoConfigs = () => {
           >
             {listaStatus.map((status) => (
               <Picker.Item label={status.nome} value={status.id} key={status.id} />
+            ))}
+          </Picker>
+        </View>
+
+        <Text style={styles.textInput}>Faixa*</Text>
+        <View style={[styles.input, { justifyContent: 'center' }]}>
+          <Picker
+            selectedValue={faixa}
+            onValueChange={(itemValue, itemIndex) => setFaixa(itemValue)}
+          >
+            {listaFaixa.map((faixa) => (
+              <Picker.Item label={faixa.nome} value={faixa.id} key={faixa.id} />
             ))}
           </Picker>
         </View>

@@ -75,11 +75,11 @@ export const Ranking = () => {
   }
 
   const handleNavigationConfigs = (aluno) => {
-    if(isAdmin){
+    if (isAdmin) {
       setAluno(aluno)
       navigation.navigate('AlunoConfigs')
-    }else{
-    navigation.navigate('UserConfigs')
+    } else {
+      navigation.navigate('UserConfigs')
     }
   }
 
@@ -135,7 +135,7 @@ export const Ranking = () => {
           <TouchableOpacity style={styles.iconFilter}
             onPress={() => setIsModalVisible(true)}
           >
-            <Ionicons name="options" size={24} color="black" />
+            <Ionicons name="options" size={30} color="black" />
           </TouchableOpacity>
         </View>
 
@@ -181,7 +181,7 @@ export const Ranking = () => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item: aluno, index }) => {
               return (
-                  <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
+                <RankedStudent key={index} rank={index + 1} name={aluno.nome} points={aluno.pontuacao} />
               )
             }
             }
