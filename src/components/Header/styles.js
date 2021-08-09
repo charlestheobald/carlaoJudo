@@ -71,7 +71,19 @@ export const styles = StyleSheet.create({
     color: '#1C2247',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+
+  buttonModal: {
+    borderRadius: 8,
+    width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30,
+    backgroundColor: theme.colors.secondary20,
+  },
+
+  textModal: {
+    fontSize: 16,
+    marginBottom: 15,
   }
-
-
 });

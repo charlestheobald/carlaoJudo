@@ -52,7 +52,7 @@ const App = () => {
     <ParentProvider>
       <UsuarioProvider>
         <NavigationContainer>
-          <AuthRouter />
+          <Router />
         </NavigationContainer>
       </UsuarioProvider>
     </ParentProvider>

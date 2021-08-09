@@ -1,5 +1,5 @@
 
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text, Pressable, Modal, Button } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
@@ -22,11 +22,24 @@ export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagam
     setModalVisible(false)
   }
 
-  const { isAdmin } = useContext(UsuarioContext)
+  const { isAdmin, user } = useContext(UsuarioContext)
+
+  // const [nome, setNome] = useEffect(user.nome)
+  // const [idade, setIdade] = useEffect(user.dataNasc)
+  // const [classe, setClasse] = useEffect(user.classe)
+  // const [faixa, setFaixa] = useEffect(user.faixa)
+  // const [categoria, setCategoria] = useEffect(user.categoria)
+
+  // function calcAge(dataNasc) {
+  //   var dif = Date.now() - dataNasc.getTime();
+  //   var idade = new Date(dif);
+
+  //   return Math.abs(idade.getUTCFullYear() - 1970);
+  // }
+
+
 
   return (
-
-
 
     <View style={styles.container}>
       <View >
@@ -44,9 +57,20 @@ export const Header = ({ isVisible, handleNavigationModal, handleNavigationPagam
                 <TouchableOpacity onPress={handleClose}>
                   <FontAwesome name="close" size={24} color="black" />
                 </TouchableOpacity>
-                <Button title='Press'
-                  onPress={handleNavClose}
-                />
+
+
+                <Text style={styles.textModal}>Nome:</Text>
+                <Text style={styles.textModal}>Idade:</Text>
+                <Text style={styles.textModal}>Classe:</Text>
+                <Text style={styles.textModal}>Faixa:</Text>
+                <Text style={styles.textModal}>Categoria:</Text>
+
+
+                <TouchableOpacity
+                  style={styles.buttonModal}
+                  onPress={handleNavClose}>
+                  <Text> Alterar cadastro</Text>
+                </TouchableOpacity>
 
               </View>
             </View>

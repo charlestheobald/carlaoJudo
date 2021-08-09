@@ -11,8 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 
 export const AlunoConfigs = () => {
 
-  const pattern = "yyyy-MM-dd";
-
 
 
   const listaStatus = [
@@ -153,10 +151,13 @@ export const AlunoConfigs = () => {
   }
 
   const handleUpdateStatus = () => {
+    //console.log(aluno);
+    //console.log(alunoUpdateVO);
     updateStatus(aluno.id, alunoUpdateVO).then((res) => {
+      console.log(res);
       alert('sucesso')
       navigation.navigate('Ranking')
-    }).catch((e) => alert(e.response.messsage))
+    }).catch((e) => alert(e.response))
 
   }
 
@@ -195,7 +196,7 @@ export const AlunoConfigs = () => {
             selectedValue={faixa}
             onValueChange={(itemValue, itemIndex) => setFaixa(itemValue)}
           >
-            {listaFaixa.map((faixa) => (
+            {listaFaixas.map((faixa) => (
               <Picker.Item label={faixa.nome} value={faixa.id} key={faixa.id} />
             ))}
           </Picker>
